@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: myportfolio-api
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    plan: free
+    region: singapore
+    healthCheckPath: /healthz
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: DB_PATH
+        value: /data/portfolio.db
