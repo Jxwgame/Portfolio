@@ -1,0 +1,61 @@
+import type { NextConfig } from "next";
+
+const isDev = process.env.NODE_ENV !== "production";
+
+/**
+ * ทุก directive ต้องเขียนแยกให้ครบ ห้ามปล่อยให้ตกไปใช้ default-src
+ * เพราะ default-src 'self' เฉยๆ จะบล็อก inline script ที่ Next ใช้ hydrate หน้า (หน้าตาย)
+ * รวมถึง inline style ของ Tailwind และรูป data: URI (ลายน้อยส์ใน effects)
+ *
+ * script-src ยังต้องมี 'unsafe-inline' อยู่ เพราะ bootstrap script ของ Next เป็น inline
+ * ถ้าจะตัดออกต้องทำ nonce ผ่าน middleware แล้วส่งเข้า CSP ทุก request
+ * ส่วน 'unsafe-eval' กับ ws: เปิดเฉพาะตอน dev ให้ HMR ทำงาน — production ไม่มี
+ */
+const CSP = [
+  "default-src 'self'",
+  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}`,
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' data: blob:",
+  "font-src 'self' data:",
+  `connect-src 'self'${isDev ? " ws: wss:" : ""}`,
+  "frame-ancestors 'none'",
+  "base-uri 'self'",
+  "object-src 'none'",
+  "form-action 'self'",
+  "upgrade-insecure-requests",
+].join("; ");
+
+/** ตัวที่สำคัญสุดกับไฟล์ static คือ nosniff เพราะกัน browser เดา Content-Type เองแล้วรันไฟล์ผิดประเภท */
+const SECURITY_HEADERS = [
+  { key: "X-Content-Type-Options", value: "nosniff" },
+  { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+  { key: "X-Frame-Options", value: "DENY" },
+  { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(), interest-cohort=()" },
+  { key: "Content-Security-Policy", value: CSP },
+];
+
+const nextConfig: NextConfig = {
+  // ปุ่ม dev tools indicator ของ Next.js ค่าเริ่มต้นอยู่ bottom-left ทับลายไฟสัญญาณรถไฟท้าย sidebar (ดู Sidebar.tsx)
+  // ย้ายไป top-right เพราะมุมอื่นชนของเดิม: bottom-right มีปุ่มเปิด/ปิดฝน, top-left มีปุ่มย่อ/ขยายเมนู
+  devIndicators: {
+    position: "top-right",
+  },
+
+  async headers() {
+    return [
+      { source: "/:path*", headers: SECURITY_HEADERS },
+      {
+        // เอกสาร CV/Resume/Portfolio — บังคับให้โหลดเป็นไฟล์แนบเสมอ ไม่ให้ browser เปิด inline
+        // เพราะ PDF viewer รัน JavaScript ที่ฝังในไฟล์ได้ และกัน MIME confusion ตอนเข้า URL ตรงๆ
+        source: "/docs/:path*",
+        headers: [
+          { key: "Content-Type", value: "application/pdf" },
+          { key: "Content-Disposition", value: "attachment" },
+          { key: "Cache-Control", value: "public, max-age=3600, must-revalidate" },
+        ],
+      },
+    ];
+  },
+};
+
+export default nextConfig;

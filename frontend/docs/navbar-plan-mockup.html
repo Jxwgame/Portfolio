@@ -1,0 +1,591 @@
+<title>Two Navbars, One Shell</title>
+<style>
+  :root {
+    --bg: #eef1f6;
+    --bg-surface: #dde5ed;
+    --fg: #0a1220;
+    --muted: #526175;
+    --line: rgba(10, 18, 32, 0.12);
+    --line-strong: rgba(10, 18, 32, 0.3);
+    --accent: #a9702c;
+    --accent-strong: #e89b3c;
+    --signal: #e4002b;
+    --code-bg: #dde5ed;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0a1220;
+      --bg-surface: #121c2e;
+      --fg: #eef1f6;
+      --muted: #c5cfdd;
+      --line: rgba(255, 255, 255, 0.14);
+      --line-strong: rgba(255, 255, 255, 0.38);
+      --accent: #e89b3c;
+      --accent-strong: #e89b3c;
+      --signal: #e4002b;
+      --code-bg: #121c2e;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0a1220;
+    --bg-surface: #121c2e;
+    --fg: #eef1f6;
+    --muted: #c5cfdd;
+    --line: rgba(255, 255, 255, 0.14);
+    --line-strong: rgba(255, 255, 255, 0.38);
+    --accent: #e89b3c;
+    --accent-strong: #e89b3c;
+    --signal: #e4002b;
+    --code-bg: #121c2e;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, "Segoe UI", Roboto, "IBM Plex Sans Thai", sans-serif;
+    line-height: 1.65;
+  }
+  .display {
+    font-family: "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+  }
+  .mono {
+    font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  }
+
+  .wrap { max-width: 900px; margin: 0 auto; padding: 4.5rem 1.5rem 6rem; }
+
+  .eyebrow {
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 7px; height: 7px; border-radius: 999px;
+    background: var(--signal);
+    flex-shrink: 0;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    line-height: 0.95;
+    margin: 0.9rem 0 0;
+    text-wrap: balance;
+  }
+  .dek {
+    margin: 1.1rem 0 0;
+    max-width: 62ch;
+    color: var(--muted);
+    font-size: 1.05rem;
+  }
+
+  section { margin-top: 3.6rem; }
+  h2 {
+    font-family: "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+    font-size: 1.5rem;
+    margin: 0 0 1rem;
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+  }
+  h2 .num {
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+    font-size: 0.85rem;
+    color: var(--muted);
+    font-weight: 400;
+    letter-spacing: 0.08em;
+  }
+  p { max-width: 68ch; }
+  p.tight { max-width: 68ch; color: var(--muted); }
+
+  code.inline {
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+    font-size: 0.86em;
+    background: var(--code-bg);
+    padding: 0.1em 0.4em;
+    border-radius: 4px;
+  }
+
+  /* ---- comparison rig ---- */
+  .rig {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    margin-top: 1.6rem;
+  }
+  @media (min-width: 760px) {
+    .rig { grid-template-columns: 1fr 1fr; }
+  }
+  .panel {
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--bg-surface);
+  }
+  .panel-head {
+    padding: 0.9rem 1.1rem 0.7rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .panel-title {
+    font-family: "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 1rem;
+    letter-spacing: 0.02em;
+  }
+  .panel-sub {
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 0.25rem;
+  }
+
+  /* demo stage — always dark, mimics the real capsule sitting over hero content */
+  .stage {
+    position: relative;
+    height: 260px;
+    background: #0a1220;
+    overflow: hidden;
+  }
+  .stage-scroll {
+    position: absolute;
+    inset: 0;
+    overflow-y: auto;
+    scrollbar-width: thin;
+  }
+  .stage-section {
+    height: 260px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 1.6rem;
+    letter-spacing: -0.01em;
+  }
+  .s-home { background: #eef1f6; color: #0a1220; }
+  .s-about { background: #dde5ed; color: #0a1220; }
+  .s-work { background: #eef1f6; color: #0a1220; }
+  .s-contact { background: #e89b3c; color: #0a1220; }
+
+  /* capsule nav, shared shell */
+  .capsule-wrap {
+    position: absolute;
+    top: 12px;
+    left: 0; right: 0;
+    display: flex;
+    justify-content: center;
+    z-index: 5;
+    pointer-events: none;
+  }
+  .capsule {
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 0.4rem 0.5rem 0.4rem 0.8rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(10,18,32,0.55);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.35);
+  }
+  .capsule-brand {
+    width: 22px; height: 22px;
+    border-radius: 999px;
+    border: 1.5px solid rgba(255,255,255,0.8);
+    display: grid; place-items: center;
+    flex-shrink: 0;
+  }
+  .capsule-brand::after {
+    content: "";
+    width: 7px; height: 7px; border-radius: 999px;
+    background: var(--accent-strong);
+  }
+  .capsule-items {
+    position: relative;
+    display: flex;
+    gap: 1.1rem;
+  }
+  .capsule-item {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: rgba(238,241,246,0.65);
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.15rem 0.1rem;
+  }
+  .capsule-item svg {
+    width: 15px; height: 15px;
+  }
+  .capsule-item.active { color: #e89b3c; }
+  .capsule-item .dot {
+    width: 26px; height: 26px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.25);
+    display: grid; place-items: center;
+    transition: all 0.2s ease;
+  }
+  .capsule-item.active .dot {
+    width: 28px; height: 28px;
+    border-color: #e89b3c;
+    background: rgba(232,155,60,0.2);
+  }
+
+  /* Mode A: segment rail under icons */
+  .rail-track {
+    position: absolute;
+    left: 13px; right: 13px;
+    top: 13px;
+    height: 1px;
+    background: rgba(255,255,255,0.15);
+    z-index: 1;
+  }
+  .rail-fill {
+    position: absolute;
+    top: 0; left: 0;
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent-strong));
+    transition: width 0.5s cubic-bezier(.4,0,.2,1);
+  }
+
+  /* Mode B: sliding tab pill */
+  .tab-pill {
+    position: absolute;
+    top: 3px; height: calc(100% - 6px);
+    border-radius: 999px;
+    background: rgba(232,155,60,0.16);
+    border: 1px solid rgba(232,155,60,0.55);
+    z-index: 1;
+    transition: transform 0.32s cubic-bezier(.4,0,.2,1), width 0.32s cubic-bezier(.4,0,.2,1);
+  }
+
+  .stage-crumb {
+    position: absolute;
+    bottom: 14px; left: 18px;
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(238,241,246,0.55);
+    background: rgba(10,18,32,0.4);
+    padding: 0.3rem 0.6rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .stage-crumb b { color: #eef1f6; font-weight: 600; }
+
+  .panel-foot {
+    padding: 0.8rem 1.1rem;
+    font-size: 0.85rem;
+    color: var(--muted);
+    border-top: 1px solid var(--line);
+  }
+  .hint {
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.03em;
+    color: var(--muted);
+    margin-top: 0.6rem;
+  }
+
+  /* ---- spec table ---- */
+  .spec {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.4rem;
+    font-size: 0.92rem;
+  }
+  .spec-scroll { overflow-x: auto; }
+  .spec th, .spec td {
+    text-align: left;
+    padding: 0.65rem 0.9rem;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  .spec th {
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 400;
+  }
+  .spec td.label {
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  ul.plan { padding-left: 1.2rem; margin-top: 1rem; }
+  ul.plan li { margin-bottom: 0.7rem; max-width: 66ch; }
+
+  footer {
+    margin-top: 4rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 0.82rem;
+  }
+</style>
+
+<div class="wrap">
+  <div class="eyebrow">Header.tsx &mdash; navbar plan</div>
+  <h1 class="display">Two navbars,<br>one shell</h1>
+  <p class="dek">
+    ตอนนี้ทั้งเว็บใช้ <code class="inline">Header.tsx</code> ตัวเดียว แต่จริง ๆ แล้วมันต้องรับมือกับบริบทที่ต่างกันสองแบบ
+    คือ &ldquo;อยู่ตรงไหนของหน้าที่กำลังเลื่อนอ่าน&rdquo; กับ &ldquo;อยู่หน้าไหนของเว็บ&rdquo; &mdash;
+    แผนนี้แยกพฤติกรรม 2 โหมดออกจากกันให้ชัด โดยยังใช้เปลือกแคปซูลเดียวกัน
+  </p>
+
+  <section>
+    <h2><span class="num">01</span> สถานะปัจจุบัน</h2>
+    <p class="tight">
+      หน้าแรก (<code class="inline">/</code>) กับหน้าย่อย (<code class="inline">/about</code>,
+      <code class="inline">/work</code>, <code class="inline">/contact</code>) ใช้ navbar หน้าตาเดียวกันทุกพิกเซล
+      รวมถึง <b>เส้น segment ใต้ไอคอนที่ค่อย ๆ ไล่เติมสี</b> ตามลำดับเมนู &mdash; ตัวเส้นนี้ถูกออกแบบมาให้สื่อ
+      &ldquo;สกอลล์ผ่านมาไกลแค่ไหนแล้ว&rdquo; (จาก IntersectionObserver บนหน้าแรก) แต่พอไปอยู่บนหน้าย่อยที่สลับกันด้วยการ
+      คลิกลิงก์ ไม่ใช่การเลื่อน มันก็ยังเติมสีเหมือนเดิมทั้งที่ไม่มี &ldquo;ระยะทาง&rdquo; ให้สื่อความหมายจริง ๆ
+    </p>
+  </section>
+
+  <section>
+    <h2><span class="num">02</span> สองโหมดที่ต้องแยก</h2>
+    <p class="tight">
+      ลองเลื่อน/กดปุ่มในกล่องด้านล่าง &mdash; ฝั่งซ้ายจำลองพฤติกรรมหน้าแรก ฝั่งขวาจำลองพฤติกรรมหน้าย่อย
+      ทั้งคู่ใช้แคปซูลแก้วมืดแบบเดียวกัน ต่างกันแค่ตัวชี้ตำแหน่ง (indicator) และแหล่งที่มาของสถานะ active
+    </p>
+
+    <div class="rig">
+      <div class="panel">
+        <div class="panel-head">
+          <div class="panel-title">โหมด A &mdash; หน้าแรก</div>
+          <div class="panel-sub">scroll-spy · journey</div>
+        </div>
+        <div class="stage" id="stageA">
+          <div class="stage-scroll" id="scrollA">
+            <div class="stage-section s-home">Home</div>
+            <div class="stage-section s-about">About</div>
+            <div class="stage-section s-work">Work</div>
+            <div class="stage-section s-contact">Contact</div>
+          </div>
+          <div class="capsule-wrap">
+            <div class="capsule">
+              <span class="capsule-brand" aria-hidden="true"></span>
+              <div class="capsule-items" id="itemsA">
+                <span class="rail-track"><span class="rail-fill" id="railFill"></span></span>
+              </div>
+            </div>
+          </div>
+          <div class="stage-crumb">กำลังเลื่อนผ่าน &mdash; <b id="crumbA">Home</b></div>
+        </div>
+        <div class="panel-foot">
+          ลิงก์เป็น <code class="inline">#hash</code>, active มาจากตำแหน่งสกอลล์จริง เส้นใต้ไอคอนคือ
+          <i>ระยะทางที่ผ่านมาแล้ว</i> ในหน้าเดียว &mdash; เหมาะกับธีมรถไฟของเว็บ (rail progress)
+        </div>
+        <div class="hint">ลองเลื่อนกล่องด้านบน ↑↓</div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <div class="panel-title">โหมด B &mdash; หน้าย่อย</div>
+          <div class="panel-sub">route match · wayfinding</div>
+        </div>
+        <div class="stage" id="stageB">
+          <div class="stage-section" id="pageB" style="background:#eef1f6;color:#0a1220;">Home</div>
+          <div class="capsule-wrap">
+            <div class="capsule">
+              <span class="capsule-brand" aria-hidden="true"></span>
+              <div class="capsule-items" id="itemsB">
+                <span class="tab-pill" id="tabPill"></span>
+              </div>
+            </div>
+          </div>
+          <div class="stage-crumb">Home / <b id="crumbB">Home</b></div>
+        </div>
+        <div class="panel-foot">
+          ลิงก์เป็น route จริง, active มาจาก <code class="inline">pathname</code> &mdash; ตัวชี้ตำแหน่งคือ
+          <i>&ldquo;กำลังอยู่หน้านี้&rdquo;</i> ไม่ใช่ความคืบหน้า จึงสไลด์แบบ tab ทันที ไม่ค่อย ๆ ไล่เติม
+        </div>
+        <div class="hint">ลองกดเมนูด้านบน →</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">03</span> สรุปความต่างเชิงพฤติกรรม</h2>
+    <div class="spec-scroll">
+      <table class="spec">
+        <thead>
+          <tr><th>คุณสมบัติ</th><th>โหมด A &mdash; หน้าแรก</th><th>โหมด B &mdash; หน้าย่อย</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="label">ลิงก์เมนู</td>
+            <td><code class="inline">item.hash</code> (<code class="inline">#about</code>)</td>
+            <td><code class="inline">item.href</code> (<code class="inline">/about</code>)</td>
+          </tr>
+          <tr>
+            <td class="label">ที่มาของ active</td>
+            <td><code class="inline">IntersectionObserver</code> จับ section ที่เห็นอยู่</td>
+            <td>เทียบ <code class="inline">usePathname()</code> ตรง ๆ</td>
+          </tr>
+          <tr>
+            <td class="label">Indicator</td>
+            <td>เส้น segment ไล่เติมสีทีละช่วง (rail-fill)</td>
+            <td>พื้นหลังวงรีเลื่อนไปเกาะไอเทมที่ active (tab-pill)</td>
+          </tr>
+          <tr>
+            <td class="label">จังหวะเปลี่ยน</td>
+            <td>ต่อเนื่องตามอัตราสกอลล์ ดีเลย์เหลื่อมทีละ segment</td>
+            <td>ทันทีเมื่อคลิก/เปลี่ยนหน้า (~300ms ease)</td>
+          </tr>
+          <tr>
+            <td class="label">ความหมายที่สื่อ</td>
+            <td>&ldquo;มาไกลแค่ไหนแล้วในหน้านี้&rdquo;</td>
+            <td>&ldquo;ตอนนี้อยู่หน้าไหนของเว็บ&rdquo;</td>
+          </tr>
+          <tr>
+            <td class="label">เปลือกที่ใช้ร่วมกัน</td>
+            <td colspan="2">แคปซูลแก้วมืด, Brand, ปุ่ม hamburger, เมนูมือถือแบบ full-screen &mdash; เหมือนเดิมทุกอย่าง ไม่แยกดีไซน์</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">04</span> แนวทาง implement</h2>
+    <ul class="plan">
+      <li>
+        <b>แตกจาก <code class="inline">isHome</code> เดิม</b> &mdash; <code class="inline">Header.tsx</code> รู้อยู่แล้วว่าอยู่หน้าแรกหรือไม่
+        ใช้ตัวแปรเดิมนี้เลือก render <code class="inline">&lt;RailIndicator/&gt;</code> หรือ
+        <code class="inline">&lt;TabPillIndicator/&gt;</code> แทนโค้ด segment เดิมที่ฝังไว้ตายตัว
+      </li>
+      <li>
+        <b>Tab pill ไม่ต้องพึ่ง library ใหม่</b> &mdash; เพราะ <code class="inline">Header</code> อยู่ใน root
+        <code class="inline">layout.tsx</code> จึงไม่ remount ระหว่างเปลี่ยนหน้าแบบ client-side navigation
+        คำนวณตำแหน่ง/ความกว้างของไอเทม active ด้วย <code class="inline">getBoundingClientRect()</code> แล้ว
+        <code class="inline">transform: translateX()</code> ก็สไลด์ข้ามหน้าได้เลย โดยไม่ต้องเพิ่ม framer-motion
+      </li>
+      <li>
+        <b>เปลือกแคปซูลและเมนูมือถือคงเดิมทั้งหมด</b> &mdash; ของเดิมออกแบบมาดีอยู่แล้ว (glass + blur, full-screen
+        overlay ตอนมือถือ) เปลี่ยนแค่ตัว indicator ใต้ไอคอนภายในแคปซูล ไม่แตะโครงสร้างอื่น
+      </li>
+      <li>
+        <b>หน้า case study (<code class="inline">/work/[slug]</code>)</b> ยังนับเป็น &ldquo;หน้าย่อย&rdquo; (โหมด B)
+        เพราะ active เมนูคือ &ldquo;Experience&rdquo; เทียบจาก route เหมือนกัน &mdash; ไม่ต้องเพิ่มโหมดที่ 3
+      </li>
+    </ul>
+  </section>
+
+  <footer>
+    Header.tsx · lib/nav.ts &mdash; ขอบเขตแผนนี้คือ indicator ใต้ไอคอนเท่านั้น ไม่แตะสี/ฟอนต์/โครงแคปซูลที่มีอยู่แล้ว
+  </footer>
+</div>
+
+<script>
+(function () {
+  var NAV = [
+    { label: "Home", icon: 'M4 11.5 12 5l8 6.5V19a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1Z' },
+    { label: "About", icon: 'M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm-7 8c0-3.3 3.1-6 7-6s7 2.7 7 6' },
+    { label: "Work", icon: 'M4 8h16v10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V8Zm4 0V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2' },
+    { label: "Contact", icon: 'M4 6h16v12H4V6Zm0 0 8 7 8-7' }
+  ];
+
+  function iconSvg(d) {
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' +
+      '<path d="' + d + '"/></svg>';
+  }
+
+  /* ---- Mode A: scroll-spy rail ---- */
+  var itemsA = document.getElementById('itemsA');
+  NAV.forEach(function (item) {
+    var el = document.createElement('span');
+    el.className = 'capsule-item';
+    el.innerHTML = '<span class="dot">' + iconSvg(item.icon) + '</span><span>' + item.label + '</span>';
+    itemsA.appendChild(el);
+  });
+  var chipsA = itemsA.querySelectorAll('.capsule-item');
+  var railFill = document.getElementById('railFill');
+  var crumbA = document.getElementById('crumbA');
+  var scrollA = document.getElementById('scrollA');
+
+  function setActiveA(i) {
+    chipsA.forEach(function (c, idx) { c.classList.toggle('active', idx === i); });
+    var pct = (i / (NAV.length - 1)) * 100;
+    railFill.style.width = pct + '%';
+    crumbA.textContent = NAV[i].label;
+  }
+  setActiveA(0);
+
+  scrollA.addEventListener('scroll', function () {
+    var idx = Math.round(scrollA.scrollTop / scrollA.clientHeight);
+    idx = Math.max(0, Math.min(NAV.length - 1, idx));
+    setActiveA(idx);
+  });
+
+  /* ---- Mode B: click-driven tab pill ---- */
+  var itemsB = document.getElementById('itemsB');
+  var pageColors = ['#eef1f6', '#dde5ed', '#eef1f6', '#e89b3c'];
+  NAV.forEach(function (item, idx) {
+    var el = document.createElement('button');
+    el.type = 'button';
+    el.className = 'capsule-item';
+    el.innerHTML = '<span class="dot">' + iconSvg(item.icon) + '</span><span>' + item.label + '</span>';
+    el.addEventListener('click', function () { setActiveB(idx); });
+    itemsB.appendChild(el);
+  });
+  var chipsB = itemsB.querySelectorAll('.capsule-item');
+  var tabPill = document.getElementById('tabPill');
+  var crumbB = document.getElementById('crumbB');
+  var pageB = document.getElementById('pageB');
+
+  function setActiveB(i) {
+    chipsB.forEach(function (c, idx) { c.classList.toggle('active', idx === i); });
+    var target = chipsB[i];
+    var container = itemsB.getBoundingClientRect();
+    var rect = target.getBoundingClientRect();
+    tabPill.style.transform = 'translateX(' + (rect.left - container.left - 6) + 'px)';
+    tabPill.style.width = (rect.width + 12) + 'px';
+    crumbB.textContent = NAV[i].label;
+    pageB.textContent = NAV[i].label;
+    pageB.style.background = pageColors[i];
+    pageB.style.color = '#0a1220';
+  }
+  requestAnimationFrame(function () { setActiveB(0); });
+  window.addEventListener('resize', function () {
+    var activeIdx = 0;
+    chipsB.forEach(function (c, idx) { if (c.classList.contains('active')) activeIdx = idx; });
+    setActiveB(activeIdx);
+  });
+})();
+</script>

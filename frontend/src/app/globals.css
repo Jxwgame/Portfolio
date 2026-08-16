@@ -1,0 +1,210 @@
+@import "tailwindcss";
+
+@theme {
+  /* ---- palette: high-speed rail / modern train ---- */
+  --color-paper: #eef1f6;
+  --color-paper-2: #dde5ed;
+  --color-ink: #0a1220;
+  --color-ink-2: #121c2e;
+  --color-rust: #e89b3c;
+  --color-rust-deep: #a9702c;
+  /* accent รอง (สัญญาณ/ไฟเตือน) ใช้กับปุ่มหลักและรูปทรงตกแต่ง */
+  --color-sun: #e4002b;
+  --color-sand: #94a7bd;
+  --color-muted-dark: #7e8fa6;
+  --color-muted-light: #526175;
+
+  /* ---- fonts (ตัวแปรมาจาก next/font ใน layout.tsx) ---- */
+  --font-display: var(--font-anton), var(--font-noto-thai), "Arial Narrow", sans-serif;
+  --font-heading: var(--font-arimo), var(--font-noto-thai), sans-serif;
+  --font-sans: var(--font-inter), var(--font-noto-thai), system-ui, sans-serif;
+  --font-mono: var(--font-arimo), var(--font-noto-thai), ui-monospace, monospace;
+  --font-station: var(--font-doto), var(--font-arimo), ui-monospace, monospace;
+}
+
+/*
+ * แต่ละ <Section> เลือกธีมของตัวเอง แล้วลูกทั้งหมดอ่านจาก --fg/--muted/--line
+ * ทำให้สลับแถบสว่าง-มืดได้โดยไม่ต้องแตะคลาสข้างใน
+ */
+@layer components {
+  .theme-light {
+    --bg: var(--color-paper);
+    --surface: var(--color-paper-2);
+    --fg: var(--color-ink);
+    --muted: var(--color-muted-light);
+    --line: rgb(0 0 0 / 0.1);
+    /* เส้นที่ต้องเห็นชัดในตัวเอง เช่นเส้นตกแต่งริมซ้าย — เข้มกว่า hairline ทั่วไป */
+    --line-strong: rgb(0 0 0 / 0.3);
+    background: var(--bg);
+    color: var(--fg);
+  }
+  /* ครีมเข้มกว่าปกติ — ใช้แยกแถบสว่างสองแถบที่ติดกันโดยไม่ต้องสลับเป็นแถบมืด */
+  .theme-sand {
+    --bg: var(--color-paper-2);
+    --surface: var(--color-paper);
+    --fg: var(--color-ink);
+    --muted: var(--color-muted-light);
+    --line: rgb(0 0 0 / 0.12);
+    --line-strong: rgb(0 0 0 / 0.32);
+    background: var(--bg);
+    color: var(--fg);
+  }
+  .theme-dark {
+    --bg: var(--color-ink);
+    --surface: var(--color-ink-2);
+    --fg: var(--color-paper);
+    /* Keep supporting copy readable over dark sections and image overlays. */
+    --muted: #c5cfdd;
+    --line: rgb(255 255 255 / 0.14);
+    --line-strong: rgb(255 255 255 / 0.38);
+    background: var(--bg);
+    color: var(--fg);
+  }
+  .theme-rust {
+    --bg: var(--color-rust);
+    --surface: var(--color-rust-deep);
+    --fg: var(--color-ink);
+    --muted: rgb(0 0 0 / 0.62);
+    --line: rgb(0 0 0 / 0.18);
+    --line-strong: rgb(0 0 0 / 0.4);
+    background: var(--bg);
+    color: var(--fg);
+  }
+}
+
+@layer utilities {
+  .text-fg {
+    color: var(--fg);
+  }
+  .text-muted {
+    color: var(--muted);
+  }
+  .bg-surface {
+    background-color: var(--surface);
+  }
+  .border-line {
+    border-color: var(--line);
+  }
+  .divide-line > * + * {
+    border-color: var(--line);
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  /* เผื่อความสูงของแถบเมนูลอย ไม่ให้หัวข้อ section ไปซ่อนอยู่ใต้แถบตอนกดลิงก์ */
+  scroll-padding-top: 96px;
+
+  /*
+   * ความกว้างที่เนื้อหาต้องเว้นให้ sidebar — 0 บนมือถือ/แท็บเล็ตเพราะ sidebar ซ่อนอยู่
+   * Sidebar สลับค่าโดยเซ็ต data-sidebar="collapsed" ที่ <html> จึงคุมทั้ง aside และ padding ของเนื้อหาจากที่เดียว
+   */
+  --sidebar-w: 0px;
+}
+
+@media (min-width: 1024px) {
+  html {
+    --sidebar-w: 16rem;
+  }
+  html[data-sidebar="collapsed"] {
+    --sidebar-w: 4.75rem;
+  }
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* เกรนบาง ๆ ทับทั้งหน้า — เป็นลายเซ็นของธีมนี้ */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.055;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>");
+}
+
+/* ใบพับของ FlipBoard (components/motion/FlipBoard.tsx) — ครึ่งบนพับหุบ ครึ่งล่างพับกางตามมา */
+@keyframes flip-fold-top {
+  from {
+    transform: rotateX(0deg);
+  }
+  to {
+    transform: rotateX(-90deg);
+  }
+}
+@keyframes flip-fold-bottom {
+  from {
+    transform: rotateX(90deg);
+  }
+  to {
+    transform: rotateX(0deg);
+  }
+}
+
+/* รถไฟมุมมองด้านบนวิ่งบนราง — ส่ายซ้ายขวาเบา ๆ ตามจังหวะล้อ พร้อมไฟข้างไล่สว่าง */
+@keyframes rail-train-topdown {
+  0%,
+  100% {
+    transform: translateX(0) rotate(0deg);
+  }
+  30% {
+    transform: translateX(-0.45px) rotate(-0.35deg);
+  }
+  70% {
+    transform: translateX(0.45px) rotate(0.35deg);
+  }
+}
+@keyframes rail-window-glow {
+  0%,
+  60%,
+  100% {
+    opacity: 0.35;
+  }
+  20% {
+    opacity: 1;
+  }
+}
+
+/* โฟกัสต้องเห็นชัดเสมอ */
+:focus-visible {
+  outline: 2px solid var(--color-rust);
+  outline-offset: 2px;
+}
+
+/*
+ * ฟอนต์ Noto Sans Thai มีสระ/วรรณยุกต์ซ้อนสูงกว่าฟอนต์ละติน (Inter/Arimo) ที่ทีมใช้ตั้งค่า line-height
+ * ทั่วเว็บ (1.1–1.65) เมื่อ fallback มาเป็นภาษาไทย เส้นวรรณยุกต์/สระบนล่างจึงเสี่ยงถูกตัด (ตัวอักษรหล่น)
+ * ทุกหน้า /th ตั้ง lang="th" ไว้ที่ <main> จึงบังคับ line-height ขั้นต่ำผ่าน :lang(th) ได้ตรงจุดโดยไม่กระทบหน้าอังกฤษ
+ * วางนอก @layer เพื่อให้แน่ใจว่าชนะ utility class ของ Tailwind (leading-[...]) เสมอ
+ */
+:lang(th) {
+  line-height: 1.7;
+}
+:lang(th) h1,
+:lang(th) h2,
+:lang(th) h3,
+:lang(th) h4 {
+  line-height: 1.4;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .rain-effect {
+    display: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
