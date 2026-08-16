@@ -2,7 +2,7 @@ data/
 *.db
 *.db-wal
 *.db-shm
-server
-server.exe
+/server
+/server.exe
 .env
 .env.local

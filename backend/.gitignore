@@ -2,6 +2,8 @@
 *.db
 *.db-wal
 *.db-shm
-server
-server.exe
+# นำหน้าด้วย / เพื่อล็อกให้ตรงแค่ไบนารีที่ backend/ เท่านั้น
+# ถ้าเขียน "server" เฉย ๆ จะไป ignore โฟลเดอร์ cmd/server/ ด้วย
+/server
+/server.exe
 .env
