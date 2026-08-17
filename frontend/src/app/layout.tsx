@@ -28,8 +28,8 @@ const notoThai = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Theerapat-Site",
-  description: "Your Name's portfolio, featuring practical web applications, APIs, and backend systems.",
+  title: "Theerapat Sangsee — Infrastructure & DevOps",
+  description: "Portfolio of Theerapat Sangsee, an IT Infrastructure graduate from KMITL, featuring platform engineering, monitoring, and cloud infrastructure projects.",
 };
 
 export default async function RootLayout({ children }: LayoutProps<"/">) {
