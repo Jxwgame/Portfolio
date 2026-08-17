@@ -7,6 +7,17 @@ services:
     plan: free
     region: singapore
     healthCheckPath: /healthz
+    # deploy อัตโนมัติเฉพาะตอนที่ backend เปลี่ยนจริง — ก่อนหน้านี้ commit ที่แตะแค่ frontend/
+    # ก็ทำให้ API rebuild + restart ไปด้วย (บน free plan คือมีช่วงหลุดสั้น ๆ ฟรี ๆ)
+    # path เทียบจาก root ของ repo เสมอ และ ignoredPaths ชนะ paths เมื่อชนกัน
+    # หมายเหตุ: มีผลกับ auto-deploy เท่านั้น กด Manual Deploy ใน dashboard ยังได้ตามปกติ
+    buildFilter:
+      paths:
+        - "backend/**"
+        - "render.yaml"
+      ignoredPaths:
+        - "docs/**"
+        - "**/*.md"
     envVars:
       - key: APP_ENV
         value: production
