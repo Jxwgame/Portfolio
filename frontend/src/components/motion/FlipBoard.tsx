@@ -26,12 +26,14 @@ function splitGraphemes(str: string): string[] {
 const SIZE_MAP = {
   xs: { w: "14px", h: "21px", font: "11px", gap: "gap-1" },
   sm: { w: "26px", h: "39px", font: "21px", gap: "gap-1.5" },
-  /** ป้ายจำนวนโปรเจกต์ — ใหญ่กว่า sm 50% บนจอใหญ่ แต่ย่อลงบนมือถือเพื่อไม่ให้ล้นแนวนอน */
+  /** ป้ายจำนวนโปรเจกต์ — ใหญ่กว่า sm 50% เมื่อมีที่พอ แต่ "บีบให้พอดี" ที่ว่างจริงเมื่อไม่พอ (ดู FIT_SPEC/useFitWidth)
+   * w/h/font ที่ระบุไว้นี้เป็นค่าตั้งต้นฝั่ง SSR เท่านั้น พอวัดความกว้างจริงได้แล้วจะถูกแทนด้วยค่า px ที่คำนวณมา */
   status: {
-    w: "clamp(26px, 3.05vw, 39px)",
-    h: "clamp(39px, 4.57vw, 58.5px)",
-    font: "clamp(21px, 2.46vw, 31.5px)",
-    gap: "gap-1.5 sm:gap-2",
+    w: "clamp(12px, 3.9vw, 39px)",
+    h: "clamp(18px, 5.85vw, 58.5px)",
+    font: "clamp(9.7px, 3.15vw, 31.5px)",
+    gap: "gap-[3px] sm:gap-2",
+    fit: true,
   },
   lg: { w: "44px", h: "70px", font: "42px", gap: "gap-2" },
   /** ขนาดหัวข้อหน้า — สัดส่วน w:h:font เท่า lg เป๊ะ แต่ผูก h กับ clamp() เดียวกับ DisplayHeading (PageHero)
@@ -45,6 +47,53 @@ const SIZE_MAP = {
 } as const;
 
 type FlipSize = keyof typeof SIZE_MAP;
+
+/** ขนาดการ์ดใบเดียว — เป็น CSS length เสมอ ไม่ใช่ตัวเลขดิบ (ดูหมายเหตุ SIZE_MAP) */
+type CardMetrics = { w: string; h: string; font: string };
+
+/** สัดส่วนของโหมด fit — ล็อกไว้ตาม preset status ตอนกว้างสุด (w 39 : h 58.5 : font 31.5 : gap 8) */
+const FIT_SPEC = { max: 39, min: 10, hRatio: 1.5, fontRatio: 31.5 / 39, gapRatio: 8 / 39 };
+
+/** วัดที่ว่างจริงของแผง (ไม่ใช่ของวิวพอร์ต) เพื่อคำนวณขนาดการ์ดให้พอดีแถวเดียว
+ * ต้องวัดจาก DOM เพราะที่ว่างขึ้นกับทั้งความยาวป้ายในแต่ละภาษา (EN "PROJECTS & WORKS: 6" 19 ช่อง /
+ * TH "งานทั้งหมด: 6" 11 ช่อง) และความกว้าง sidebar เดสก์ท็อปที่ยืด-หุบได้ ซึ่ง clamp() ตาม vw มองไม่เห็น —
+ * ถ้าเดาจาก vw อย่างเดียว ป้ายที่ยาวกว่าจะกว้างเกิน Container แล้วถูก overflow-hidden ของ Section ตัดท้ายหาย */
+function useFitWidth(enabled: boolean) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const [avail, setAvail] = useState<number | null>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!enabled || !el) return;
+    // วัดรอบแรกเองเลย แล้วปล่อยให้ ResizeObserver ดูแลตอนหมุนจอ/ยืด-หุบ sidebar ต่อ
+    // ทิ้งค่า 0 เสมอ (เกิดตอนอยู่ใต้ ancestor ที่ display:none) ไม่งั้นการ์ดจะถูกล็อกเป็นขนาดต่ำสุดค้างไว้
+    const measure = (width: number) => {
+      if (width > 0) setAvail(width);
+    };
+    measure(el.getBoundingClientRect().width);
+    const observer = new ResizeObserver(([entry]) => measure(entry.contentRect.width));
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [enabled]);
+
+  return { ref, avail };
+}
+
+function fitMetrics(avail: number, chars: string[]): CardMetrics & { gap: number } {
+  const spacers = chars.filter((char) => char === " ").length;
+  // การ์ดเว้นวรรคกว้างครึ่งใบ (ดู FlipBoard) จึงนับเป็นครึ่งหน่วย
+  const units = chars.length - spacers / 2;
+  const gaps = Math.max(chars.length - 1, 0);
+  const raw = avail / (units + FIT_SPEC.gapRatio * gaps);
+  const w = Math.min(FIT_SPEC.max, Math.max(FIT_SPEC.min, raw));
+
+  return {
+    w: `${w}px`,
+    h: `${w * FIT_SPEC.hRatio}px`,
+    font: `${w * FIT_SPEC.fontRatio}px`,
+    gap: w * FIT_SPEC.gapRatio,
+  };
+}
 
 function FlipHalf({
   half,
@@ -90,8 +139,7 @@ function FlipHalf({
 }
 
 /** การ์ดตัวอักษรเดียวที่พลิกเหมือนป้ายสถานีจริง — ครึ่งบนพับหุบลง แล้วครึ่งล่างพับเปิดขึ้นตามมา */
-function FlipChar({ char, size }: { char: string; size: FlipSize }) {
-  const { w, h, font } = SIZE_MAP[size];
+function FlipChar({ char, w, h, font }: { char: string } & CardMetrics) {
   const [current, setCurrent] = useState(char);
   const [previous, setPrevious] = useState<string | null>(null);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -165,17 +213,32 @@ export function FlipBoard({
   size?: FlipSize;
   className?: string;
 }) {
-  const { w, gap } = SIZE_MAP[size];
+  const spec = SIZE_MAP[size];
+  const chars = splitGraphemes(value);
+  const { ref, avail } = useFitWidth("fit" in spec);
+  const fitted = avail !== null ? fitMetrics(avail, chars) : null;
+  const { w, h, font } = fitted ?? spec;
 
-  return (
-    <span className={cn("flex items-center", gap, className)}>
-      {splitGraphemes(value).map((char, i) =>
+  const board = (
+    <span
+      className={cn("flex items-center", !fitted && spec.gap, className)}
+      style={fitted ? { gap: `${fitted.gap}px` } : undefined}
+    >
+      {chars.map((char, i) =>
         char === " " ? (
           <span key={i} aria-hidden="true" style={{ width: `calc(${w} / 2)` }} />
         ) : (
-          <FlipChar key={i} char={char === FLIP_BLANK ? "" : char} size={size} />
+          <FlipChar key={i} char={char === FLIP_BLANK ? "" : char} w={w} h={h} font={font} />
         ),
       )}
+    </span>
+  );
+
+  // โหมด fit ต้องมีตัวครอบที่กว้างเต็มพื้นที่ให้วัด — ขนาดของ board เองขึ้นกับผลการวัด จะวัดตัวมันเองไม่ได้
+  if (!("fit" in spec)) return board;
+  return (
+    <span ref={ref} className="block w-full">
+      {board}
     </span>
   );
 }

@@ -75,10 +75,10 @@ export const caseStudy: CaseStudyLayout2 = {
   techStack: [
     { name: "Microsoft Entra ID" },
     { name: "Microsoft Graph API" },
-    { name: "Python", image: "image%20(6).png" },
-    { name: "OpenSearch", image: "Opensearch.png" },
-    { name: "Prometheus", image: "image%20(29).png" },
-    { name: "Grafana", image: "Grafana.png" },
+    { name: "Python", image: "image%20(6).webp" },
+    { name: "OpenSearch", image: "Opensearch.webp" },
+    { name: "Prometheus", image: "image%20(29).webp" },
+    { name: "Grafana", image: "Grafana.webp" },
   ],
   metrics: [{ icon: "uptime", value: "TODO", label: "TODO" }],
   takeaways: [

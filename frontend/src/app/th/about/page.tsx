@@ -1,8 +1,8 @@
-import { Briefcase, ChartNoAxesCombined, Download, Mail, ShieldCheck } from "lucide-react";
+import { Briefcase, ChartNoAxesCombined, Download, Mail, Server, ShieldCheck, Sparkles } from "lucide-react";
 import Image from "next/image";
 import type { Metadata } from "next";
 
-import { Eyebrow } from "@/components/common/Eyebrow";
+import { DisplayHeading } from "@/components/common/DisplayHeading";
 import { WorkflowLine } from "@/components/common/WorkflowLine";
 import { Container } from "@/components/layout/Container";
 import { PageHero } from "@/components/layout/PageHero";
@@ -26,7 +26,7 @@ const SOCIALS = [
   { label: "GitLab", short: "GL", href: "#" },
 ];
 
-const INTEREST_ICONS = [ChartNoAxesCombined, ShieldCheck];
+const INTEREST_ICONS = [ChartNoAxesCombined, ShieldCheck, Server];
 
 /** เวอร์ชันไทยของหน้าเกี่ยวกับตัวเอง — คู่กับ src/app/about/page.tsx ตัวอังกฤษ */
 export default async function ThaiAboutPage() {
@@ -38,7 +38,7 @@ export default async function ThaiAboutPage() {
         eyebrow={TH_ABOUT.hero.eyebrow}
         title={TH_ABOUT.hero.title}
         description={TH_ABOUT.hero.description}
-        backgroundImage="/Background_dark_new_3.png"
+        backgroundImage="/Background_dark_new_3.webp"
       />
 
       <Section theme="sand" className="border-t border-[var(--line)]">
@@ -60,7 +60,9 @@ export default async function ThaiAboutPage() {
             </Reveal>
 
             <Reveal delay={100}>
-              <Eyebrow>{TH_ABOUT.story.eyebrow}</Eyebrow>
+              <p className="font-display text-[clamp(2rem,4vw,3.25rem)] font-black leading-none tracking-[-0.01em] text-ink">
+                {TH_ABOUT.story.eyebrow}
+              </p>
               <h2 className="mt-4 font-display text-[clamp(2.8rem,7vw,5.8rem)] uppercase leading-[0.96] tracking-[0.01em]">
                 {TH_ABOUT.story.name}{" "}
                 <span className="text-[0.4em] tracking-[0.04em]">{TH_ABOUT.story.nickname}</span>
@@ -139,23 +141,54 @@ export default async function ThaiAboutPage() {
 
           {/* Part 2 — interest */}
           <Reveal delay={150}>
-            <div className="mt-14 rounded-[1.75rem] border border-line bg-white/70 p-8 sm:p-10">
-              <Eyebrow>{TH_ABOUT.interest.eyebrow}</Eyebrow>
+            <div className="relative mt-14 overflow-hidden rounded-[1.75rem] border border-black/[0.07] bg-white px-7 py-10 shadow-[0_12px_30px_rgb(10_18_32/0.06)] sm:px-10 lg:px-20 lg:pb-12 lg:pt-12">
+              {/* ภาพประกอบรถไฟวางแบบจาง ๆ หลังหัวข้อ ตามภาพอ้างอิง */}
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute -right-8 top-7 hidden w-[47%] max-w-[620px] lg:block"
+              >
+                <div className="relative overflow-hidden" style={{ aspectRatio: "1448 / 700" }}>
+                  <img
+                    src="/picture-add-ons-about.webp"
+                    alt=""
+                    loading="lazy"
+                    className="absolute inset-x-0 -top-12 w-full mix-blend-multiply"
+                  />
+                </div>
+              </div>
 
-              <div className="mt-6 grid gap-8 lg:grid-cols-2 lg:divide-x lg:divide-[var(--line)]">
+              <div className="relative max-w-[57ch]">
+                <p className="flex items-center gap-4 font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-rust sm:text-[11px]">
+                  <span className="size-2 shrink-0 rounded-full bg-rust" aria-hidden="true" />
+                  {TH_ABOUT.interest.eyebrow}
+                  <span className="grid size-7 shrink-0 place-items-center rounded-full border border-rust/25 bg-rust/[0.08] text-rust" aria-hidden="true">
+                    <Sparkles className="size-3.5" strokeWidth={1.8} />
+                  </span>
+                </p>
+                <DisplayHeading as="h2" className="mt-6 text-[clamp(2.65rem,5vw,4.2rem)] leading-[0.9]">
+                  {TH_ABOUT.interest.title}
+                </DisplayHeading>
+                <p className="mt-6 max-w-[53ch] text-sm leading-[1.65] text-ink/75">{TH_ABOUT.interest.description}</p>
+              </div>
+
+              <div className="relative mt-10 grid gap-10 sm:grid-cols-2 lg:mt-12 lg:grid-cols-3 lg:gap-0">
                 {TH_ABOUT.interest.items.map((item, i) => {
                   const Icon = INTEREST_ICONS[i];
                   return (
-                    <div key={item.title} className="flex items-start gap-5 lg:pl-8 lg:first:pl-0">
-                      <span className="grid size-14 shrink-0 place-items-center rounded-2xl bg-rust/10 text-rust">
-                        <Icon className="size-7" aria-hidden="true" />
+                    <div key={item.title} className="relative lg:px-16 lg:first:pl-0 lg:last:pr-0">
+                      {i > 0 ? (
+                        <span className="absolute inset-y-0 left-0 hidden w-px bg-black/[0.08] lg:block" aria-hidden="true">
+                          <span className="absolute left-1/2 top-1/2 size-2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-black/20 bg-white" />
+                        </span>
+                      ) : null}
+                      <span className="grid size-14 place-items-center rounded-full bg-rust/[0.07] text-rust shadow-[0_7px_18px_rgb(10_18_32/0.05)]">
+                        <Icon className="size-7" strokeWidth={2} aria-hidden="true" />
                       </span>
-                      <div className="min-w-0">
-                        <h3 className="font-heading text-xl font-semibold uppercase tracking-[0.02em]">
-                          {item.title}
-                        </h3>
-                        <p className="mt-2 text-sm leading-[1.75] text-muted">{item.description}</p>
-                      </div>
+                      <h3 className="mt-4 font-heading text-[1.02rem] font-bold uppercase tracking-[0.01em]">
+                        {item.title}
+                      </h3>
+                      <span className="mt-3 block h-0.5 w-4 bg-rust" aria-hidden="true" />
+                      <p className="mt-4 text-[13px] leading-[1.75] text-ink/75">{item.description}</p>
                     </div>
                   );
                 })}

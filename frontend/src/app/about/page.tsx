@@ -1,7 +1,7 @@
-import { Briefcase, ChartNoAxesCombined, Download, Mail, ShieldCheck } from "lucide-react";
+import { Briefcase, ChartNoAxesCombined, Download, Mail, Server, ShieldCheck, Sparkles } from "lucide-react";
 import Image from "next/image";
 
-import { Eyebrow } from "@/components/common/Eyebrow";
+import { DisplayHeading } from "@/components/common/DisplayHeading";
 import { WorkflowLine } from "@/components/common/WorkflowLine";
 import { Container } from "@/components/layout/Container";
 import { PageHero } from "@/components/layout/PageHero";
@@ -38,6 +38,12 @@ const INTEREST_ITEMS = [
     description:
       "With more news of AI agents being used to breach systems, I'm interested in the other side: using AI agents to help defend internal systems and infrastructure.",
   },
+  {
+    icon: Server,
+    title: "AI Infrastructure",
+    description:
+      "Interested in the systems that keep AI running in production, from cloud compute, storage, and networking to MLOps practices like CI/CD pipelines, monitoring, and infrastructure as code that keep AI workloads reliable and scalable.",
+  },
 ];
 
 /** หน้าเกี่ยวกับตัวเอง — ประวัติเต็ม + สถิติ + วิธีทำงาน + ไทม์ไลน์ */
@@ -50,7 +56,7 @@ export default async function AboutPage() {
         eyebrow="About me"
         title="Who I am"
         description="An overview of who I am, what I do, and how I approach my work"
-        backgroundImage="/Background_dark_new_3.png"
+        backgroundImage="/Background_dark_new_3.webp"
       />
 
       <Section theme="sand" className="border-t border-[var(--line)]">
@@ -72,7 +78,9 @@ export default async function AboutPage() {
             </Reveal>
 
             <Reveal delay={100}>
-              <Eyebrow>My story</Eyebrow>
+              <p className="font-display text-[clamp(2rem,4vw,3.25rem)] uppercase leading-none tracking-[-0.01em] text-ink">
+                My story
+              </p>
               <h2 className="mt-4 font-display text-[clamp(2.8rem,7vw,5.8rem)] uppercase leading-[0.96] tracking-[0.01em]">
                 Theerapat Sangsee{" "}
                 <span className="text-[0.4em] tracking-[0.04em]">(Jowgame)</span>
@@ -149,23 +157,57 @@ export default async function AboutPage() {
 
           {/* Part 2 — interest */}
           <Reveal delay={150}>
-            <div className="mt-14 rounded-[1.75rem] border border-line bg-white/70 p-8 sm:p-10">
-              <Eyebrow>Interest</Eyebrow>
+            <div className="relative mt-14 overflow-hidden rounded-[1.75rem] border border-black/[0.07] bg-white px-7 py-10 shadow-[0_12px_30px_rgb(10_18_32/0.06)] sm:px-10 lg:px-20 lg:pb-12 lg:pt-12">
+              {/* ภาพประกอบรถไฟวางแบบจาง ๆ หลังหัวข้อ ตามภาพอ้างอิง */}
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute -right-8 top-7 hidden w-[47%] max-w-[620px] lg:block"
+              >
+                <div className="relative overflow-hidden" style={{ aspectRatio: "1448 / 700" }}>
+                  <img
+                    src="/picture-add-ons-about.webp"
+                    alt=""
+                    loading="lazy"
+                    className="absolute inset-x-0 -top-12 w-full mix-blend-multiply"
+                  />
+                </div>
+              </div>
 
-              <div className="mt-6 grid gap-8 lg:grid-cols-2 lg:divide-x lg:divide-[var(--line)]">
-                {INTEREST_ITEMS.map((item) => (
-                  <div key={item.title} className="flex items-start gap-5 lg:pl-8 lg:first:pl-0">
-                    <span className="grid size-14 shrink-0 place-items-center rounded-2xl bg-rust/10 text-rust">
-                      <item.icon className="size-7" aria-hidden="true" />
+              <div className="relative max-w-[57ch]">
+                <p className="flex items-center gap-4 font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-rust sm:text-[11px]">
+                  <span className="size-2 shrink-0 rounded-full bg-rust" aria-hidden="true" />
+                  What I care about
+                  <span className="grid size-7 shrink-0 place-items-center rounded-full border border-rust/25 bg-rust/[0.08] text-rust" aria-hidden="true">
+                    <Sparkles className="size-3.5" strokeWidth={1.8} />
+                  </span>
+                </p>
+                <DisplayHeading as="h2" className="mt-6 text-[clamp(2.65rem,5vw,4.2rem)] leading-[0.9]">
+                  Interest &amp; Passion
+                </DisplayHeading>
+                <p className="mt-6 max-w-[53ch] text-sm leading-[1.65] text-ink/75">
+                  Exploring how AI can solve real-world problems, strengthen systems, and build the
+                  infrastructure for the future.
+                </p>
+              </div>
+
+              <div className="relative mt-10 grid gap-10 sm:grid-cols-2 lg:mt-12 lg:grid-cols-3 lg:gap-0">
+                {INTEREST_ITEMS.map((item, index) => (
+                  <div key={item.title} className="relative lg:px-16 lg:first:pl-0 lg:last:pr-0">
+                    {index > 0 ? (
+                      <span className="absolute inset-y-0 left-0 hidden w-px bg-black/[0.08] lg:block" aria-hidden="true">
+                        <span className="absolute left-1/2 top-1/2 size-2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-black/20 bg-white" />
+                      </span>
+                    ) : null}
+                    <span className="grid size-14 place-items-center rounded-full bg-rust/[0.07] text-rust shadow-[0_7px_18px_rgb(10_18_32/0.05)]">
+                      <item.icon className="size-7" strokeWidth={2} aria-hidden="true" />
                     </span>
-                    <div className="min-w-0">
-                      <h3 className="font-heading text-xl font-semibold uppercase tracking-[0.02em]">
-                        {item.title}
-                      </h3>
-                      <p className="mt-2 text-sm leading-[1.75] text-muted">
-                        {item.description}
-                      </p>
-                    </div>
+                    <h3 className="mt-4 font-heading text-[1.02rem] font-bold uppercase tracking-[0.01em]">
+                      {item.title}
+                    </h3>
+                    <span className="mt-3 block h-0.5 w-4 bg-rust" aria-hidden="true" />
+                    <p className="mt-4 text-[13px] leading-[1.65] text-ink/75">
+                      {item.description}
+                    </p>
                   </div>
                 ))}
               </div>

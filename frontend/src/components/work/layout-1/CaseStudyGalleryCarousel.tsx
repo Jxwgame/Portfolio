@@ -4,27 +4,32 @@ import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 import { MediaPlaceholder } from "@/components/common/MediaPlaceholder";
+import { PhotoLightbox, ZoomTrigger } from "../PhotoLightbox";
 import type { CaseStudyShot } from "@/lib/case-studies/layout-1";
 import { TH_CASE_STUDY_UI } from "@/lib/i18n/th";
 import { cn } from "@/lib/utils";
 
-/** ภาพหลัก + แถบ thumbnail เลื่อนดูภาพโปรเจกต์ในหัวหน้า case study */
+/** ภาพหลัก + แถบ thumbnail เลื่อนดูภาพโปรเจกต์ในหัวหน้า case study — กดที่ภาพหลักเพื่อเปิดดูขนาดเต็มไม่ครอปใน lightbox */
 export function CaseStudyGalleryCarousel({ shots, lang }: { shots: CaseStudyShot[]; lang?: "th" }) {
   const isThai = lang === "th";
   const [active, setActive] = useState(0);
+  const [zoomIndex, setZoomIndex] = useState<number | null>(null);
   const go = (delta: number) => setActive((i) => (i + delta + shots.length) % shots.length);
 
   return (
     <div>
       <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-line">
-        <MediaPlaceholder
-          gradient={shots[active].gradient}
-          label={shots[active].label}
-          image={shots[active].image}
-          focus={shots[active].focus}
-          fit="cover"
-          className="size-full"
-        />
+        <ZoomTrigger label={shots[active].label} lang={lang} onClick={() => setZoomIndex(active)}>
+          <MediaPlaceholder
+            gradient={shots[active].gradient}
+            label={shots[active].label}
+            image={shots[active].image}
+            focus={shots[active].focus}
+            fit="cover"
+            className="size-full"
+            priority
+          />
+        </ZoomTrigger>
 
         <button
           type="button"
@@ -61,6 +66,8 @@ export function CaseStudyGalleryCarousel({ shots, lang }: { shots: CaseStudyShot
           </button>
         ))}
       </div>
+
+      <PhotoLightbox shots={shots} index={zoomIndex} onIndexChange={setZoomIndex} lang={lang} />
     </div>
   );
 }

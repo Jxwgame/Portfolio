@@ -1,4 +1,4 @@
-import { BookOpen, Clock, Code2, FileDown, Mail, MapPin, Phone, UserRound } from "lucide-react";
+import { BookOpen, Code2, FileDown, GitFork, Mail, MapPin, UserRound } from "lucide-react";
 import type { Metadata } from "next";
 
 import { PageHero } from "@/components/layout/PageHero";
@@ -14,13 +14,14 @@ export const metadata: Metadata = {
   },
 };
 
-// ไอคอนเรียงตามลำดับเดียวกับ TH_CONTACT.resources.links (GitHub, Email, CV, Resume, Portfolio)
-const RESOURCE_ICONS = [Code2, Mail, UserRound, FileDown, BookOpen];
+// ไอคอนเรียงตามลำดับเดียวกับ TH_CONTACT.resources.links (GitHub, GitLab, Email, CV, Resume, Portfolio)
+const RESOURCE_ICONS = [Code2, GitFork, Mail, UserRound, FileDown, BookOpen];
 
 // ปลายทางของการ์ดแต่ละใบ — ต้องตรงกับฝั่งอังกฤษใน src/app/contact/page.tsx
 // ตัวที่มี download คือไฟล์จริงใน public/docs ส่วน Email ประกอบ mailto: จาก settings เอาเองข้างล่าง
 const RESOURCE_TARGETS: Record<string, { href: string; download?: string; external?: boolean }> = {
   GitHub: { href: "https://github.com/Jxwgame", external: true },
+  GitLab: { href: "https://gitlab.com/theerapatsangsee", external: true },
   CV: { href: "/docs/cv.pdf", download: "Theerapat-Sangsee-CV.pdf" },
   Resume: { href: "/docs/resume.pdf", download: "Theerapat-Sangsee-Resume.pdf" },
   Portfolio: { href: "/docs/portfolio.pdf", download: "Theerapat-Sangsee-Portfolio.pdf" },
@@ -37,14 +38,7 @@ export default async function ThaiContactPage() {
       value: settings["contact.email"],
       href: settings["contact.email"] ? `mailto:${settings["contact.email"]}` : undefined,
     },
-    {
-      icon: Phone,
-      label: TH_CONTACT.resources.fields.phone,
-      value: settings["contact.phone"],
-      href: settings["contact.phone"] ? `tel:${settings["contact.phone"]}` : undefined,
-    },
     { icon: MapPin, label: TH_CONTACT.resources.fields.location, value: settings["contact.location"] },
-    { icon: Clock, label: TH_CONTACT.resources.fields.availability, value: TH_CONTACT.resources.availabilityValue },
   ].filter((row) => row.value);
 
   return (
@@ -53,7 +47,7 @@ export default async function ThaiContactPage() {
         eyebrow={TH_CONTACT.hero.eyebrow}
         title={TH_CONTACT.hero.title}
         description={TH_CONTACT.hero.description}
-        backgroundImage="/Background_dark_new_4.png"
+        backgroundImage="/Background_dark_new_4.webp"
         supplement={
           // เหลือการ์ดเดียวแล้ว — ใช้ความกว้างเต็ม Container (PageHero ครอบ 1280px ไว้ให้แล้ว) แทนการจำกัดแคบแบบฟอร์มคู่เดิม
           <Reveal className="w-full rounded-2xl border border-line bg-surface p-6 shadow-[0_1px_3px_rgb(0_0_0/0.06)] sm:p-8">
@@ -67,8 +61,8 @@ export default async function ThaiContactPage() {
               </div>
             </div>
 
-            {/* 5 การ์ดพอดี 1 แถวบนจอกว้าง (lg:grid-cols-5) การ์ดเลยกว้างขึ้นไปพร้อมกับสูงขึ้น */}
-            <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+            {/* 6 การ์ดพอดี 1 แถวบนจอกว้าง */}
+            <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
               {TH_CONTACT.resources.links.map(({ label, sub }, i) => {
                 const Icon = RESOURCE_ICONS[i];
                 const target = RESOURCE_TARGETS[label];

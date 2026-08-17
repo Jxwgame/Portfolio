@@ -34,8 +34,9 @@ export function AboutIntro({
     >
       <div aria-hidden="true" className="absolute inset-0 -z-20">
         <img
-          src="/Background_dark_new_2.png"
+          src="/Background_dark_new_2.webp"
           alt=""
+          loading="lazy"
           className="size-full object-cover"
         />
       </div>

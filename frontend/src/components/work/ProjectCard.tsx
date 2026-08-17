@@ -37,6 +37,7 @@ export function ProjectCard({
           <img
             src={project.coverUrl}
             alt={project.title}
+            loading="lazy"
             className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
         ) : (

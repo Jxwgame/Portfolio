@@ -43,7 +43,7 @@ export function Hero({
     >
       <div aria-hidden="true" className="absolute inset-0 z-0">
         <img
-          src="/Background_dark_new.png"
+          src="/Background_dark_new.webp"
           alt=""
           className="size-full object-cover object-top"
         />

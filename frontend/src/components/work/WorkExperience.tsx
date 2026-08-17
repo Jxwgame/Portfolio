@@ -54,7 +54,7 @@ export function WorkExperience({
 
       <Section theme="dark" size="none" className="pb-20 md:pb-32">
         <div aria-hidden="true" className="absolute inset-0 -z-20">
-          <img src="/Background_dark_3.png" alt="" className="size-full object-cover" />
+          <img src="/Background_dark_3.webp" alt="" loading="lazy" className="size-full object-cover" />
         </div>
         <div aria-hidden="true" className="absolute inset-0 -z-10 bg-[var(--bg)]/85" />
         <Container>

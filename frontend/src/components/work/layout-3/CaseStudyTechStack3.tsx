@@ -26,6 +26,7 @@ export function CaseStudyTechStack3({ items, lang }: { items: CaseStudyTechItem3
                 <img
                   src={`/Logo_Techstack/${item.image}`}
                   alt={item.name}
+                  loading="lazy"
                   className="max-h-7 max-w-8 object-contain"
                 />
               ) : (

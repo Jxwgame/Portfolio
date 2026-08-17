@@ -54,9 +54,9 @@ export const caseStudy: CaseStudyLayout2 = {
   mainDiagram: { label: "Architecture Diagram", gradient: DIAGRAM_GRADIENTS[0], image: `${IMG}/Diagram.png` },
   diagramShots: [],
   techStack: [
-    { name: "Python", image: "image%20(6).png" },
-    { name: "React", image: "image%20(7).png" },
-    { name: "AWS", image: "image%20(24).png" },
+    { name: "Python", image: "image%20(6).webp" },
+    { name: "React", image: "image%20(7).webp" },
+    { name: "AWS", image: "image%20(24).webp" },
   ],
   metrics: [{ icon: "uptime", value: "TODO", label: "TODO" }],
   takeaways: [

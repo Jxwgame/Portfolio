@@ -5,7 +5,7 @@ import { Building2, Layers, type LucideIcon, Server, ShieldCheck } from "lucide-
 
 import { Eyebrow } from "@/components/common/Eyebrow";
 import { MediaPlaceholder } from "@/components/common/MediaPlaceholder";
-import { PhotoLightbox } from "./PhotoLightbox";
+import { PhotoLightbox } from "../PhotoLightbox";
 import { cn } from "@/lib/utils";
 import type { CaseStudyShot3 } from "@/lib/case-studies/layout-3";
 import { TH_CASE_STUDY_UI, TH_WORK_AREA_CATEGORY } from "@/lib/i18n/th";

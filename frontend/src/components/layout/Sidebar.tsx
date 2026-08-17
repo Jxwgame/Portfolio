@@ -158,7 +158,14 @@ export function Sidebar({ name }: { name: string }) {
             : "pointer-events-none -translate-y-3 opacity-0",
         )}
       >
-        <Container className="flex items-center justify-between py-5">
+        <img
+          src="/Background_nav.webp"
+          alt=""
+          loading="lazy"
+          aria-hidden="true"
+          className="pointer-events-none absolute bottom-0 right-0 z-0 h-auto w-[48vw] max-w-[420px] object-contain object-bottom opacity-55"
+        />
+        <Container className="relative z-10 flex items-center justify-between py-5">
           <Brand name={name} href={isThai ? "/th" : "/"} onClick={() => setMenuOpen(false)} />
           <div className="flex items-center gap-2">
             <LanguageSwitcher isThai={isThai} onNavigate={requestLanguage} />
@@ -172,7 +179,7 @@ export function Sidebar({ name }: { name: string }) {
             </button>
           </div>
         </Container>
-        <Container className="flex flex-1 flex-col justify-center gap-5 py-8">
+        <Container className="relative z-10 flex flex-1 flex-col justify-center gap-5 py-8">
           {navItems.map((item) => (
             <div key={item.label}>
               <MobileLink item={item} onNavigate={() => setMenuOpen(false)} />
@@ -200,8 +207,9 @@ export function Sidebar({ name }: { name: string }) {
       >
         {/* พื้นหลังลายไฟสัญญาณรถไฟ — ยึดชิดล่างสุดให้อยู่ในส่วนโล่งใต้เมนู ไม่ทับตัวลิงก์ด้านบน */}
         <img
-          src="/Background_nav.png"
+          src="/Background_nav.webp"
           alt=""
+          loading="lazy"
           aria-hidden="true"
           className="pointer-events-none absolute inset-x-0 bottom-0 h-auto w-full object-cover object-bottom opacity-60"
         />

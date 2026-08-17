@@ -1,6 +1,7 @@
-import { TrainFront, type LucideIcon } from "lucide-react";
+import { type LucideIcon } from "lucide-react";
 
 import { Eyebrow } from "@/components/common/Eyebrow";
+import { RailTrack } from "@/components/common/RailTrack";
 import { Reveal } from "@/components/motion/Reveal";
 
 export type WorkflowStep = {
@@ -13,25 +14,15 @@ export type WorkflowStep = {
 export function WorkflowLine({ steps, eyebrow = "Workflow line" }: { steps: WorkflowStep[]; eyebrow?: string }) {
   return (
     <div>
-      <div className="flex items-center justify-between gap-6">
-        <Eyebrow>{eyebrow}</Eyebrow>
-        <span className="hidden size-10 shrink-0 place-items-center rounded-full border border-rust/50 bg-ink text-rust shadow-[0_0_18px_rgb(232_155_60/0.16)] lg:grid">
-          <TrainFront className="size-5" aria-hidden="true" />
+      <div className="flex items-center gap-5">
+        <Eyebrow className="shrink-0 [&>span]:hidden">{eyebrow}</Eyebrow>
+        <span className="relative h-px flex-1 bg-[repeating-linear-gradient(90deg,rgb(10_18_32/0.34)_0_1px,transparent_1px_9px)]" aria-hidden="true">
+          <span className="absolute -right-0.5 -top-1 size-2.5 rounded-full border-2 border-white bg-rust shadow-[0_0_0_1px_rgb(10_18_32/0.1)]" />
         </span>
       </div>
 
       <ol className="relative mt-14 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
-        <span
-          aria-hidden="true"
-          className="absolute inset-x-[12.5%] top-[17px] hidden h-5 lg:block"
-        >
-          {/* หมอนรถไฟ — เส้นบาง ห่าง ๆ พาดระหว่างราง ไม่ให้ทึบจนดูเป็นแถบกันขวาง */}
-          <span className="absolute inset-0 rounded-full border-y border-ink/10 bg-ink/[0.04] shadow-[inset_0_1px_2px_rgb(10_18_32/0.08)]" />
-          <span className="absolute inset-x-1 top-1/2 h-3 -translate-y-1/2 bg-[repeating-linear-gradient(90deg,rgb(232_155_60/0.62)_0_2px,transparent_2px_14px)]" />
-          {/* รางคู่บน-ล่าง */}
-          <span className="absolute inset-x-0 top-0.5 h-0.5 rounded-full bg-ink/75 shadow-[0_1px_0_rgb(255_255_255/0.55)]" />
-          <span className="absolute inset-x-0 bottom-0.5 h-0.5 rounded-full bg-ink/75 shadow-[0_-1px_0_rgb(255_255_255/0.55)]" />
-        </span>
+        <RailTrack className="absolute inset-x-[12.5%] top-[17px] hidden h-5 lg:block" />
 
         {steps.map((step, i) => {
           const Icon = step.icon;

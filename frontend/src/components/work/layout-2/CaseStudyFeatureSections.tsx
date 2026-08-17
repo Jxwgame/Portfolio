@@ -6,27 +6,48 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Eyebrow } from "@/components/common/Eyebrow";
 import { GlossaryText } from "@/components/common/GlossaryText";
 import { MediaPlaceholder } from "@/components/common/MediaPlaceholder";
+import { PhotoLightbox, ZoomTrigger } from "../PhotoLightbox";
 import { cn } from "@/lib/utils";
 import type { CaseStudyFeature } from "@/lib/case-studies/layout-2";
 import { TH_CASE_STUDY_UI } from "@/lib/i18n/th";
 
-/** ฝั่งภาพของแต่ละฟีเจอร์ — ถ้ามีมากกว่า 1 รูปจะกลายเป็น carousel เลื่อนซ้าย/ขวาได้ */
+/** ฝั่งภาพของแต่ละฟีเจอร์ — ถ้ามีมากกว่า 1 รูปจะกลายเป็น carousel เลื่อนซ้าย/ขวาได้ กดที่รูปเพื่อเปิดดูเต็มใน lightbox
+ * (ภาพในบล็อกนี้ถูกครอปเป็น 2:1 จึงต้องมีทางดูเต็มใบ) */
 function FeatureMedia({ feature, lang }: { feature: CaseStudyFeature; lang?: "th" }) {
   const isThai = lang === "th";
   const images = feature.images ?? [];
   const [active, setActive] = useState(0);
+  const [zoomIndex, setZoomIndex] = useState<number | null>(null);
   const go = (delta: number) => setActive((i) => (i + delta + images.length) % images.length);
+  const zoomShots = images.map((image) => ({
+    label: feature.title,
+    gradient: feature.gradient,
+    image,
+    focus: feature.focus,
+  }));
 
   return (
     <div className="relative aspect-[2/1] overflow-hidden rounded-2xl">
-      <MediaPlaceholder
-        gradient={feature.gradient}
-        label={feature.title}
-        image={images[active]}
-        focus={feature.focus}
-        fit="cover"
-        className="size-full"
-      />
+      {images.length > 0 ? (
+        <ZoomTrigger label={feature.title} lang={lang} onClick={() => setZoomIndex(active)}>
+          <MediaPlaceholder
+            gradient={feature.gradient}
+            label={feature.title}
+            image={images[active]}
+            focus={feature.focus}
+            fit="cover"
+            className="size-full"
+          />
+        </ZoomTrigger>
+      ) : (
+        <MediaPlaceholder
+          gradient={feature.gradient}
+          label={feature.title}
+          focus={feature.focus}
+          fit="cover"
+          className="size-full"
+        />
+      )}
 
       {images.length > 1 && (
         <div className="absolute bottom-3 right-3 flex items-center gap-2 rounded-full border border-paper/20 bg-ink/70 p-1.5 pl-3 backdrop-blur">
@@ -51,6 +72,8 @@ function FeatureMedia({ feature, lang }: { feature: CaseStudyFeature; lang?: "th
           </button>
         </div>
       )}
+
+      <PhotoLightbox shots={zoomShots} index={zoomIndex} onIndexChange={setZoomIndex} lang={lang} />
     </div>
   );
 }

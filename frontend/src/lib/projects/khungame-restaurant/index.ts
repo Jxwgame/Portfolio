@@ -83,14 +83,14 @@ export const caseStudy: CaseStudyLayout1 = {
       items: [
         { name: "HTML", image: "HTML.webp" },
         { name: "CSS", image: "CSS.webp" },
-        { name: "JavaScript", image: "JavaScript-logo.png" },
+        { name: "JavaScript", image: "JavaScript-logo.webp" },
       ],
     },
     {
       group: "Backend",
       items: [
-        { name: "PHP", image: "image%20(5).png" },
-        { name: "MySQL", image: "image%20(14).png" },
+        { name: "PHP", image: "image%20(5).webp" },
+        { name: "MySQL", image: "image%20(14).webp" },
       ],
     },
   ],

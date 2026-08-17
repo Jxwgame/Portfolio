@@ -54,6 +54,19 @@ const nextConfig: NextConfig = {
           { key: "Cache-Control", value: "public, max-age=3600, must-revalidate" },
         ],
       },
+      {
+        /**
+         * รูป static ทั้งหมดใน public/ — ค่า default ของ Next คือ "public, max-age=0" (เอกสาร public-folder
+         * บอกว่าแคชยาวให้ไม่ได้เพราะไฟล์อาจถูกแก้) ผลคือ browser ต้อง revalidate ทุกครั้งที่เปลี่ยนหน้า
+         * รูปพื้นหลังหนัก ๆ จึงถูกยิงซ้ำทุก navigation และโหลดใหม่เต็มก้อนทุกครั้งที่ cache หลุด
+         *
+         * เราแคชยาวแบบ immutable ได้เพราะรูปในนี้เป็น asset ตายตัวของดีไซน์ ไม่ได้ generate ใหม่ตอน build
+         * ⚠️ ข้อแลกเปลี่ยน: แก้รูปแล้วต้อง "เปลี่ยนชื่อไฟล์" ด้วย (เช่น _v2) ไม่งั้นคนที่เคยเข้าจะเห็นรูปเก่าค้าง
+         * ไม่ครอบ /_next/image (ไม่มีนามสกุลใน path) จึงไม่ทับ cache ของ image optimizer
+         */
+        source: "/:path*.(png|jpg|jpeg|webp|avif|gif|svg|ico)",
+        headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
+      },
     ];
   },
 };

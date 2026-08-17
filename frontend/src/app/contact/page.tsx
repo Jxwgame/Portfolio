@@ -1,4 +1,4 @@
-import { BookOpen, Code2, FileDown, Mail, MapPin, UserRound } from "lucide-react";
+import { BookOpen, Code2, FileDown, GitFork, Mail, MapPin, UserRound } from "lucide-react";
 
 import { PageHero } from "@/components/layout/PageHero";
 import { Reveal } from "@/components/motion/Reveal";
@@ -11,6 +11,7 @@ export const metadata = { title: "Contact" };
 // ไม่มีการ์ดที่ลิงก์ไปหน้า /work แล้ว เพราะซ้ำกับเมนูหลัก และชื่อชนกับ Portfolio ที่เป็นไฟล์ PDF
 const RESOURCE_LINKS = [
   { label: "GitHub", sub: "Code repositories", icon: Code2, href: "https://github.com/Jxwgame", external: true },
+  { label: "GitLab", sub: "Projects and source code", icon: GitFork, href: "https://gitlab.com/theerapatsangsee", external: true },
   { label: "Email", sub: "Direct contact", icon: Mail, hrefFromEmail: true },
   { label: "CV", sub: "Download CV", icon: UserRound, href: "/docs/cv.pdf", download: "Theerapat-Sangsee-CV.pdf" },
   { label: "Resume", sub: "Download resume", icon: FileDown, href: "/docs/resume.pdf", download: "Theerapat-Sangsee-Resume.pdf" },
@@ -32,7 +33,7 @@ export default async function ContactPage() {
         eyebrow="Contact"
         title="Let's talk"
         description="Have a project in mind or want to discuss an opportunity? Reach out through any channel below"
-        backgroundImage="/Background_dark_new_4.png"
+        backgroundImage="/Background_dark_new_4.webp"
         supplement={
           // เหลือการ์ดเดียวแล้ว — ใช้ความกว้างเต็ม Container (PageHero ครอบ 1280px ไว้ให้แล้ว) แทนการจำกัดแคบแบบฟอร์มคู่เดิม
           <Reveal className="w-full rounded-2xl border border-line bg-surface p-6 shadow-[0_1px_3px_rgb(0_0_0/0.06)] sm:p-8">
@@ -46,8 +47,8 @@ export default async function ContactPage() {
               </div>
             </div>
 
-            {/* 5 การ์ดพอดี 1 แถวบนจอกว้าง (lg:grid-cols-5) การ์ดเลยกว้างขึ้นไปพร้อมกับสูงขึ้น */}
-            <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+            {/* 6 การ์ดพอดี 1 แถวบนจอกว้าง */}
+            <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
               {RESOURCE_LINKS.map(({ label, sub, icon: Icon, href, hrefFromEmail, external, download }) => {
                 const resolvedHref = hrefFromEmail ? (settings["contact.email"] ? `mailto:${settings["contact.email"]}` : "#") : href;
                 return (

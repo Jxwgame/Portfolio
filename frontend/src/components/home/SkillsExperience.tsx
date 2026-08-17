@@ -33,6 +33,7 @@ function TechCard({ group, copy }: { group: TechCategory; copy?: TechCategoryCop
                 <img
                   src={`/Logo_Techstack/${item.image}`}
                   alt=""
+                  loading="lazy"
                   className="max-h-7 max-w-7 object-contain sm:max-h-8 sm:max-w-9"
                 />
               ) : (
@@ -80,7 +81,7 @@ export function SkillsExperience({
       className="min-h-screen"
     >
       <div aria-hidden="true" className="absolute inset-0 -z-20 bg-[#071426]">
-        <img src="/Background_dark_1.png" alt="" className="size-full object-fill" />
+        <img src="/Background_dark_1.webp" alt="" loading="lazy" className="size-full object-fill" />
       </div>
       <div aria-hidden="true" className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(5,15,29,0.96)_0%,rgba(5,15,29,0.87)_54%,rgba(5,15,29,0.66)_100%)]" />
 

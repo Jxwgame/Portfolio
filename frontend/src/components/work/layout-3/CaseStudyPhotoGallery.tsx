@@ -5,7 +5,7 @@ import { Images } from "lucide-react";
 
 import { Eyebrow } from "@/components/common/Eyebrow";
 import { MediaPlaceholder } from "@/components/common/MediaPlaceholder";
-import { PhotoLightbox } from "./PhotoLightbox";
+import { PhotoLightbox } from "../PhotoLightbox";
 import type { CaseStudyShot3 } from "@/lib/case-studies/layout-3";
 import { TH_CASE_STUDY_UI } from "@/lib/i18n/th";
 

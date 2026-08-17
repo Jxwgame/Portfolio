@@ -105,16 +105,16 @@ export const LAYOUT_1_STUDIES: CaseStudyLayout1[] = [
       {
         group: "Frontend",
         items: [
-          { name: "Next.js", image: "image%20(9).png" },
-          { name: "React", image: "image%20(7).png" },
-          { name: "TypeScript", image: "image%20(13).png" },
-          { name: "Tailwind CSS", image: "image%20(11).png" },
+          { name: "Next.js", image: "image%20(9).webp" },
+          { name: "React", image: "image%20(7).webp" },
+          { name: "TypeScript", image: "image%20(13).webp" },
+          { name: "Tailwind CSS", image: "image%20(11).webp" },
         ],
       },
       {
         group: "Backend",
         items: [
-          { name: "Go", image: "image%20(3).png" },
+          { name: "Go", image: "image%20(3).webp" },
           { name: "Gin" },
           { name: "SQLite" },
           { name: "GORM" },
@@ -123,10 +123,10 @@ export const LAYOUT_1_STUDIES: CaseStudyLayout1[] = [
       {
         group: "DevOps",
         items: [
-          { name: "Docker", image: "image%20(2).png" },
+          { name: "Docker", image: "image%20(2).webp" },
           { name: "Nginx" },
           { name: "GitHub Actions" },
-          { name: "Vercel", image: "vercel.png" },
+          { name: "Vercel", image: "vercel.webp" },
         ],
       },
     ],

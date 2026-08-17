@@ -28,6 +28,7 @@ export function CaseStudyTechStack({ groups, lang }: { groups: CaseStudyTechGrou
                 <img
                   src={`/Logo_Techstack/${item.image}`}
                   alt={item.name}
+                  loading="lazy"
                   className="max-h-7 max-w-8 object-contain"
                 />
               ) : (

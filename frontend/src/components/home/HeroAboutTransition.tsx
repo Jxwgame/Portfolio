@@ -75,7 +75,7 @@ export function HeroAboutTransition() {
         <g clipPath={`url(#${backClipId})`} opacity="0.48">
           <image
             ref={backImageRef}
-            href="/Background_2_fix.png"
+            href="/Background_2_fix.webp"
             x="-40"
             y="-26"
             width="1520"
@@ -89,7 +89,7 @@ export function HeroAboutTransition() {
         <g clipPath={`url(#${frontClipId})`}>
           <image
             ref={frontImageRef}
-            href="/Background_2_fix.png"
+            href="/Background_2_fix.webp"
             x="-40"
             y="-26"
             width="1520"

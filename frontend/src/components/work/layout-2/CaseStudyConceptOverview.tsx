@@ -1,7 +1,11 @@
+"use client";
+
+import { useState } from "react";
 import { Layers, Route, ScrollText, ShieldCheck, Sparkles, Users, type LucideIcon } from "lucide-react";
 
 import { Eyebrow } from "@/components/common/Eyebrow";
 import { MediaPlaceholder } from "@/components/common/MediaPlaceholder";
+import { PhotoLightbox, ZoomTrigger } from "../PhotoLightbox";
 import { cn } from "@/lib/utils";
 import type { CaseStudyConceptOverview as CaseStudyConceptOverviewType } from "@/lib/case-studies/layout-2";
 import { TH_CASE_STUDY_UI } from "@/lib/i18n/th";
@@ -17,6 +21,7 @@ const FEATURE_ICONS: Record<CaseStudyConceptOverviewType["features"][number]["ic
  * สรุปโครงสร้าง/แนวคิดภาพรวมของโปรเจกต์ก่อนเข้าเนื้อหา Feature Deep Dive
  * ฝั่งซ้ายเป็นข้อความ (หัวข้อ + จุดเด่น + สถิติ), ฝั่งขวาเป็นกริดภาพ diagram ที่มีเลขกำกับ
  * panel ที่ยังไม่มีรูปจริง (`image` ว่าง) จะโชว์กรอบไล่เฉดพร้อม label แทน รอใส่รูปที่ครอปแล้ว
+ * panel ที่มีรูปจริงกดเปิดดูขนาดเต็มใน lightbox ได้ และเลื่อนดู panel อื่นที่มีรูปต่อได้
  */
 export function CaseStudyConceptOverview({
   concept,
@@ -25,6 +30,12 @@ export function CaseStudyConceptOverview({
   concept: CaseStudyConceptOverviewType;
   lang?: "th";
 }) {
+  const [zoomIndex, setZoomIndex] = useState<number | null>(null);
+  // เอาเฉพาะ panel ที่มีรูปจริงเข้า lightbox — panel ที่เป็นกรอบไล่เฉดเปล่าไม่มีอะไรให้ซูมดู
+  const zoomShots = concept.panels
+    .filter((panel) => panel.image)
+    .map((panel) => ({ label: panel.title, gradient: panel.gradient, image: panel.image, focus: panel.focus }));
+
   return (
     <div>
       <Eyebrow>
@@ -83,19 +94,37 @@ export function CaseStudyConceptOverview({
               </span>
               <p className="mt-1 text-[12px] leading-[1.6] text-ink/60">{panel.description}</p>
               <div className="relative mt-4 aspect-[16/9] overflow-hidden rounded-xl">
-                <MediaPlaceholder
-                  image={panel.image}
-                  gradient={panel.gradient}
-                  label={panel.title}
-                  focus={panel.focus}
-                  fit="contain"
-                  className="size-full"
-                />
+                {panel.image ? (
+                  <ZoomTrigger
+                    label={panel.title}
+                    lang={lang}
+                    onClick={() => setZoomIndex(zoomShots.findIndex((shot) => shot.image === panel.image))}
+                  >
+                    <MediaPlaceholder
+                      image={panel.image}
+                      gradient={panel.gradient}
+                      label={panel.title}
+                      focus={panel.focus}
+                      fit="contain"
+                      className="size-full"
+                    />
+                  </ZoomTrigger>
+                ) : (
+                  <MediaPlaceholder
+                    gradient={panel.gradient}
+                    label={panel.title}
+                    focus={panel.focus}
+                    fit="contain"
+                    className="size-full"
+                  />
+                )}
               </div>
             </div>
           ))}
         </div>
       </div>
+
+      <PhotoLightbox shots={zoomShots} index={zoomIndex} onIndexChange={setZoomIndex} lang={lang} />
     </div>
   );
 }

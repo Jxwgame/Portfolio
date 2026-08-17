@@ -36,7 +36,7 @@ export function FeaturedWork({
       className="flex min-h-screen items-center"
     >
       <div aria-hidden="true" className="absolute inset-0 -z-20">
-        <img src="/Background_dark_2.png" alt="" className="size-full object-cover" />
+        <img src="/Background_dark_2.webp" alt="" loading="lazy" className="size-full object-cover" />
       </div>
       {/* ไล่เฉดจาง ๆ ที่ขอบบน กลืนรอยต่อกับพื้นหลังของ Skills & Experience ด้านบน ไม่ให้เห็นรอยตัดภาพ */}
       <div

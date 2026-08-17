@@ -119,6 +119,21 @@ body {
   overflow-x: hidden;
 }
 
+/*
+ * สเกลเลเยอร์ของทั้งเว็บ — ใส่ z-index ใหม่ที่ไหนให้ยึดตารางนี้ ห้ามตั้งเลขมั่ว
+ *   30  ม่านฝน (RainOverlay)
+ *   40  sidebar เดสก์ท็อป + ปุ่มเปิด/ปิดฝน
+ *   50  แคปซูลเมนูมือถือ (header ลอย)
+ *   55  เมนูมือถือเต็มจอ
+ *   60  เกรน (.grain ด้านล่าง)
+ *   70  modal/lightbox (PhotoLightbox)
+ *  100  หน้าจอโหลดของ route (app/loading.tsx)
+ *
+ * ข้อสำคัญ: <Section> ตั้ง `isolate` ไว้ = สร้าง stacking context ของตัวเอง overlay ที่ render อยู่ในเนื้อหา
+ * จึงถูกขังอยู่แค่ใน section นั้น (section ถัดไปกับ layer ด้านบนจะวาดทับ) — overlay เต็มจอทุกตัวต้อง render
+ * ที่ระดับ <body> (เช่นใน layout.tsx) หรือ portal ไป document.body เอง แล้วค่อยใช้เลขจากตารางนี้
+ */
+
 /* เกรนบาง ๆ ทับทั้งหน้า — เป็นลายเซ็นของธีมนี้ */
 .grain {
   position: fixed;

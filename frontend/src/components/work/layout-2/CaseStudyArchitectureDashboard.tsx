@@ -1,7 +1,11 @@
+"use client";
+
+import { useState } from "react";
 import { LayoutDashboard, Network, Workflow } from "lucide-react";
 
 import { Eyebrow } from "@/components/common/Eyebrow";
 import { MediaPlaceholder } from "@/components/common/MediaPlaceholder";
+import { PhotoLightbox, ZoomTrigger } from "../PhotoLightbox";
 import { cn } from "@/lib/utils";
 import type { CaseStudyArchitectureDashboard as CaseStudyArchitectureDashboardType } from "@/lib/case-studies/layout-2";
 import { TH_CASE_STUDY_UI } from "@/lib/i18n/th";
@@ -9,6 +13,7 @@ import { TH_CASE_STUDY_UI } from "@/lib/i18n/th";
 /**
  * ฝั่งซ้าย: ภาพ diagram สถาปัตยกรรมเดียว, ฝั่งขวา: กริดภาพ screenshot แดชบอร์ดจริง 2 คอลัมน์เท่ากันทุกช่อง (ไม่ใช่กราฟจำลอง)
  * ใช้ fit="cover" ให้ทุกช่องขนาดเท่ากัน (เลย์เอาต์กริดสำคัญกว่าการโชว์ภาพเต็มไม่ครอป) — ตั้ง `focus` ต่อรูปถ้าจุดสำคัญไม่ได้อยู่กลางภาพ
+ * ภาพถูกครอปในกริด จึงกดที่รูปไหนก็ได้เพื่อเปิดดูเต็มใน lightbox แล้วเลื่อนดูรูปอื่นในเซ็กชันนี้ต่อได้ (diagram มาเป็นรูปแรก)
  * แทนที่ gallery ปกติของ Infrastructure Overview เมื่อโปรเจกต์มีทั้ง diagram และ screenshot แดชบอร์ดพร้อมใช้
  */
 export function CaseStudyArchitectureDashboard({
@@ -19,6 +24,10 @@ export function CaseStudyArchitectureDashboard({
   lang?: "th";
 }) {
   const isThai = lang === "th";
+  const [zoomIndex, setZoomIndex] = useState<number | null>(null);
+  // รวม diagram กับ screenshot เป็นเซ็ตเดียวเพื่อให้ปุ่มเลื่อนใน lightbox ไล่ดูได้ทั้งเซ็กชัน
+  const zoomShots = [data.architectureImage, ...data.dashboardImages];
+
   return (
     <div>
       <Eyebrow>
@@ -34,13 +43,15 @@ export function CaseStudyArchitectureDashboard({
               <h3 className="font-heading text-[15px] font-bold text-ink">{data.architectureTitle}</h3>
             </div>
             <div className="relative mt-4 aspect-video overflow-hidden rounded-xl">
-              <MediaPlaceholder
-                image={data.architectureImage.image}
-                label={data.architectureImage.label}
-                focus={data.architectureImage.focus}
-                fit="contain"
-                className="size-full"
-              />
+              <ZoomTrigger label={data.architectureImage.label} lang={lang} onClick={() => setZoomIndex(0)}>
+                <MediaPlaceholder
+                  image={data.architectureImage.image}
+                  label={data.architectureImage.label}
+                  focus={data.architectureImage.focus}
+                  fit="contain"
+                  className="size-full"
+                />
+              </ZoomTrigger>
             </div>
           </div>
           {data.architectureDescription && (
@@ -71,7 +82,7 @@ export function CaseStudyArchitectureDashboard({
             <h3 className="font-heading text-[15px] font-bold text-ink">{data.dashboardTitle}</h3>
           </div>
           <div className="mt-4 grid grid-cols-2 gap-3">
-            {data.dashboardImages.map((item) => (
+            {data.dashboardImages.map((item, i) => (
               <div
                 key={item.image}
                 className={cn(
@@ -79,9 +90,11 @@ export function CaseStudyArchitectureDashboard({
                   item.span === "full" && "col-span-2 aspect-[16/9]",
                 )}
               >
-                <MediaPlaceholder image={item.image} label={item.label} focus={item.focus} fit="cover" className="size-full" />
+                <ZoomTrigger label={item.label} lang={lang} onClick={() => setZoomIndex(i + 1)}>
+                  <MediaPlaceholder image={item.image} label={item.label} focus={item.focus} fit="cover" className="size-full" />
+                </ZoomTrigger>
                 {item.label && (
-                  <span className="absolute bottom-2 left-2 rounded-full bg-ink/70 px-2.5 py-1 font-mono text-[10px] text-paper/85 backdrop-blur">
+                  <span className="pointer-events-none absolute bottom-2 left-2 rounded-full bg-ink/70 px-2.5 py-1 font-mono text-[10px] text-paper/85 backdrop-blur">
                     {item.label}
                   </span>
                 )}
@@ -90,6 +103,8 @@ export function CaseStudyArchitectureDashboard({
           </div>
         </div>
       </div>
+
+      <PhotoLightbox shots={zoomShots} index={zoomIndex} onIndexChange={setZoomIndex} lang={lang} />
     </div>
   );
 }
