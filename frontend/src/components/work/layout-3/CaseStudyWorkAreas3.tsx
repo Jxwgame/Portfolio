@@ -18,7 +18,7 @@ const CATEGORY_ICON: Record<string, LucideIcon> = {
 
 const CATEGORY_DESCRIPTION: Record<string, string> = {
   "Data Center": "Installed and maintained network equipment across server racks, from device configuration to full hardware swaps.",
-  Site: "Supported on-site company activities, including trade fair booth setup and facility expansion.",
+  Site: "Surveyed and planned network layouts for trade fair sites so on-site PoS systems would run reliably, and supported facility expansion.",
   DLP: "Evaluated Google Workspace DLP and Safetica through a hands-on proof-of-concept for data protection.",
 };
 
