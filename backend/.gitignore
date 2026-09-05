@@ -1,9 +1,16 @@
+# ข้อมูลจริง + ฐานข้อมูล — ห้าม commit
 /data/
 *.db
 *.db-wal
 *.db-shm
+
+# ไบนารีที่ build ออกมา
 # นำหน้าด้วย / เพื่อล็อกให้ตรงแค่ไบนารีที่ backend/ เท่านั้น
 # ถ้าเขียน "server" เฉย ๆ จะไป ignore โฟลเดอร์ cmd/server/ ด้วย
 /server
 /server.exe
+
+# env จริง — .env.example เปิดเผยได้ (มีแต่ชื่อคีย์) จึงยกเว้นไว้
 .env
+.env.*
+!.env.example

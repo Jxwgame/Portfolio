@@ -22,7 +22,11 @@
 
 # misc
 .DS_Store
+Thumbs.db
+
+# credential / กุญแจ
 *.pem
+*.key
 
 # debug
 npm-debug.log*
@@ -30,8 +34,10 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
+# env files — ค่าจริงห้าม commit แต่ .env.example เปิดเผยได้ (มีแต่ชื่อคีย์)
+.env
+.env.*
+!.env.example
 
 # vercel
 .vercel

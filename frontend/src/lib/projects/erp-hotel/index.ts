@@ -31,6 +31,7 @@ export const caseStudy: CaseStudyLayout4 = {
   endDate: "Present",
   teamType: "Personal Project",
   role: "Full-Stack Engineer & System Designer",
+  repoUrl: "https://github.com/Jxwgame/ERP-Hotel",
   overview:
     "ERP-Hotel (DD-Resort) connects hotel bookings, guest stays, billing, and payments in one system. Current features cover room types and rates, multi-room bookings, check-in, room assignment and changes, walk-ins, day-use stays, Folios, Invoices, Payments, and [[night_audit]]Night Audit[[/night_audit]]. Supporting features include guest records, maintenance, income and expenses, reports, analytics, notifications, user permissions, and audit logs. AI-assisted analysis and Room Access are planned extensions and are not yet implemented.",
   responsibility:
