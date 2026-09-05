@@ -262,12 +262,14 @@ export const caseStudy: CaseStudyLayout4 = {
       {
         device: "tablet",
         label: "Tablet",
-        note: "The same workflow at tablet width, for checking the day away from the counter.",
+        image: `${IMG}/iPad.jpeg`,
+        note: "Business Performance at tablet width: the sidebar collapses to icons and the metric cards reflow, for checking the day away from the counter.",
       },
       {
         device: "phone",
         label: "Phone",
-        note: "Phone width for staff working on the floor rather than at the front desk.",
+        image: `${IMG}/Samsung.jpeg`,
+        note: "The home screen on a phone: shortcuts and the checkout list stack into a single column, for staff working on the floor rather than at the front desk.",
       },
     ],
   },
