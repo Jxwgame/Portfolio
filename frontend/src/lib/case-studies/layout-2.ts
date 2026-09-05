@@ -123,6 +123,8 @@ export type CaseStudyLayout2 = {
   /** บล็อกอธิบายฟีเจอร์แบบภาพ+ข้อความสลับข้าง (ไม่บังคับ) — ใช้เมื่ออยากขยายความแต่ละฟีเจอร์เพิ่มจาก highlights */
   features?: CaseStudyFeature[];
   mainDiagram: CaseStudyDiagramShot;
+  /** หัวข้อของแกลเลอรี diagramShots (ไม่บังคับ) — ไม่ใส่จะใช้ "Infrastructure Overview" ตามเดิม */
+  galleryTitle?: string;
   diagramShots: CaseStudyDiagramShot[];
   /** แผนภาพสถาปัตยกรรม + แดชบอร์ดจำลอง 2 คอลัมน์ (ไม่บังคับ) — ถ้าใส่ จะแสดงแทน gallery ปกติของ Infrastructure Overview */
   architectureDashboard?: CaseStudyArchitectureDashboard;

@@ -1,0 +1,124 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&amp;family=Inter:wght@400;500&amp;display=swap">
+  <style>
+    body { margin: 0; background: #0a1220; color: #eef1f6; font-family: "Inter", system-ui, sans-serif; }
+    a { color: #e89b3c; } a:hover { color: #a9702c; }
+  </style>
+</helmet>
+
+<div style="background: #0a1220; padding: 56px 64px 64px; font-family: 'Inter', system-ui, sans-serif;">
+
+  <div style="display: flex; align-items: center; gap: 14px; font-family: 'Arimo', ui-monospace, monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.2em; color: #e89b3c;">
+    <span>Workflow Journey</span>
+    <span style="height: 1px; flex-grow: 1; max-width: 120px; background: rgb(255 255 255 / 0.14);"></span>
+  </div>
+
+  <div style="display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 48px; align-items: end; margin-top: 26px;">
+    <h2 style="margin: 0; font-family: 'Arimo', sans-serif; font-size: 30px; font-weight: 700; line-height: 1.1; color: #eef1f6;">One stay, from enquiry to closed business day</h2>
+    <p style="margin: 0; font-size: 13px; line-height: 1.75; color: #c5cfdd;">Six stages, each one a real screen. Follow a single guest through the system and the modules explain themselves along the way.</p>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; margin-top: 34px;">
+    <div style="padding: 16px 18px 18px; border-radius: 16px; background: rgb(232 155 60 / 0.14); border-top: 2px solid #e89b3c;">
+      <span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.2em; color: #e89b3c;">01</span>
+      <h4 style="margin: 8px 0 0; font-family: 'Arimo', sans-serif; font-size: 14px; font-weight: 700; color: #eef1f6;">Booking</h4>
+      <p style="margin: 5px 0 0; font-size: 12px; line-height: 1.6; color: #c5cfdd;">Availability checked, rate quoted, booking created.</p>
+    </div>
+    <div style="padding: 16px 18px 18px; border-radius: 16px; background: #121c2e; border-top: 2px solid rgb(255 255 255 / 0.14);">
+      <span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.2em; color: #7e8fa6;">02</span>
+      <h4 style="margin: 8px 0 0; font-family: 'Arimo', sans-serif; font-size: 14px; font-weight: 700; color: #c5cfdd;">Check-in</h4>
+      <p style="margin: 5px 0 0; font-size: 12px; line-height: 1.6; color: #7e8fa6;">Room assigned, key deposit taken, stay opened.</p>
+    </div>
+    <div style="padding: 16px 18px 18px; border-radius: 16px; background: #121c2e; border-top: 2px solid rgb(255 255 255 / 0.14);">
+      <span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.2em; color: #7e8fa6;">03</span>
+      <h4 style="margin: 8px 0 0; font-family: 'Arimo', sans-serif; font-size: 14px; font-weight: 700; color: #c5cfdd;">In house</h4>
+      <p style="margin: 5px 0 0; font-size: 12px; line-height: 1.6; color: #7e8fa6;">Room status, moves, extras posted day by day.</p>
+    </div>
+    <div style="padding: 16px 18px 18px; border-radius: 16px; background: #121c2e; border-top: 2px solid rgb(255 255 255 / 0.14);">
+      <span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.2em; color: #7e8fa6;">04</span>
+      <h4 style="margin: 8px 0 0; font-family: 'Arimo', sans-serif; font-size: 14px; font-weight: 700; color: #c5cfdd;">Folio</h4>
+      <p style="margin: 5px 0 0; font-size: 12px; line-height: 1.6; color: #7e8fa6;">Every charge tagged with the staff who posted it.</p>
+    </div>
+    <div style="padding: 16px 18px 18px; border-radius: 16px; background: #121c2e; border-top: 2px solid rgb(255 255 255 / 0.14);">
+      <span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.2em; color: #7e8fa6;">05</span>
+      <h4 style="margin: 8px 0 0; font-family: 'Arimo', sans-serif; font-size: 14px; font-weight: 700; color: #c5cfdd;">Payment</h4>
+      <p style="margin: 5px 0 0; font-size: 12px; line-height: 1.6; color: #7e8fa6;">Invoice issued, balance settled, deposit returned.</p>
+    </div>
+    <div style="padding: 16px 18px 18px; border-radius: 16px; background: #121c2e; border-top: 2px solid rgb(255 255 255 / 0.14);">
+      <span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.2em; color: #7e8fa6;">06</span>
+      <h4 style="margin: 8px 0 0; font-family: 'Arimo', sans-serif; font-size: 14px; font-weight: 700; color: #c5cfdd;">Night Audit</h4>
+      <p style="margin: 5px 0 0; font-size: 12px; line-height: 1.6; color: #7e8fa6;">Business date rolls, the day's numbers freeze.</p>
+    </div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: minmax(0, 1fr) 400px; gap: 40px; align-items: start; margin-top: 40px;">
+
+    <div style="position: relative; border-radius: 16px; overflow: hidden; border: 1px solid rgb(255 255 255 / 0.14); background: #121c2e;">
+      <img src="reservation.jpg" alt="Booking screen" style="display: block; width: 100%;">
+
+      <span style="position: absolute; left: 16%; top: 16%; width: 40%; height: 15%; border: 1px dashed rgb(232 155 60 / 0.9); border-radius: 6px; background: rgb(232 155 60 / 0.06);"></span>
+        <span style="position: absolute; left: 16%; top: 16%; transform: translate(-50%, -50%); width: 26px; height: 26px; border-radius: 999px; background: #e89b3c; color: #0a1220; font-family: 'Arimo', sans-serif; font-size: 12px; font-weight: 700; display: grid; place-items: center; box-shadow: 0 0 0 4px rgb(10 18 32 / 0.6);">1</span>
+      <span style="position: absolute; left: 46%; top: 40%; width: 34%; height: 17%; border: 1px dashed rgb(232 155 60 / 0.9); border-radius: 6px; background: rgb(232 155 60 / 0.06);"></span>
+        <span style="position: absolute; left: 46%; top: 40%; transform: translate(-50%, -50%); width: 26px; height: 26px; border-radius: 999px; background: #e89b3c; color: #0a1220; font-family: 'Arimo', sans-serif; font-size: 12px; font-weight: 700; display: grid; place-items: center; box-shadow: 0 0 0 4px rgb(10 18 32 / 0.6);">2</span>
+      <span style="position: absolute; left: 64%; top: 67%; width: 30%; height: 16%; border: 1px dashed rgb(232 155 60 / 0.9); border-radius: 6px; background: rgb(232 155 60 / 0.06);"></span>
+        <span style="position: absolute; left: 64%; top: 67%; transform: translate(-50%, -50%); width: 26px; height: 26px; border-radius: 999px; background: #e89b3c; color: #0a1220; font-family: 'Arimo', sans-serif; font-size: 12px; font-weight: 700; display: grid; place-items: center; box-shadow: 0 0 0 4px rgb(10 18 32 / 0.6);">3</span>
+
+      <span style="position: absolute; left: 20px; bottom: 16px; padding: 6px 14px; border-radius: 999px; border: 1px solid rgb(238 241 246 / 0.2); background: rgb(10 18 32 / 0.72); font-family: 'Arimo', ui-monospace, monospace; font-size: 11px; color: rgb(238 241 246 / 0.8);">Stage 01 · Bookings</span>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 18px;">
+      <div>
+        <h3 style="margin: 0; font-family: 'Arimo', sans-serif; font-size: 22px; font-weight: 700; line-height: 1.15; color: #eef1f6;">Booking</h3>
+        <p style="margin: 10px 0 0; font-size: 13px; line-height: 1.75; color: #c5cfdd;">The front desk checks a date range, sees what is genuinely free, and creates the booking against the rate plan that is active for those nights.</p>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <div style="display: flex; gap: 12px;">
+          <span style="flex-shrink: 0; width: 24px; height: 24px; border-radius: 999px; background: #e89b3c; color: #0a1220; font-family: 'Arimo', sans-serif; font-size: 12px; font-weight: 700; display: grid; place-items: center;">1</span>
+          <p style="margin: 0; font-size: 12px; line-height: 1.65; color: #c5cfdd;">Availability is read from the same source the room board uses, so two staff cannot sell the same night twice.</p>
+        </div>
+        <div style="display: flex; gap: 12px;">
+          <span style="flex-shrink: 0; width: 24px; height: 24px; border-radius: 999px; background: #e89b3c; color: #0a1220; font-family: 'Arimo', sans-serif; font-size: 12px; font-weight: 700; display: grid; place-items: center;">2</span>
+          <p style="margin: 0; font-size: 12px; line-height: 1.65; color: #c5cfdd;">The price comes from the active rate plan, with a manual override when the front desk needs one.</p>
+        </div>
+        <div style="display: flex; gap: 12px;">
+          <span style="flex-shrink: 0; width: 24px; height: 24px; border-radius: 999px; background: #e89b3c; color: #0a1220; font-family: 'Arimo', sans-serif; font-size: 12px; font-weight: 700; display: grid; place-items: center;">3</span>
+          <p style="margin: 0; font-size: 12px; line-height: 1.65; color: #c5cfdd;">Guest, channel and party size are captured here once, then carried by every later stage.</p>
+        </div>
+      </div>
+
+      <div style="padding: 18px 20px; border: 1px solid rgb(255 255 255 / 0.14); border-radius: 16px; background: #121c2e;">
+        <span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.16em; color: #c5cfdd;">Carried into the next stage</span>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px;">
+          <span style="padding: 6px 12px; border-radius: 999px; background: rgb(232 155 60 / 0.14); font-family: 'Arimo', ui-monospace, monospace; font-size: 11px; color: #e89b3c;">Booking no.</span>
+          <span style="padding: 6px 12px; border-radius: 999px; background: rgb(232 155 60 / 0.14); font-family: 'Arimo', ui-monospace, monospace; font-size: 11px; color: #e89b3c;">Room type</span>
+          <span style="padding: 6px 12px; border-radius: 999px; background: rgb(232 155 60 / 0.14); font-family: 'Arimo', ui-monospace, monospace; font-size: 11px; color: #e89b3c;">Rate plan</span>
+          <span style="padding: 6px 12px; border-radius: 999px; background: rgb(232 155 60 / 0.14); font-family: 'Arimo', ui-monospace, monospace; font-size: 11px; color: #e89b3c;">Guest profile</span>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px;">
+        <div style="border-radius: 12px; overflow: hidden; border: 1px solid rgb(255 255 255 / 0.14); opacity: 0.55;">
+          <img src="schedule.jpg" alt="Schedule" style="display: block; width: 100%;">
+        </div>
+        <div style="border-radius: 12px; overflow: hidden; border: 1px solid rgb(255 255 255 / 0.14); opacity: 0.55;">
+          <img src="bill-2.jpg" alt="Folio" style="display: block; width: 100%;">
+        </div>
+        <div style="border-radius: 12px; overflow: hidden; border: 1px solid rgb(255 255 255 / 0.14); opacity: 0.55;">
+          <img src="report-1.jpg" alt="Report" style="display: block; width: 100%;">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

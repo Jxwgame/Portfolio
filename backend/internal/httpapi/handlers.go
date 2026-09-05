@@ -112,6 +112,21 @@ func (a *API) experience(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusOK, map[string]any{"experiences": items, "skills": skills})
 }
 
+// help คือเนื้อหาหน้า Help — บันทึกการอัปเดตเว็บ เรียงใหม่สุดก่อน
+// ?lang=th เลือกคอลัมน์ภาษาไทย ค่าอื่น (รวมถึงไม่ส่งมา) ถือเป็นอังกฤษ
+func (a *API) help(w http.ResponseWriter, r *http.Request) {
+	isThai := strings.EqualFold(r.URL.Query().Get("lang"), "th")
+
+	updates, err := a.store.SiteUpdates(r.Context(), isThai, 0)
+	if err != nil {
+		serverError(w, err)
+		return
+	}
+
+	w.Header().Set("Cache-Control", "public, max-age=300")
+	writeJSON(w, http.StatusOK, model.Help{Updates: updates})
+}
+
 func (a *API) contact(w http.ResponseWriter, r *http.Request) {
 	// จำกัดขนาด body ก่อน decode กัน payload ใหญ่ผิดปกติ
 	var in model.ContactInput

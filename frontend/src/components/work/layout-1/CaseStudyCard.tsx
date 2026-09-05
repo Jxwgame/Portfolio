@@ -6,16 +6,19 @@ import { cn } from "@/lib/utils";
 export function CaseStudyCard({
   icon: Icon,
   title,
+  id,
   className,
   children,
 }: {
   icon: LucideIcon;
   title: string;
+  /** ใส่เพื่อผูกกับแท็บนำทาง — ต้องอยู่บนตัวการ์ดเอง (ไม่ครอบด้วย div เพิ่ม) เพราะการ์ดพวกนี้เป็น grid item ที่ถูกจัดตำแหน่งด้วย row-span/col-span อยู่แล้ว */
+  id?: string;
   className?: string;
   children: React.ReactNode;
 }) {
   return (
-    <div className={cn("rounded-2xl border border-line bg-surface p-6", className)}>
+    <div id={id} className={cn("rounded-2xl border border-line bg-surface p-6", className)}>
       <div className="flex items-center gap-2.5">
         <Icon className="size-4 text-rust" aria-hidden="true" />
         <h2 className="font-mono text-[11px] font-bold uppercase tracking-[0.16em] text-fg">{title}</h2>

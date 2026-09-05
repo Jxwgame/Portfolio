@@ -2,7 +2,7 @@ import {
   Boxes,
   Briefcase,
   Container,
-  HelpCircle,
+  Info,
   IdCard,
   Mail,
   Route,
@@ -51,7 +51,7 @@ export const NAV_ITEMS: NavNode[] = [
   { label: "Technical Cargo", href: "/skills", hash: "#skills", icon: Container },
   { label: "Experience", href: "/work", hash: "#work", icon: Briefcase },
   { label: "Contact", href: "/contact", hash: "#contact", icon: Mail },
-  { label: "Help", href: "/help", icon: HelpCircle },
+  { label: "About site", href: "/help", icon: Info },
 ];
 
 /** หน้ารองที่มี route ภาษาไทยจริงแล้ว (ตรงข้ามกับหน้าที่ TH_NAV_ITEMS ยังชี้ไป href อังกฤษเดิม) —
@@ -79,7 +79,7 @@ export const TH_NAV_ITEMS: NavNode[] = NAV_ITEMS.map((item) => {
     "Technical Cargo": "Technical Cargo",
     Experience: "ประสบการณ์",
     Contact: "ติดต่อ",
-    Help: "ช่วยเหลือ",
+    "About site": "เกี่ยวกับเว็บนี้",
   };
 
   if (item.href !== "/") {

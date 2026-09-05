@@ -1,10 +1,16 @@
 /**
  * คำแปลไทยสำหรับหน้ารายละเอียดโปรเจกต์ (/th/work/[slug]) — คู่กับ src/lib/projects/<slug>/index.ts ตัวอังกฤษ
  * เก็บเฉพาะ field ที่เป็นข้อความ (ไม่พก path รูป/gradient ซ้ำ) แล้วผสานกลับเข้ากับ caseStudy ต้นฉบับผ่าน mergeArray/localizeCaseStudyForThai
- * เพิ่มโปรเจกต์ใหม่ที่ต้องแปล: เติม entry ใน TH_LAYOUT{1,2,3}_STUDIES ตาม layout ของโปรเจกต์นั้น โครงสร้าง array ต้องเรียงลำดับตรงกับต้นฉบับ (ผสานตาม index)
+ * เพิ่มโปรเจกต์ใหม่ที่ต้องแปล: เติม entry ใน TH_LAYOUT{1,2,3,4}_STUDIES ตาม layout ของโปรเจกต์นั้น โครงสร้าง array ต้องเรียงลำดับตรงกับต้นฉบับ (ผสานตาม index)
  */
-import type { CaseStudy, CaseStudyLayout1, CaseStudyLayout2, CaseStudyLayout3 } from "@/lib/case-studies";
-import type { CaseStudyPhase, CaseStudyShot } from "@/lib/case-studies/layout-1";
+import type {
+  CaseStudy,
+  CaseStudyLayout1,
+  CaseStudyLayout2,
+  CaseStudyLayout3,
+  CaseStudyLayout4,
+} from "@/lib/case-studies";
+import type { CaseStudyChallenge, CaseStudyPhase, CaseStudyShot } from "@/lib/case-studies/layout-1";
 import type {
   CaseStudyArchitectureImage,
   CaseStudyArchitectureStage,
@@ -15,6 +21,12 @@ import type {
   CaseStudyTakeaway,
 } from "@/lib/case-studies/layout-2";
 import type { CaseStudyShot3 } from "@/lib/case-studies/layout-3";
+import type {
+  CaseStudyDeviceShot,
+  CaseStudyModule,
+  CaseStudyScreen,
+  CaseStudyWorkflowStage,
+} from "@/lib/case-studies/layout-4";
 
 /** ผสาน array ต้นฉบับกับ array คำแปล (partial) ตำแหน่งต่อตำแหน่ง — ไม่ระบุ index ไหนไว้ก็ใช้ค่าต้นฉบับ (อังกฤษ) ต่อไป */
 function mergeArray<T>(original: T[], overrides?: Partial<T>[]): T[] {
@@ -29,6 +41,8 @@ type ThLayout1 = Partial<Pick<CaseStudyLayout1, "eyebrow" | "summary" | "descrip
   highlights?: string[];
   shots?: Partial<CaseStudyShot>[];
   phases?: Partial<CaseStudyPhase>[];
+  architecture?: Partial<NonNullable<CaseStudyLayout1["architecture"]>[number]>[];
+  challenges?: Partial<CaseStudyChallenge>[];
 };
 
 const TH_LAYOUT1_STUDIES: Record<string, ThLayout1> = {
@@ -94,6 +108,8 @@ function localizeLayout1Th(study: CaseStudyLayout1): CaseStudyLayout1 {
     highlights: th.highlights ?? study.highlights,
     shots: mergeArray(study.shots, th.shots),
     phases: mergeArray(study.phases, th.phases),
+    architecture: study.architecture ? mergeArray(study.architecture, th.architecture) : study.architecture,
+    challenges: study.challenges ? mergeArray(study.challenges, th.challenges) : study.challenges,
   };
 }
 
@@ -126,6 +142,7 @@ type ThLayout2 = Partial<
   conceptOverview?: ThConceptOverview;
   architectureDashboard?: ThArchitectureDashboard;
   mainDiagram?: { label?: string };
+  galleryTitle?: string;
   diagramShots?: Partial<CaseStudyDiagramShot>[];
   takeaways?: Partial<CaseStudyTakeaway>[];
 };
@@ -209,6 +226,8 @@ const TH_LAYOUT2_STUDIES: Record<string, ThLayout2> = {
     ],
     mainDiagram: { label: "แพลตฟอร์มพัฒนาซอฟต์แวร์ภายในองค์กร" },
     diagramShots: [
+      { label: "สถาปัตยกรรมระบบ" },
+      { label: "โครงสร้างการปรับใช้งานระบบ" },
       { label: "ภาพรวมโปรเจกต์" },
       { label: "ไปป์ไลน์การปรับใช้งาน" },
       { label: "แดชบอร์ดสถานะแพลตฟอร์ม" },
@@ -458,6 +477,7 @@ function localizeLayout2Th(study: CaseStudyLayout2): CaseStudyLayout2 {
       ? localizeArchitectureDashboard(study.architectureDashboard, th.architectureDashboard)
       : study.architectureDashboard,
     mainDiagram: th.mainDiagram ? { ...study.mainDiagram, ...th.mainDiagram } : study.mainDiagram,
+    galleryTitle: th.galleryTitle ?? study.galleryTitle,
     diagramShots: mergeArray(study.diagramShots, th.diagramShots),
     takeaways: study.takeaways ? mergeArray(study.takeaways, th.takeaways) : study.takeaways,
   };
@@ -540,9 +560,383 @@ function localizeLayout3Th(study: CaseStudyLayout3): CaseStudyLayout3 {
   };
 }
 
+// ---------- Layout 4: erp-hotel ----------
+
+type ThLayout4Module = {
+  name?: string;
+  title?: string;
+  description?: string;
+  annotations?: { description?: string }[];
+  aside?: { title?: string; items?: string[] };
+  screens?: Partial<CaseStudyScreen>[];
+};
+
+type ThLayout4 = Partial<
+  Pick<CaseStudyLayout4, "eyebrow" | "summary" | "overview" | "responsibility" | "teamType" | "role">
+> & {
+  highlights?: string[];
+  impact?: string[];
+  heroStats?: string[];
+  workflow?: {
+    eyebrow?: string;
+    description?: string;
+    stages?: Partial<CaseStudyWorkflowStage>[];
+  };
+  architecture?: {
+    eyebrow?: string;
+    title?: string;
+    description?: string;
+    notes?: Partial<{ title: string; description: string }>[];
+  };
+  modules?: ThLayout4Module[];
+  responsive?: {
+    eyebrow?: string;
+    title?: string;
+    description?: string;
+    devices?: Partial<CaseStudyDeviceShot>[];
+  };
+  screenIndex?: {
+    eyebrow?: string;
+    title?: string;
+    description?: string;
+    shots?: Partial<CaseStudyScreen>[];
+  };
+  takeaways?: Partial<CaseStudyTakeaway>[];
+};
+
+const TH_LAYOUT4_STUDIES: Record<string, ThLayout4> = {
+  "erp-hotel": {
+    eyebrow: "ระบบ ERP / PMS สำหรับงานโรงแรม",
+    summary:
+      "ระบบ ERP/PMS สำหรับโรงแรมที่เชื่อมงานจอง การเข้าพัก การจัดการห้อง การเรียกเก็บเงิน และการวิเคราะห์ผลการดำเนินงาน พร้อมแผนพัฒนา AI ช่วยวิเคราะห์ข้อมูลและเชื่อมต่อระบบสิทธิ์เข้าห้องพักในอนาคต",
+    teamType: "โปรเจกต์ส่วนตัว",
+    role: "Full-Stack Engineer และผู้ออกแบบระบบ",
+    overview:
+      "ERP-Hotel (DD-Resort) เชื่อมงานจอง การเข้าพัก การเรียกเก็บเงิน และการรับชำระเงินไว้ในระบบเดียว ปัจจุบันครอบคลุมประเภทห้องและราคา การจองหลายห้อง การเช็กอิน การจัดและย้ายห้อง Walk-in การพักแบบ Day-use Folio ใบแจ้งหนี้ การชำระเงิน และ[[night_audit]]Night Audit[[/night_audit]] พร้อมข้อมูลแขก งานซ่อมบำรุง รายรับและรายจ่าย รายงาน การวิเคราะห์ การแจ้งเตือน สิทธิ์ผู้ใช้ และประวัติการเปลี่ยนแปลงข้อมูล ส่วน AI ช่วยวิเคราะห์ข้อมูลและ Room Access เป็นแผนต่อยอดที่ยังไม่ได้พัฒนา",
+    responsibility:
+      "ออกแบบและพัฒนาระบบด้วยตัวเอง ตั้งแต่โมเดลธุรกิจจนถึงหน้าจอไทยและอังกฤษ ใช้ Next.js React และ TypeScript สำหรับ Frontend ส่วน Backend ใช้[[go]]Go[[/go]]กับ Gin ในสถาปัตยกรรม[[modular_monolith]]Modular Monolith[[/modular_monolith]] โดยเข้าถึงฐานข้อมูลกลาง[[postgresql]]PostgreSQL[[/postgresql]]ผ่าน sqlc และ pgx โมดูล Frontdesk ประสานงานข้ามโมดูลภายในทรานแซกชัน และมี[[idempotency]]Idempotency[[/idempotency]]ป้องกันคำสั่งซ้ำในรายการที่กำหนด สำหรับสภาพแวดล้อมพัฒนา Nginx ส่งคำขอจากเบราว์เซอร์ไปยัง Frontend หรือ API ส่วนการอ่านข้อมูลจาก Server เรียก API โดยตรง โดย Nginx และ PostgreSQL ทำงานผ่าน[[docker]]Docker[[/docker]] Compose",
+    highlights: [
+      "พัฒนาขั้นตอน Booking → Stay → Folio → Invoice → Payment พร้อมทรานแซกชันข้ามโมดูลและการป้องกันคำสั่งซ้ำในรายการที่กำหนด",
+      "พัฒนาเครื่องมือหน้าเคาน์เตอร์สำหรับเช็กอิน เช็กเอาต์ ย้ายห้อง Walk-in พักชั่วคราวแบบ Day-use และการปิดวันทำการด้วย Night Audit",
+      "พัฒนาปฏิทินราคาพร้อมแผนราคาแยกตามชนิดห้อง และเครื่องมือตรวจสอบราคาที่ใช้ตัวคำนวณเดียวกับระบบจองจริง",
+      "พัฒนากระดานสถานะห้องแบบเรียลไทม์ ครอบคลุมสถานะมีแขกพัก พร้อมขาย รอทำความสะอาด กำลังทำความสะอาด และปิดปรับปรุง",
+      "พัฒนารายงานและการวิเคราะห์ธุรกิจ ทั้งอัตราการเข้าพัก ADR RevPAR สัดส่วนรายได้ตามประเภทห้องและช่องทางการจอง พร้อมการติดตามจุดคุ้มทุน",
+      "พัฒนาการวิเคราะห์ข้อมูลผู้เข้าพัก ทั้งแนวโน้มแขกใหม่เทียบแขกกลับมาพักซ้ำ ความถี่ในการเข้าพัก ระยะเวลาจองล่วงหน้า และประวัติการเข้าพักรายบุคคล",
+      "พัฒนาการจัดการงานซ่อมบำรุงและรายจ่าย พร้อมมุมมองรายรับ รายจ่าย และกำไรรายเดือน",
+      "ส่งมอบหน้าจอ Responsive สองภาษา (อังกฤษ/ไทย) รองรับทั้งธีมสว่างและมืด สำหรับงานประจำวันของโรงแรม",
+    ],
+    impact: [
+      "แทนที่การทำงานหน้าเคาน์เตอร์ด้วยกระดาษและสเปรดชีต ด้วยระบบเดียวที่ครอบคลุมตั้งแต่การจองจนถึงการรับชำระเงิน",
+      "ทำให้พนักงานเห็นสถานะห้อง การเข้าพัก การเช็กเอาต์ และห้องที่เลยกำหนดเช็กเอาต์ได้จากที่เดียวตลอดทั้งวัน",
+      "ทำให้เห็นตัวเลขรายได้ได้ภายในวันเดียวกันผ่านหน้าวิเคราะห์ผลการดำเนินงาน โดยไม่ต้องรอให้ Night Audit ปิดยอดก่อน",
+      "รักษาความรับผิดชอบต่อรายการเงินและการตั้งค่าระบบที่อ่อนไหว ด้วยสิทธิ์ตามบทบาทและ Audit Log แบบเพิ่มข้อมูลได้อย่างเดียว",
+    ],
+    heroStats: ["18 หน้าจอ", "9 โมดูล", "พัฒนาคนเดียว", "อังกฤษ/ไทย"],
+    workflow: {
+      eyebrow: "ขั้นตอนการทำงานทั้งวงจร",
+      description:
+        "ขั้นตอนหลักเริ่มจากจองประเภทห้อง จัดห้องจริง บันทึกค่าใช้จ่ายระหว่างเข้าพัก และชำระใบแจ้งหนี้ โดยอาจรับมัดจำหรือชำระเงินบางส่วนก่อนเช็กเอาต์ได้ ส่วน Night Audit เป็นงานประจำวันแยกต่างหาก สำหรับลงค่าห้อง บันทึกสถิติรายวัน และเลื่อนวันทำการของโรงแรม การเข้าพักหนึ่งครั้งจึงครอบคลุมหลายวันทำการได้",
+      stages: [
+        { title: "การจอง", description: "ตรวจห้องว่าง เสนอราคา และสร้างการจอง" },
+        { title: "เช็กอิน", description: "จัดห้อง เปิดการเข้าพัก และรับมัดจำกุญแจหากเลือกเก็บ" },
+        { title: "ระหว่างเข้าพัก", description: "สถานะห้อง การย้ายห้อง และค่าใช้จ่ายที่บันทึกรายวัน" },
+        { title: "Folio", description: "ทุกรายการระบุพนักงานที่บันทึกไว้" },
+        { title: "ใบแจ้งหนี้ / ชำระเงิน", description: "ออกใบแจ้งหนี้ บันทึกการชำระเงิน และนำมัดจำมาใช้หรือคืนตามเงื่อนไข" },
+        { title: "Night Audit", description: "ลงค่าห้อง บันทึกสถิติรายวัน และเลื่อนวันทำการ" },
+      ],
+    },
+    architecture: {
+      eyebrow: "สถาปัตยกรรมของระบบ",
+      title: "เส้นทางเดียว ฐานข้อมูลเดียว",
+      description:
+        "พนักงานเข้าถึงระบบผ่าน Nginx ซึ่งให้บริการหน้าจอ Next.js และส่งต่อคำขอไปยัง Go API ที่อยู่ด้านหลัง ตัว Modular Monolith วางขั้นตอนงานหน้าเคาน์เตอร์ไว้เหนือโมดูลหลักและชั้นพื้นฐานที่ใช้ร่วมกัน โดยทุกการเขียนข้อมูลผ่านชั้น Repository ชั้นเดียวลงสู่ PostgreSQL",
+      notes: [
+        {
+          title: "เส้นทางของคำขอ",
+          description:
+            "Nginx อยู่หน้าสุด Next.js รับผิดชอบหน้าจอและการอ่านข้อมูลฝั่งเซิร์ฟเวอร์ ส่วนคำสั่งที่เขียนข้อมูลทั้งหมดวิ่งผ่าน REST API ที่เขียนด้วย Go และ Gin",
+        },
+        {
+          title: "Modular Monolith",
+          description:
+            "ขั้นตอนงานหน้าเคาน์เตอร์ที่พาดผ่านหลายโมดูลวางอยู่เหนือโมดูลหลัก และชั้นพื้นฐานที่ใช้ร่วมกัน ทั้งการยืนยันตัวตนและสิทธิ์ Audit Business Date และการแจ้งเตือน",
+        },
+        {
+          title: "ส่วนที่วางแผนไว้ ยังไม่ได้ทำ",
+          description:
+            "ระบบเข้าห้องผ่าน MQTT Gateway และการวิเคราะห์ด้วย AI ถูกวาดไว้ในแผนภาพในฐานะงานอนาคต แยกกรอบออกจากส่วนที่ใช้งานจริงแล้วอย่างชัดเจน",
+        },
+      ],
+    },
+    modules: [
+      {
+        name: "หน้าหลัก",
+        title: "ทางลัดของงานที่ต้องทำในแต่ละวัน",
+        description:
+          "ศูนย์รวมทางลัดของงานที่ต้องทำในแต่ละวัน ซึ่งพนักงานหน้าเคาน์เตอร์เปิดค้างไว้ตลอดเวลาปฏิบัติงาน คำสั่งที่ใช้บ่อยที่สุดถูกจัดไว้ให้เรียกใช้ได้ในคลิกเดียว ทั้งการขายห้องแบบ Walk-in การให้บริการแบบ Day-use การจองล่วงหน้า และการเช็กอิน",
+        annotations: [
+          {
+            description:
+              "อัตราการเข้าพักของวันนี้ จำนวนห้องที่ขายได้ จำนวนแขกที่กำลังเข้าพัก และจำนวนห้องที่รอการทำความสะอาด เป็นตัวเลขสำหรับใช้ตัดสินใจ ไม่ใช่สำหรับนั่งวิเคราะห์",
+          },
+          {
+            description:
+              "ขายห้องแบบ Walk-in ให้บริการแบบ Day-use จองล่วงหน้า และเช็กอิน ทั้งหมดเรียกใช้ได้ในคลิกเดียว ไม่ต้องไล่หาในเมนู",
+          },
+          {
+            description:
+              "ห้องที่ใกล้ถึงเวลาเช็กเอาต์ ห้องที่เลยกำหนดแล้ว ผังห้องแบบเรียลไทม์ และรายการห้องที่มีแขกพักอยู่ ซึ่งสั่งเช็กเอาต์ได้จากแต่ละแถวโดยตรง",
+          },
+        ],
+        screens: [
+          { label: "หน้าหลัก · ทางลัดและตัวเลขของวันนี้" },
+          { label: "หน้าหลัก · ห้องที่กำลังเข้าพักและการแจ้งเตือน" },
+        ],
+      },
+      {
+        name: "ห้องพัก",
+        title: "ทุกห้องและสถานะ ณ ตอนนี้",
+        description:
+          "กระดานแสดงทุกห้องและสถานะ ณ ตอนนั้น ทั้งมีแขกพัก พร้อมขาย รอทำความสะอาด กำลังทำความสะอาด และปิดปรับปรุง แม่บ้านกดอัปเดตสถานะได้จากการ์ดห้องโดยตรง ส่วนแผงด้านข้างสรุปจำนวนห้องตามสถานะและตามชนิดห้อง พร้อมราคาและจำนวนห้องที่ยังว่างของแต่ละชนิด",
+        screens: [{ label: "ห้องพัก · ผังสถานะห้อง" }],
+      },
+      {
+        name: "การจอง",
+        title: "มองคืนเดียวกันจากสองมุม",
+        description:
+          "ตารางจองวางทุกการเข้าพักเป็นห้อง × วันที่ ทำให้เห็นห้องว่างได้ในปราดเดียว ส่วนหน้าสร้างการจองใช้ตรวจห้องว่างตามช่วงวันที่ แล้วสร้างการจองพร้อมข้อมูลแขก ชนิดห้อง แผนราคา ช่องทางการจอง และจำนวนผู้เข้าพัก หรือค้นหาการจองเดิมด้วยเลขที่การจอง ราคามาจากแผนราคาที่ใช้งานอยู่ และกำหนดเองได้เมื่อหน้าเคาน์เตอร์จำเป็นต้องปรับ",
+        aside: { title: "อ่านข้อมูลจาก", items: ["ห้องว่าง", "แผนราคา", "ทะเบียนแขก"] },
+        screens: [
+          { label: "การจอง · ตารางจอง" },
+          { label: "การจอง · ตรวจห้องว่างและสร้างการจอง" },
+        ],
+      },
+      {
+        name: "ราคาห้อง",
+        title: "คำนวณชุดเดียว ทั้งราคาที่เสนอและที่เรียกเก็บ",
+        description:
+          "ปฏิทินรายเดือนแสดงราคาต่อคืนของทุกชนิดห้องในหน้าเดียว แยกแผนราคามาตรฐานที่คงที่ทั้งปีออกจากแผนราคาสำหรับ Walk-in และมีเครื่องหมายกำกับวันนี้ วันหยุดสุดสัปดาห์ และวันธรรมดา ส่วนเครื่องมือตรวจสอบราคาใช้ตัวคำนวณเดียวกับระบบจองจริง ราคาที่พนักงานแจ้งจึงเป็นราคาที่แขกถูกเรียกเก็บจริง",
+        screens: [{ label: "ราคาห้อง · ปฏิทินราคา" }],
+      },
+      {
+        name: "การเงิน",
+        title: "ตั้งแต่เปิด Folio จนถึงปิดยอด",
+        description:
+          "การเข้าพักทุกครั้งจะเปิด Folio ที่รวบรวมค่าห้องและค่าใช้จ่ายอื่นเรียงตามวัน โดยแต่ละรายการระบุพนักงานที่บันทึกไว้ จากนั้นยอดจะเดินต่อไปยังใบแจ้งหนี้และการรับชำระเงิน ยกเลิกรายการทีละรายการได้ และแยกจัดการมัดจำกุญแจทั้งการรับ คืน และริบ พร้อมหน้าภาพรวมที่แสดง Folio ที่เปิดอยู่และปิดแล้ว กรองดูเป็นรายวัน สัปดาห์ หรือเดือนได้",
+        screens: [
+          { label: "การเงิน · รายการ Folio" },
+          { label: "การเงิน · รายละเอียด Folio และค่าใช้จ่าย" },
+        ],
+      },
+      {
+        name: "รายงาน",
+        title: "ข้อมูลรายวัน อธิบายผ่านตัวชี้วัด",
+        description:
+          "รายงานใช้สถิติรายวันที่ Night Audit บันทึกไว้ โดย Analytics คำนวณตัวชี้วัด เช่น อัตราการเข้าพัก ADR และ RevPAR เมื่อเปิดอ่านรายงาน การแก้สูตรจึงอาจเปลี่ยนผลคำนวณย้อนหลังได้ พร้อมเปรียบเทียบช่วงเวลาและแยกรายได้ตามประเภทห้อง ช่องทางการจอง และวิธีขาย เพื่ออธิบายผลการดำเนินงานทั้งการพักค้างคืนและ Day-use",
+        aside: { title: "อ้างอิงข้อมูลจาก", items: ["Night Audit", "Business Date", "สถิติรายวัน"] },
+        screens: [
+          { label: "รายงาน · KPI อัตราการเข้าพักและรายได้" },
+          { label: "รายงาน · แนวโน้มและสัดส่วนรายได้" },
+          { label: "รายงาน · ห้องค้างคืน Day-use และงานซ่อม" },
+          { label: "รายงาน · รายละเอียดสัดส่วนรายได้" },
+        ],
+      },
+      {
+        name: "ผลการดำเนินงานธุรกิจ",
+        title: "เห็นผลการดำเนินงานวันนี้ พร้อมแผนต่อยอด AI",
+        description:
+          "Dashboard ปัจจุบันคำนวณรายรับ รายจ่าย อัตราการเข้าพัก ADR RevPAR และความคืบหน้าสู่จุดคุ้มทุนจากข้อมูลการทำงานที่มีอยู่ โดยไม่ต้องรอ Night Audit ตัวเลขเหล่านี้มาจากสูตรคำนวณ ยังไม่ได้ใช้ AI แผนต่อไปคือเพิ่ม AI ช่วยวิเคราะห์ข้อมูลที่จัดเตรียมผ่าน Analytics Service แล้วแสดงผลให้ผู้บริหารพิจารณา",
+        aside: {
+          title: "แผน AI Analysis — ยังไม่ได้พัฒนา",
+          items: [
+            "ข้อมูลโรงแรม → ตัวชี้วัดและแนวโน้มย้อนหลัง → AI ช่วยวิเคราะห์ → Dashboard ผู้บริหาร",
+            "ตัวอย่างที่เสนอ: อธิบายแนวโน้ม ตรวจจับความผิดปกติ และพยากรณ์รายได้หรืออัตราการเข้าพัก",
+            "ข้อมูลเชิงลึกและข้อเสนอแนะใช้ประกอบการพิจารณาและตัดสินใจของผู้บริหาร",
+          ],
+        },
+        screens: [
+          { label: "ผลการดำเนินงานธุรกิจ · KPI แบบสด" },
+          { label: "ผลการดำเนินงานธุรกิจ · อัตราการเข้าพักและ ADR" },
+          { label: "ผลการดำเนินงานธุรกิจ · จุดคุ้มทุน" },
+        ],
+      },
+      {
+        name: "การวิเคราะห์ข้อมูลผู้เข้าพัก",
+        title: "ใครคือคนที่มาพักจริง ๆ",
+        description:
+          "แนวโน้มแขกใหม่เทียบแขกที่กลับมาพักซ้ำ ส่วนผสมของแขกตามช่องทางการจอง ระยะพักเฉลี่ยและเวลาจองล่วงหน้าเฉลี่ย พร้อมโปรไฟล์รายบุคคลที่บอกว่าแขกคนนั้นกลับมาบ่อยแค่ไหน ชอบห้องประเภทไหน และมีประวัติการเข้าพักย้อนหลังทั้งหมดอย่างไร",
+        screens: [
+          { label: "การวิเคราะห์ผู้เข้าพัก · แขกใหม่เทียบแขกเก่า" },
+          { label: "การวิเคราะห์ผู้เข้าพัก · โปรไฟล์แขก" },
+        ],
+      },
+      {
+        name: "บัญชี",
+        title: "เงินไปอยู่ที่ไหนบ้าง",
+        description:
+          "มุมมองรายรับและรายจ่ายรายเดือน แสดงรายรับ รายจ่าย กำไรสุทธิ และอัตรากำไร พร้อมแยกหมวดค่าใช้จ่าย เช่น ค่าแรง ค่าสาธารณูปโภค ซ่อมบำรุง แม่บ้าน และการตลาด เป็นมุมมองสรุปสำหรับการบริหาร ยังไม่ใช่ระบบบัญชีแยกประเภทเต็มรูปแบบ",
+        screens: [{ label: "บัญชี · กำไรขาดทุนรายเดือน" }],
+      },
+    ],
+    responsive: {
+      eyebrow: "รองรับทุกขนาดหน้าจอ",
+      title: "กะเดียวกัน บนเครื่องอะไรก็ได้ที่อยู่ตรงหน้า",
+      description:
+        "หน้าเคาน์เตอร์ใช้งานบนเดสก์ท็อปตลอดวัน แต่หน้าจอชุดเดียวกันก็ถูกเรียกใช้นอกเคาน์เตอร์ด้วย ทุกโมดูลจึงออกแบบให้รองรับความกว้างระดับแท็บเล็ตและโทรศัพท์ไปพร้อมกัน",
+      devices: [
+        {
+          label: "เดสก์ท็อป",
+          note: "พื้นที่ทำงานเต็มรูปแบบ เมนูกางค้างไว้ ตัวเลขของวันเรียงอยู่ด้านบน และรายการห้องที่มีแขกพักอยู่ข้างผังห้อง",
+        },
+        {
+          label: "แท็บเล็ต",
+          note: "ขั้นตอนการทำงานเดิมบนความกว้างระดับแท็บเล็ต สำหรับดูสถานะของวันเมื่อไม่ได้อยู่ที่เคาน์เตอร์",
+        },
+        {
+          label: "โทรศัพท์",
+          note: "ความกว้างระดับโทรศัพท์ สำหรับพนักงานที่ทำงานอยู่หน้างานแทนที่จะอยู่หน้าเคาน์เตอร์",
+        },
+      ],
+    },
+    screenIndex: {
+      eyebrow: "ทุกหน้าจอในระบบ",
+      title: "ทั้งระบบบนแผ่นเดียว",
+      description:
+        "ภาพเหล่านี้แสดงหน้าจอระบบโรงแรมที่มีอยู่ปัจจุบัน พร้อมฟังก์ชันสนับสนุน ได้แก่ งานหน้าเคาน์เตอร์ ทะเบียนแขก งานแจ้งซ่อม สิทธิ์ผู้ใช้ และประวัติการใช้งาน ส่วน AI Analysis และ Room Access ใน Diagram เป็นแผนอนาคต ยังไม่ใช่ฟังก์ชันในภาพหน้าจอชุดนี้",
+      shots: [
+        { label: "หน้าหลัก" },
+        { label: "หน้าหลัก · การแจ้งเตือน" },
+        { label: "ห้องพัก" },
+        { label: "ตารางจอง" },
+        { label: "สร้างการจอง" },
+        { label: "ราคาห้อง" },
+        { label: "รายการ Folio" },
+        { label: "รายละเอียด Folio" },
+        { label: "รายงาน · KPI" },
+        { label: "รายงาน · สัดส่วนรายได้" },
+        { label: "รายงาน · กลุ่มลูกค้า" },
+        { label: "รายงาน · รายละเอียดรายได้" },
+        { label: "ผลการดำเนินงาน" },
+        { label: "อัตราการเข้าพักและ ADR" },
+        { label: "จุดคุ้มทุน" },
+        { label: "ส่วนผสมของแขก" },
+        { label: "โปรไฟล์แขก" },
+        { label: "บัญชี" },
+      ],
+    },
+    takeaways: [
+      {
+        title: "โดเมนเดียว หลายโมดูล",
+        description:
+          "พัฒนาระบบหลังบ้านเป็น Modular Monolith เพื่อให้การจอง การเข้าพัก การเรียกเก็บเงิน และงานหลังบ้าน ใช้ฐานข้อมูลและทรานแซกชันเดียวกัน โดยยังคงขอบเขตของแต่ละโมดูลไว้ชัดเจน",
+      },
+      {
+        title: "งานปฏิบัติการที่ไม่มีช่องว่าง",
+        description:
+          "พัฒนา Night Audit สำหรับลงค่าห้อง จัดการการจองที่ไม่มาเข้าพักและ Day-use ที่ยังเปิดอยู่ บันทึกสถิติรายวัน และเลื่อนวันทำการ มีคำสั่งแบบรันครั้งเดียวรองรับการตั้งเวลา โดยการตั้งตารางเวลาของ OS เป็นขั้นตอนตอนนำระบบไปใช้งาน",
+      },
+      {
+        title: "เห็นตัวเลขได้ภายในวันเดียวกัน",
+        description:
+          "ใช้รายงานจากข้อมูลที่ Night Audit บันทึกไว้ควบคู่กับหน้าผลการดำเนินงานปัจจุบัน เพื่อให้พนักงานตรวจอัตราการเข้าพัก รายได้ และความคืบหน้าสู่จุดคุ้มทุนได้ก่อนปิดวัน",
+      },
+      {
+        title: "อนาคต: AI ช่วยวิเคราะห์ข้อมูล",
+        description:
+          "มีแผนใช้ข้อมูลที่จัดเตรียมผ่าน Analytics Service ให้ AI ช่วยอธิบายแนวโน้ม ตรวจจับความผิดปกติ และพยากรณ์รายได้หรืออัตราการเข้าพัก ทั้งหมดเป็นตัวอย่างการใช้งานที่เสนอ ยังไม่ได้พัฒนา โดยจะแสดงข้อมูลเชิงลึกบน Dashboard ให้ผู้บริหารพิจารณา",
+      },
+      {
+        title: "อนาคต: ระบบสิทธิ์เข้าห้องพัก",
+        description:
+          "มีแผนเชื่อมสิทธิ์เข้าห้องกับการเช็กอินและเช็กเอาต์ Diagram แสดงตัวอย่าง Encoder ออกคีย์การ์ด และ MQTT เชื่อมผ่าน Gateway ไปยัง Lock ของห้อง A1 A2 และ A3 เป็นแนวทางที่เสนอ โดยรูปแบบการเชื่อมต่อจริงขึ้นอยู่กับอุปกรณ์และระบบสิทธิ์เข้าห้องที่เลือกใช้",
+      },
+    ],
+  },
+};
+
+function localizeLayout4Module(original: CaseStudyModule, th?: ThLayout4Module): CaseStudyModule {
+  if (!th) return original;
+  return {
+    ...original,
+    name: th.name ?? original.name,
+    title: th.title ?? original.title,
+    description: th.description ?? original.description,
+    annotations: original.annotations ? mergeArray(original.annotations, th.annotations) : original.annotations,
+    aside:
+      original.aside && th.aside
+        ? {
+            title: th.aside.title ?? original.aside.title,
+            items: th.aside.items ?? original.aside.items,
+          }
+        : original.aside,
+    screens: mergeArray(original.screens, th.screens),
+  };
+}
+
+function localizeLayout4Th(study: CaseStudyLayout4): CaseStudyLayout4 {
+  const th = TH_LAYOUT4_STUDIES[study.slug];
+  if (!th) return study;
+  return {
+    ...study,
+    eyebrow: th.eyebrow ?? study.eyebrow,
+    summary: th.summary ?? study.summary,
+    overview: th.overview ?? study.overview,
+    responsibility: th.responsibility ?? study.responsibility,
+    teamType: th.teamType ?? study.teamType,
+    role: th.role ?? study.role,
+    highlights: th.highlights ?? study.highlights,
+    impact: th.impact ?? study.impact,
+    heroStats: th.heroStats ?? study.heroStats,
+    workflow:
+      study.workflow && th.workflow
+        ? {
+            ...study.workflow,
+            eyebrow: th.workflow.eyebrow ?? study.workflow.eyebrow,
+            description: th.workflow.description ?? study.workflow.description,
+            stages: mergeArray(study.workflow.stages, th.workflow.stages),
+          }
+        : study.workflow,
+    architecture:
+      study.architecture && th.architecture
+        ? {
+            ...study.architecture,
+            eyebrow: th.architecture.eyebrow ?? study.architecture.eyebrow,
+            title: th.architecture.title ?? study.architecture.title,
+            description: th.architecture.description ?? study.architecture.description,
+            notes: study.architecture.notes
+              ? mergeArray(study.architecture.notes, th.architecture.notes)
+              : study.architecture.notes,
+          }
+        : study.architecture,
+    modules: study.modules.map((mod, i) => localizeLayout4Module(mod, th.modules?.[i])),
+    responsive:
+      study.responsive && th.responsive
+        ? {
+            ...study.responsive,
+            eyebrow: th.responsive.eyebrow ?? study.responsive.eyebrow,
+            title: th.responsive.title ?? study.responsive.title,
+            description: th.responsive.description ?? study.responsive.description,
+            devices: mergeArray(study.responsive.devices, th.responsive.devices),
+          }
+        : study.responsive,
+    screenIndex:
+      study.screenIndex && th.screenIndex
+        ? {
+            ...study.screenIndex,
+            eyebrow: th.screenIndex.eyebrow ?? study.screenIndex.eyebrow,
+            title: th.screenIndex.title ?? study.screenIndex.title,
+            description: th.screenIndex.description ?? study.screenIndex.description,
+            shots: mergeArray(study.screenIndex.shots, th.screenIndex.shots),
+          }
+        : study.screenIndex,
+    takeaways: study.takeaways ? mergeArray(study.takeaways, th.takeaways) : study.takeaways,
+  };
+}
+
 /** จุดเข้าใช้งานหลัก — เลือก localizer ตาม discriminant `layout` แล้วคืน case study ที่แปลไทยแล้ว (คืนต้นฉบับถ้ายังไม่มีคำแปลของ slug นั้น) */
 export function localizeCaseStudyForThai(study: CaseStudy): CaseStudy {
   if (study.layout === 1) return localizeLayout1Th(study);
   if (study.layout === 2) return localizeLayout2Th(study);
+  if (study.layout === 4) return localizeLayout4Th(study);
   return localizeLayout3Th(study);
 }

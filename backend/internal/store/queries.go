@@ -159,6 +159,44 @@ func (s *Store) ProjectBySlug(ctx context.Context, slug string) (model.Project, 
 	return p, true, nil
 }
 
+// SQLite แทนที่ชื่อคอลัมน์ด้วย placeholder ไม่ได้ จึงเตรียม SQL ไว้ 2 ชุดแล้วเลือกด้วย isThai
+// แทนการต่อสตริงชื่อคอลัมน์จากค่าที่ผู้ใช้ส่งมา
+const (
+	updatesQueryEN = `SELECT version, kind, title_en, body_en, released_at FROM site_updates
+		WHERE published = 1 ORDER BY released_at DESC, id DESC`
+	updatesQueryTH = `SELECT version, kind, title_th, body_th, released_at FROM site_updates
+		WHERE published = 1 ORDER BY released_at DESC, id DESC`
+)
+
+// SiteUpdates คืนบันทึกการอัปเดตเว็บ เรียงใหม่สุดก่อน — limit <= 0 คือเอาทั้งหมด
+func (s *Store) SiteUpdates(ctx context.Context, isThai bool, limit int) ([]model.SiteUpdate, error) {
+	query := updatesQueryEN
+	if isThai {
+		query = updatesQueryTH
+	}
+	args := []any{}
+	if limit > 0 {
+		query += " LIMIT ?"
+		args = append(args, limit)
+	}
+
+	rows, err := s.DB.QueryContext(ctx, query, args...)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	out := []model.SiteUpdate{}
+	for rows.Next() {
+		var v model.SiteUpdate
+		if err := rows.Scan(&v.Version, &v.Kind, &v.Title, &v.Body, &v.ReleasedAt); err != nil {
+			return nil, err
+		}
+		out = append(out, v)
+	}
+	return out, rows.Err()
+}
+
 func (s *Store) InsertContact(ctx context.Context, in model.ContactInput, ip string) error {
 	_, err := s.DB.ExecContext(ctx,
 		`INSERT INTO contact_messages (name, email, subject, message, ip) VALUES (?, ?, ?, ?, ?)`,

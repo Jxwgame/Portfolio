@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils";
 const FILTER_GROUPS = [
   {
     label: "Software Development",
-    categories: ["Platform Engineering", "Healthcare Platform", "Food Ordering Platform"],
+    categories: ["Platform Engineering", "Healthcare Platform", "Food Ordering Platform", "Hotel Operations Platform"],
   },
   {
     label: "Infrastructure",

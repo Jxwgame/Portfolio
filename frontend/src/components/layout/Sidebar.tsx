@@ -214,14 +214,17 @@ export function Sidebar({ name }: { name: string }) {
           className="pointer-events-none absolute inset-x-0 bottom-0 h-auto w-full object-cover object-bottom opacity-60"
         />
         <nav className="relative flex min-h-full flex-col p-3">
-          <div
-            className={cn("flex items-center gap-2", collapsed ? "flex-col" : "justify-between pl-2")}
-          >
-            {!collapsed && (
-              <Brand name={name} href={isThai ? "/th" : "/"} className="min-w-0 py-1" />
-            )}
+          <div className="flex items-center justify-between gap-2 pl-2">
+            <Brand
+              name={name}
+              href={isThai ? "/th" : "/"}
+              className={cn(
+                "min-w-0 overflow-hidden py-1 transition-[max-width,opacity] duration-300 ease-out",
+                collapsed ? "max-w-0 opacity-0" : "max-w-[160px] opacity-100",
+              )}
+            />
 
-            <div className={cn("flex items-center gap-1.5", collapsed && "flex-col")}>
+            <div className="flex items-center gap-1.5">
               <button
                 type="button"
                 onClick={toggleCollapsed}
@@ -251,7 +254,7 @@ export function Sidebar({ name }: { name: string }) {
                       collapsed={collapsed}
                       className="flex-1"
                     />
-                    {hasChildren && !collapsed && (
+                    {hasChildren && (
                       <button
                         type="button"
                         onClick={() => toggleGroup(item.label)}
@@ -265,10 +268,14 @@ export function Sidebar({ name }: { name: string }) {
                               ? `Collapse ${item.label} menu`
                               : `Expand ${item.label} menu`
                         }
-                        className="grid size-7 shrink-0 place-items-center rounded-lg text-paper/50 transition hover:bg-white/10 hover:text-paper"
+                        inert={collapsed}
+                        className={cn(
+                          "grid shrink-0 place-items-center overflow-hidden rounded-lg text-paper/50 transition-[max-width,opacity,background-color,color] duration-300 ease-out hover:bg-white/10 hover:text-paper",
+                          collapsed ? "size-0 max-w-0 opacity-0" : "size-7 max-w-7 opacity-100",
+                        )}
                       >
                         <ChevronDown
-                          className={cn("size-4 transition-transform", groupOpen && "rotate-180")}
+                          className={cn("size-4 shrink-0 transition-transform", groupOpen && "rotate-180")}
                         />
                       </button>
                     )}
@@ -290,19 +297,34 @@ export function Sidebar({ name }: { name: string }) {
 
           <span aria-hidden="true" className="my-4 h-px shrink-0 bg-white/12" />
 
-          {collapsed ? (
-            <div className="flex justify-center">
+          <div className="relative min-h-11 shrink-0 overflow-hidden">
+            <div
+              inert={!collapsed}
+              className={cn(
+                "absolute inset-0 flex items-center justify-center transition-opacity duration-300 ease-out",
+                collapsed ? "opacity-100" : "pointer-events-none opacity-0",
+              )}
+            >
               <LanguageSwitcher isThai={isThai} compact onNavigate={requestLanguage} />
             </div>
-          ) : (
-            <div className="flex items-center gap-3 rounded-xl px-3 py-2 text-paper/70">
-              <Languages className="size-4.5 shrink-0" aria-hidden="true" />
-              <span className="flex-1 truncate font-mono text-[11px] uppercase tracking-[0.12em]">
-                {isThai ? "ภาษา" : "Language"}
-              </span>
+            {/* ป้ายอยู่บรรทัดบน สวิตช์เต็มความกว้างบรรทัดล่าง — เดิมวางเรียงบรรทัดเดียวกัน
+                ทำให้คำว่า "Language" ถูก truncate เหลือ "LANGUA..." เพราะสวิตช์กินความกว้างคงที่ */}
+            <div
+              inert={collapsed}
+              className={cn(
+                "rounded-xl px-3 py-2 transition-opacity duration-300 ease-out",
+                collapsed ? "pointer-events-none opacity-0" : "opacity-100",
+              )}
+            >
+              <p className="flex items-center gap-2.5 text-paper/55">
+                <Languages className="size-4 shrink-0" aria-hidden="true" />
+                <span className="font-mono text-[10px] uppercase tracking-[0.16em]">
+                  {isThai ? "ภาษา" : "Language"}
+                </span>
+              </p>
               <LanguageSwitch isThai={isThai} onNavigate={requestLanguage} />
             </div>
-          )}
+          </div>
         </nav>
       </aside>
 
@@ -335,7 +357,7 @@ function SidebarLink({
       aria-current={active ? "page" : undefined}
       title={collapsed ? item.label : undefined}
       className={cn(
-        "flex items-center gap-3 rounded-xl py-2.5 transition-colors",
+        "flex items-center gap-3 rounded-xl py-2.5 transition-[padding,background-color,color] duration-300 ease-out",
         collapsed ? "justify-center px-0" : "px-3",
         active
           ? "bg-paper text-ink shadow-[0_2px_12px_rgb(0_0_0/0.28)]"
@@ -344,11 +366,14 @@ function SidebarLink({
       )}
     >
       <Icon className="size-4.5 shrink-0" aria-hidden="true" />
-      {!collapsed && (
-        <span className="truncate font-mono text-[11px] uppercase tracking-[0.12em]">
-          {item.label}
-        </span>
-      )}
+      <span
+        className={cn(
+          "truncate font-mono text-[11px] uppercase tracking-[0.12em] transition-[max-width,opacity] duration-300 ease-out",
+          collapsed ? "max-w-0 opacity-0" : "max-w-[160px] opacity-100",
+        )}
+      >
+        {item.label}
+      </span>
     </Link>
   );
 }
@@ -413,19 +438,23 @@ function MobileLink({
  * push ทันที ปุ่มที่กดซ้ำภาษาที่ใช้อยู่แล้วปล่อยให้ <Link> ทำงานปกติ (ไม่มีอะไรให้ยืนยัน) */
 type NavigateRequest = (href: string, targetIsThai: boolean) => (e: React.MouseEvent<HTMLAnchorElement>) => void;
 
-/** สวิตช์สลับภาษาแบบมีแถบเลื่อนวิ่งไปตามฝั่งที่เลือก — ใช้ในไซด์บาร์เดสก์ท็อปตอนกางเท่านั้น (ตอนย่อใช้ LanguageSwitcher compact แทนเพราะที่ไม่พอ) */
+/** สวิตช์สลับภาษาแบบมีแถบเลื่อนวิ่งไปตามฝั่งที่เลือก — ใช้ในไซด์บาร์เดสก์ท็อปตอนกางเท่านั้น (ตอนย่อใช้ LanguageSwitcher compact แทนเพราะที่ไม่พอ)
+ * กว้างเต็มบรรทัดและแบ่งครึ่งเท่ากันด้วย grid-cols-2 — แถบที่เลื่อนกว้างเท่าครึ่งหนึ่งพอดี
+ * (50% ลบ padding 4px) จึงใช้ translate-x-full เลื่อนไปฝั่งขวาได้ตรงช่องพอดีทุกความกว้าง */
 function LanguageSwitch({ isThai, onNavigate }: { isThai: boolean; onNavigate: NavigateRequest }) {
+  const option = "relative z-10 rounded-full py-2 text-center transition-colors";
+
   return (
     <div
       role="group"
       aria-label={isThai ? "เลือกภาษา" : "Choose language"}
-      className="relative flex w-fit items-center rounded-full border border-white/20 bg-white/10 p-1 font-mono text-[10px] font-bold tracking-[0.08em]"
+      className="relative mt-2.5 grid grid-cols-2 rounded-full border border-white/15 bg-white/8 p-1 font-mono text-[10px] font-bold tracking-[0.14em]"
     >
       <span
         aria-hidden="true"
         className={cn(
-          "absolute inset-y-1 left-1 w-11 rounded-full bg-rust transition-transform duration-300 ease-out",
-          isThai && "translate-x-11",
+          "absolute inset-y-1 left-1 w-[calc(50%-0.25rem)] rounded-full bg-rust shadow-[0_2px_10px_rgb(232_155_60/0.35)] transition-transform duration-300 ease-out",
+          isThai && "translate-x-full",
         )}
       />
       <Link
@@ -434,10 +463,7 @@ function LanguageSwitch({ isThai, onNavigate }: { isThai: boolean; onNavigate: N
         lang="en"
         aria-current={!isThai ? "page" : undefined}
         onClick={onNavigate("/", false)}
-        className={cn(
-          "relative z-10 w-11 rounded-full py-2.5 text-center transition-colors",
-          !isThai ? "text-white" : "text-paper/60 hover:text-paper",
-        )}
+        className={cn(option, !isThai ? "text-white" : "text-paper/60 hover:text-paper")}
       >
         EN
       </Link>
@@ -447,10 +473,7 @@ function LanguageSwitch({ isThai, onNavigate }: { isThai: boolean; onNavigate: N
         lang="th"
         aria-current={isThai ? "page" : undefined}
         onClick={onNavigate("/th", true)}
-        className={cn(
-          "relative z-10 w-11 rounded-full py-2.5 text-center transition-colors",
-          isThai ? "text-white" : "text-paper/60 hover:text-paper",
-        )}
+        className={cn(option, isThai ? "text-white" : "text-paper/60 hover:text-paper")}
       >
         TH
       </Link>

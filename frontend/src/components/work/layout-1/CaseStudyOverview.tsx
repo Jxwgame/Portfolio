@@ -8,14 +8,16 @@ import { CaseStudyCard } from "./CaseStudyCard";
 export function CaseStudyOverview({
   description,
   highlights,
+  id,
   lang,
 }: {
   description: string;
   highlights: string[];
+  id?: string;
   lang?: "th";
 }) {
   return (
-    <CaseStudyCard icon={ClipboardList} title={lang === "th" ? TH_CASE_STUDY_UI.overview : "Overview"}>
+    <CaseStudyCard icon={ClipboardList} title={lang === "th" ? TH_CASE_STUDY_UI.overview : "Overview"} id={id}>
       <p className="leading-[1.75] text-muted"><GlossaryText text={description} /></p>
       <ul className="mt-5 grid gap-2.5">
         {highlights.map((item) => (

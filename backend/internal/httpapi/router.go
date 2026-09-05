@@ -38,6 +38,7 @@ func NewRouter(st *store.Store, cfg config.Config) http.Handler {
 		r.Get("/projects", api.projects)
 		r.Get("/projects/{slug}", api.project)
 		r.Get("/experience", api.experience)
+		r.Get("/help", api.help)
 		r.Post("/contact", api.contact)
 	})
 

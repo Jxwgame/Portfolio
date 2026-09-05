@@ -233,6 +233,26 @@ export const GLOSSARY = {
     definition:
       "A control that restricts how many requests a user or system can make within a set period.",
   },
+  night_audit: {
+    term: "Night Audit",
+    definition:
+      "A hotel's daily close: it posts the night's room charges, rolls the business date forward, and freezes the day's statistics so reports stay stable.",
+  },
+  modular_monolith: {
+    term: "Modular Monolith",
+    definition:
+      "An application deployed as a single service but split internally into modules with clear boundaries, keeping one transactional database without the overhead of microservices.",
+  },
+  idempotency: {
+    term: "Idempotency",
+    definition:
+      "A guarantee that repeating the same request has the same effect as sending it once, so a retried or double-clicked action cannot create a duplicate booking or payment.",
+  },
+  go: {
+    term: "Go",
+    definition:
+      "A compiled programming language from Google, commonly used for backend services thanks to its speed, static typing, and built-in concurrency.",
+  },
   honeypot: {
     term: "Honeypot",
     definition:

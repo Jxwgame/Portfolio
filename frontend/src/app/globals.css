@@ -187,6 +187,32 @@ body {
   }
 }
 
+/*
+ * กำแพงภาพหน้าจอที่เลื่อนขึ้นช้า ๆ ใน hero ของ Layout 4 (components/work/layout-4/CaseStudyHero4.tsx)
+ * แต่ละคอลัมน์วางภาพชุดเดิมซ้ำสองรอบ พอเลื่อนถึง -50% ก็คือกลับมาที่ภาพใบแรกพอดี รอยต่อจึงไม่โผล่
+ * ความเร็วส่งมาจากคอมโพเนนต์ผ่าน animation-duration เพื่อให้แต่ละคอลัมน์ไม่เลื่อนพร้อมกันเป็นแผงเดียว
+ */
+@keyframes drift-column {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-50%);
+  }
+}
+.drift-col {
+  animation: drift-column linear infinite;
+}
+/* ชี้เมาส์ที่กำแพงแล้วหยุด — ผู้ใช้ที่อยากดูภาพใดภาพหนึ่งไม่ต้องไล่ตาม */
+.drift-wall:hover .drift-col {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .drift-col {
+    animation: none;
+  }
+}
+
 /* โฟกัสต้องเห็นชัดเสมอ */
 :focus-visible {
   outline: 2px solid var(--color-rust);

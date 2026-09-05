@@ -4,9 +4,17 @@ import { CaseStudyCard } from "./CaseStudyCard";
 import type { CaseStudyChallenge } from "@/lib/case-studies/layout-1";
 import { cn } from "@/lib/utils";
 
-export function CaseStudyChallenges({ items, className }: { items: CaseStudyChallenge[]; className?: string }) {
+export function CaseStudyChallenges({
+  items,
+  id,
+  className,
+}: {
+  items: CaseStudyChallenge[];
+  id?: string;
+  className?: string;
+}) {
   return (
-    <CaseStudyCard icon={Wrench} title="Challenges & Solutions" className={cn("h-full", className)}>
+    <CaseStudyCard icon={Wrench} title="Challenges & Solutions" id={id} className={cn("h-full", className)}>
       <ul className="grid gap-5">
         {items.map((item) => (
           <li key={item.challenge} className="grid gap-2.5 border-t border-line pt-5 first:border-t-0 first:pt-0">

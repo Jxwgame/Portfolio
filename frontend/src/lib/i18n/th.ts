@@ -178,11 +178,34 @@ export const TH_CONTACT = {
 /** เนื้อหาหน้า /th/help — คู่กับ src/app/help/page.tsx ตัวอังกฤษ */
 export const TH_HELP = {
   hero: {
-    eyebrow: "ช่วยเหลือ",
-    title: "ช่วยเหลือและคำถามที่พบบ่อย",
-    description: "คำถามที่พบบ่อยและวิธีติดต่อกำลังจะมาเร็ว ๆ นี้",
+    eyebrow: "เกี่ยวกับเว็บนี้",
+    title: "อัปเดตเว็บไซต์",
+    description: "บันทึกทุกการเปลี่ยนแปลงที่เกิดขึ้นบนเว็บนี้ เรียงใหม่สุดขึ้นก่อน",
   },
-  body: "ระหว่างนี้ หากมีคำถามหรืออยากคุยเรื่องโอกาสในการทำงาน ส่งข้อความหาผมได้ผ่านหน้าติดต่อครับ",
+  updates: {
+    eyebrow: "บันทึกการอัปเดต",
+    heading: "มีอะไรใหม่บนเว็บนี้",
+    description:
+      "ทุกครั้งที่เว็บนี้มีการอัปเดตจะถูกบันทึกไว้ตรงนี้ ดึงจากฐานข้อมูลชุดเดียวกับที่ใช้กับหน้าอื่นทั้งเว็บ",
+    kinds: {
+      feature: "ของใหม่",
+      improvement: "ปรับปรุง",
+      fix: "แก้ไข",
+      content: "เนื้อหา",
+    },
+    empty: "ยังไม่มีบันทึกการอัปเดต",
+    all: "ทั้งหมด",
+    summary: "อัปเดตแล้ว {count} ครั้ง · ล่าสุด {date}",
+    showMore: "ดูย้อนหลังอีก {count} รายการ",
+    showLess: "ย่อรายการ",
+    emptyFiltered: "ยังไม่มีอัปเดตประเภทนี้",
+    /** ใช้ปี ค.ศ. เหมือนวันที่อื่นทั้งเว็บ (เช่น "Aug 2026" ในหน้าโปรเจกต์) จะได้ไม่สลับไปมาระหว่าง ค.ศ./พ.ศ. */
+    months: [
+      "ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.",
+      "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค.",
+    ],
+  },
+  body: "มีคำถาม หรืออยากคุยเรื่องโอกาสในการทำงาน ส่งข้อความหาผมได้ผ่านหน้าติดต่อครับ",
   linkLabel: "ไปหน้าติดต่อ",
   linkHref: "/th/contact",
 } as const;
@@ -203,12 +226,20 @@ export const TH_CASE_STUDY_UI = {
   solutionLabel: "แนวทางแก้ไข:",
   projectTimeline: "ไทม์ไลน์โปรเจกต์",
   overview: "ภาพรวมโปรเจกต์",
+  /** ป้ายแท็บนำทางของหัวข้อการ์ดสรุป 4 ช่อง (Overview/Role/Highlight/Impact) ใน Layout 3 ซึ่งไม่มี eyebrow ของตัวเอง */
+  projectSummary: "สรุปโปรเจกต์",
   roleResponsibility: "บทบาทและความรับผิดชอบ",
   highlight: "จุดเด่นของโปรเจกต์",
   impact: "ผลลัพธ์และประโยชน์ที่ได้รับ",
   infrastructureOverview: "ภาพรวมโครงสร้างพื้นฐาน",
   pipelineStages: "ขั้นตอนการทำงานของระบบ",
   featureDeepDive: "รายละเอียดเชิงลึกของฟีเจอร์",
+  oneWorkflow: "ขั้นตอนการทำงานทั้งวงจร",
+  moduleByModule: "ไล่ทีละโมดูล",
+  everyScreen: "ทุกหน้าจอในระบบ",
+  responsive: "รองรับทุกขนาดหน้าจอ",
+  onThisPage: "หัวข้อในหน้านี้",
+  showScreenPrefix: "แสดงหน้าจอ:",
   keyTakeaways: "สิ่งที่ได้เรียนรู้จากโปรเจกต์",
   relatedProjects: "โปรเจกต์อื่นที่เกี่ยวข้อง",
   photoGallery: "คลังภาพ",
@@ -244,6 +275,11 @@ export const TH_WORK_AREA_CATEGORY: Record<string, { label: string; description:
 };
 
 const TH_PROJECT_COPY: Record<string, Pick<Project, "category" | "summary">> = {
+  "erp-hotel": {
+    category: "แพลตฟอร์มบริหารจัดการโรงแรม",
+    summary:
+      "ระบบ ERP/PMS สำหรับโรงแรมที่เชื่อมงานจอง Front Desk การเข้าพัก การเรียกเก็บเงิน การจัดการห้อง และรายงานไว้ในขั้นตอนการทำงานเดียว พัฒนาด้วย Go, Next.js และ PostgreSQL ในสถาปัตยกรรมแบบ Modular Monolith",
+  },
   "saha-pathanapibul": {
     category: "โครงสร้างพื้นฐาน",
     summary: "วิศวกรเครือข่าย (ฝึกงาน) ที่บริษัท สห⁠พัฒนพิบูล จำกัด (มหาชน) โดยทำงานในแผนก IT Infrastructure & Operation รับผิดชอบงานด้านเครือข่ายและระบบขององค์กร",

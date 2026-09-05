@@ -1,6 +1,6 @@
 import "server-only";
 
-import type { Experience, Home, Project, Skill } from "./types";
+import type { Experience, HelpContent, Home, Project, Skill } from "./types";
 
 /**
  * URL ของ Go API — อ่านฝั่ง server เท่านั้น (ไม่ใช่ NEXT_PUBLIC_*)
@@ -55,4 +55,10 @@ export function getExperience() {
   return getJSON<{ experiences: Experience[]; skills: Skill[] }>("/api/v1/experience", {
     revalidate: 300,
   });
+}
+
+/** บันทึกการอัปเดตเว็บของหน้า Help — ส่ง lang ให้ backend เลือกคอลัมน์ภาษาให้เลย
+ * แถวใหม่ที่เพิ่มลง SQLite จึงขึ้นทั้งหน้าอังกฤษและไทยโดยไม่ต้องแก้ไฟล์ i18n */
+export function getHelp(lang: "en" | "th" = "en") {
+  return getJSON<HelpContent>(`/api/v1/help?lang=${lang}`, { revalidate: 300 });
 }

@@ -17,9 +17,12 @@ import { TH_CASE_STUDY_UI } from "@/lib/i18n/th";
  */
 export function CaseStudyInfrastructureOverview({
   shots: allShots,
+  title,
   lang,
 }: {
   shots: CaseStudyDiagramShot[];
+  /** หัวข้อของ section — ไม่ใส่จะใช้ "Infrastructure Overview" ตามเดิม */
+  title?: string;
   lang?: "th";
 }) {
   const [active, setActive] = useState(0);
@@ -30,7 +33,7 @@ export function CaseStudyInfrastructureOverview({
     <div>
       <Eyebrow>
         <Network className="size-3.5" aria-hidden="true" />
-        {lang === "th" ? TH_CASE_STUDY_UI.infrastructureOverview : "Infrastructure Overview"}
+        {title ?? (lang === "th" ? TH_CASE_STUDY_UI.infrastructureOverview : "Infrastructure Overview")}
       </Eyebrow>
 
       <div className={cn("mt-6 grid gap-4", !isSingle && "lg:grid-cols-[1.7fr_1fr]")}>

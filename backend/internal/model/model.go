@@ -45,6 +45,21 @@ type Testimonial struct {
 	AvatarURL string `json:"avatarUrl"`
 }
 
+// SiteUpdate คือบันทึกการอัปเดตเว็บหนึ่งครั้ง (changelog) — ตาราง site_updates เก็บทั้งอังกฤษและไทย
+// ตัว handler เลือกภาษาให้แล้ว จึงเหลือฟิลด์ภาษาเดียวส่งให้ frontend
+type SiteUpdate struct {
+	Version    string `json:"version,omitempty"`
+	Kind       string `json:"kind"`
+	Title      string `json:"title"`
+	Body       string `json:"body,omitempty"`
+	ReleasedAt string `json:"releasedAt"`
+}
+
+// Help คือ payload ก้อนเดียวของหน้า /help และ /th/help
+type Help struct {
+	Updates []SiteUpdate `json:"updates"`
+}
+
 // Home คือ payload ก้อนเดียวที่หน้าแรกใช้ทั้งหน้า — ยิงครั้งเดียวจบ
 type Home struct {
 	Settings     map[string]string `json:"settings"`

@@ -22,3 +22,4 @@ backend/server.exe
 # misc
 .DS_Store
 *.log
+.dev/

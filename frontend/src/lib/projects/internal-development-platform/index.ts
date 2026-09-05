@@ -143,7 +143,10 @@ export const caseStudy: CaseStudyLayout2 = {
     },
   ],
   mainDiagram: { label: "Internal Development Platform", gradient: DIAGRAM_GRADIENTS[0], image: `${IMG}/Internal-development-platform.png` },
+  // แผนภาพ 2 ใบแรกมาก่อนภาพหน้าจอ เพราะเป็นภาพหลักของหัวข้อ Infrastructure Overview
   diagramShots: [
+    { label: "System Architecture", gradient: DIAGRAM_GRADIENTS[0], image: `${IMG}/Diagram-1.png` },
+    { label: "Deployment Topology", gradient: DIAGRAM_GRADIENTS[1], image: `${IMG}/Diagram-2.png` },
     { label: "Project Overview", gradient: DIAGRAM_GRADIENTS[1], image: `${IMG}/IDP-1.png` },
     { label: "Deployment Pipeline", gradient: DIAGRAM_GRADIENTS[2], image: `${IMG}/IDP-2.png` },
     { label: "Platform Health Dashboard", gradient: DIAGRAM_GRADIENTS[3], image: `${IMG}/IDP-3.png` },

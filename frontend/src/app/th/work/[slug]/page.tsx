@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { CaseStudyLayoutOne } from "@/components/work/layout-1/CaseStudyLayoutOne";
 import { CaseStudyLayoutTwo } from "@/components/work/layout-2/CaseStudyLayoutTwo";
 import { CaseStudyLayoutThree } from "@/components/work/layout-3/CaseStudyLayoutThree";
+import { CaseStudyLayoutFour } from "@/components/work/layout-4/CaseStudyLayoutFour";
 import { getAllCaseStudySlugs, getCaseStudy } from "@/lib/case-studies";
 import { localizeCaseStudyForThai } from "@/lib/i18n/caseStudies.th";
 
@@ -31,6 +32,7 @@ export default async function ThaiProjectDetailPage(props: PageProps<"/th/work/[
 
   const localized = localizeCaseStudyForThai(study);
 
+  if (localized.layout === 4) return <CaseStudyLayoutFour study={localized} lang="th" />;
   if (localized.layout === 2) return <CaseStudyLayoutTwo study={localized} lang="th" />;
   if (localized.layout === 3) return <CaseStudyLayoutThree study={localized} lang="th" />;
   return <CaseStudyLayoutOne study={localized} lang="th" />;

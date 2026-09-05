@@ -8,10 +8,12 @@ import { cn } from "@/lib/utils";
 /** สถานะโครงการเป็นขั้น ๆ — จุดทึบสีส้มสำหรับขั้นที่ทำแล้ว/กำลังทำ ขั้นที่ยังไม่ถึงเป็นเส้นขอบจาง */
 export function CaseStudyTimeline({
   phases,
+  id,
   className,
   lang,
 }: {
   phases: CaseStudyPhase[];
+  id?: string;
   className?: string;
   lang?: "th";
 }) {
@@ -19,6 +21,7 @@ export function CaseStudyTimeline({
     <CaseStudyCard
       icon={Milestone}
       title={lang === "th" ? TH_CASE_STUDY_UI.projectTimeline : "Project Timeline"}
+      id={id}
       className={cn("h-full", className)}
     >
       <ol className="relative border-l border-line pl-7">

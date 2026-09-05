@@ -24,7 +24,10 @@ function InfoCard({
   );
 }
 
-export function CaseStudyInfoCards({ study, lang }: { study: CaseStudyLayout2; lang?: "th" }) {
+/** ใช้ร่วมกับ Layout 4 ด้วย จึงรับเฉพาะ 4 field ที่การ์ดใช้จริง ไม่ผูกกับรูปร่างเต็มของ case study แบบใดแบบหนึ่ง */
+type InfoCardsStudy = Pick<CaseStudyLayout2, "overview" | "responsibility" | "highlights" | "impact">;
+
+export function CaseStudyInfoCards({ study, lang }: { study: InfoCardsStudy; lang?: "th" }) {
   const t = lang === "th" ? TH_CASE_STUDY_UI : null;
   return (
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">

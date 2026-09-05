@@ -43,6 +43,21 @@ export type Testimonial = {
   avatarUrl: string;
 };
 
+/** บันทึกการอัปเดตเว็บหนึ่งครั้ง — backend เลือกภาษาให้แล้วตาม ?lang ที่ส่งไป
+ * kind ใช้เลือกป้ายกำกับ/สีบนหน้า Help */
+export type SiteUpdate = {
+  version?: string;
+  kind: string;
+  title: string;
+  body?: string;
+  releasedAt: string;
+};
+
+/** payload ก้อนเดียวของหน้า Help */
+export type HelpContent = {
+  updates: SiteUpdate[];
+};
+
 /** payload ก้อนเดียวของหน้าแรก */
 export type Home = {
   settings: Record<string, string>;

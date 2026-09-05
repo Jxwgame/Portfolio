@@ -1,0 +1,43 @@
+{
+  "pages": [
+    { "id": "page-1", "name": "Layout 4 page" },
+    { "id": "page-2", "name": "Studies" }
+  ],
+  "artboards": [
+    { "file": "Main.dc.html", "x": 0, "y": 0, "w": 1440, "h": 3700, "title": "Layout 4 - full page", "page": "page-1" },
+
+    { "file": "DriftingWall.dc.html", "x": 0, "y": 0, "w": 1440, "h": 900, "title": "C - Drifting wall", "page": "page-2" },
+    { "file": "FannedStack.dc.html", "x": 1560, "y": 0, "w": 1440, "h": 900, "title": "B - Fanned deck", "page": "page-2" },
+    { "file": "ContactSheet.dc.html", "x": 3120, "y": 0, "w": 1440, "h": 850, "title": "A - Contact sheet", "page": "page-2" },
+    { "file": "BentoMosaic.dc.html", "x": 4680, "y": 0, "w": 1440, "h": 1060, "title": "D - Bento mosaic", "page": "page-2" },
+    { "file": "ImageStates.dc.html", "x": 6240, "y": 0, "w": 1440, "h": 740, "title": "Image states", "page": "page-2" },
+    { "file": "WorkflowJourney.dc.html", "x": 7800, "y": 0, "w": 1440, "h": 990, "title": "Workflow journey (earlier study)", "page": "page-2" }
+  ],
+  "annotations": [
+    {
+      "id": "note-page",
+      "x": 0,
+      "y": -300,
+      "w": 900,
+      "page": "page-1",
+      "text": "LAYOUT 4, ASSEMBLED\nC opens the page: the wall of eighteen screens drifting behind the title, so the scale of the system lands before a single word about it.\n\nThen the workflow rail, six stages on one line, so the modules below have somewhere to sit.\n\nThen the modules themselves, alternating between an annotated screen (Home, dashed boxes on the image) and a fanned deck (Bookings, Reports) so a module with four screens costs the same vertical space as one with a single screen.\n\nIt closes on the contact sheet: every screen in the build, tinted back, as the receipt."
+    },
+    {
+      "id": "note-notused",
+      "x": 0,
+      "y": 3790,
+      "w": 900,
+      "page": "page-1",
+      "text": "Not used here: the bento mosaic (D). It competes with the contact sheet for the same job at the foot of the page. Worth swapping in if the index should feel composed rather than archival.\n\nEach explained part is now a small dashed box around the region itself, with its number pinned to the top-left corner. The three boxes on the Home screen are still sized by eye and get tightened once the real regions are measured."
+    },
+    {
+      "id": "note-studies",
+      "x": 0,
+      "y": -230,
+      "w": 780,
+      "page": "page-2",
+      "text": "The four treatments as standalone studies, plus the image-state sheet and the earlier workflow direction. Kept for reference; the assembled page is on the first tab."
+    }
+  ],
+  "launch": { "view": "canvas", "page": "page-1" }
+}

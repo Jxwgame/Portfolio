@@ -10,8 +10,9 @@ import { TH_CASE_STUDY_UI } from "@/lib/i18n/th";
 
 /**
  * ภาพหลักของ hero พร้อมปุ่มเลื่อนดูภาพ + ตัวนับหน้าซ้อนมุมล่างขวา — กดที่รูปเพื่อเปิดดูขนาดเต็มใน lightbox
- * แสดงตามสัดส่วนจริงของรูป (ไม่ครอป ไม่มีกรอบขอบว่างจากการบังคับ aspect ratio คงที่) — กรอบห่อรูปแบบ w-fit
- * เพื่อให้ปุ่ม/ตัวนับ (absolute) เกาะติดขอบรูปจริง ไม่ลอยอยู่ในพื้นที่ว่างข้าง ๆ เวลารูปแคบกว่าคอลัมน์
+ * กรอบรูปมีขนาดคงที่ (aspect 16/10 + max-w) ทุกใบ แล้ววางรูปแบบ object-contain ไว้ตรงกลาง เพื่อให้
+ * รูปสัดส่วนต่างกัน (โลโก้จัตุรัส vs สกรีนช็อตแนวนอน) ไม่ดันความสูงคอลัมน์จนไปกินพื้นที่ส่วนอื่นของ hero
+ * และปุ่ม/ตัวนับ (absolute) เกาะขอบกรอบเดิมเสมอ ไม่ขยับตามรูปที่เปลี่ยน
  */
 export function CaseStudyHeroImage({ shots, lang }: { shots: CaseStudyDiagramShot[]; lang?: "th" }) {
   const isThai = lang === "th";
@@ -21,23 +22,25 @@ export function CaseStudyHeroImage({ shots, lang }: { shots: CaseStudyDiagramSho
   const shot = shots[active];
 
   return (
-    <div className="relative mx-auto w-fit max-w-full">
+    <div className="relative mx-auto w-full max-w-[600px]">
       {shot.image ? (
         <ZoomTrigger
           label={shot.label}
           lang={lang}
           onClick={() => setZoomIndex(active)}
-          className="static block w-fit max-w-full"
+          className="static block w-full"
         >
-          {/* eslint-disable-next-line @next/next/no-img-element -- ยังไม่ได้ตั้ง remote patterns ของ next/image */}
-          <img
-            src={shot.image}
-            alt={shot.label}
-            className="block max-h-[640px] w-auto max-w-full rounded-2xl border border-line object-contain"
-          />
+          <span className="flex aspect-[16/10] w-full items-center justify-center overflow-hidden rounded-2xl border border-line bg-surface p-3">
+            {/* eslint-disable-next-line @next/next/no-img-element -- ยังไม่ได้ตั้ง remote patterns ของ next/image */}
+            <img
+              src={shot.image}
+              alt={shot.label}
+              className="max-h-full max-w-full rounded-lg object-contain"
+            />
+          </span>
         </ZoomTrigger>
       ) : (
-        <MediaPlaceholder gradient={shot.gradient} label={shot.label} className="aspect-[2/1] w-full rounded-2xl" />
+        <MediaPlaceholder gradient={shot.gradient} label={shot.label} className="aspect-[16/10] w-full rounded-2xl" />
       )}
 
       <div className="absolute bottom-3 right-3 flex items-center gap-2 rounded-full border border-paper/20 bg-ink/70 p-1.5 pl-3 backdrop-blur">

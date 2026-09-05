@@ -10,8 +10,10 @@ import * as grafana from "./grafana";
 import * as cancerPatientHealthcareSystems from "./cancer-patient-healthcare-systems";
 import * as masseuseshop from "./masseuseshop";
 import * as khungameRestaurant from "./khungame-restaurant";
+import * as erpHotel from "./erp-hotel";
 
 const ALL_PROJECTS = [
+  erpHotel,
   sahaPathanapibul,
   internalDevelopmentPlatform,
   grafana,

@@ -13,9 +13,9 @@ function ArchNode({ label, sublabel }: Node) {
   );
 }
 
-export function CaseStudyArchitecture({ nodes }: { nodes: Node[] }) {
+export function CaseStudyArchitecture({ nodes, id }: { nodes: Node[]; id?: string }) {
   return (
-    <CaseStudyCard icon={Boxes} title="Architecture Overview">
+    <CaseStudyCard icon={Boxes} title="Architecture Overview" id={id}>
       <div className="flex flex-wrap items-center justify-center gap-3">
         {nodes.map((node, i) => (
           <div key={node.label} className="flex items-center gap-3">

@@ -1,20 +1,23 @@
 import { LAYOUT_1_STUDIES, type CaseStudyLayout1 } from "./layout-1";
 import { LAYOUT_2_STUDIES, type CaseStudyLayout2 } from "./layout-2";
 import { LAYOUT_3_STUDIES, type CaseStudyLayout3 } from "./layout-3";
+import { LAYOUT_4_STUDIES, type CaseStudyLayout4 } from "./layout-4";
 import { REAL_PROJECT_CASE_STUDIES } from "@/lib/projects";
 
 export type { CaseStudyLayout1 } from "./layout-1";
 export type { CaseStudyLayout2 } from "./layout-2";
 export type { CaseStudyLayout3 } from "./layout-3";
+export type { CaseStudyLayout4 } from "./layout-4";
 
-/** โปรเจกต์แต่ละอันเลือก layout ของตัวเองได้ (1, 2, หรือ 3) ผ่าน discriminant field `layout` */
-export type CaseStudy = CaseStudyLayout1 | CaseStudyLayout2 | CaseStudyLayout3;
+/** โปรเจกต์แต่ละอันเลือก layout ของตัวเองได้ (1, 2, 3 หรือ 4) ผ่าน discriminant field `layout` */
+export type CaseStudy = CaseStudyLayout1 | CaseStudyLayout2 | CaseStudyLayout3 | CaseStudyLayout4;
 
 /** LAYOUT_N_STUDIES ที่เหลือคือตัวอย่างดีไซน์เดิม ส่วนโปรเจกต์จริงอยู่ที่ lib/projects/<slug> */
 const ALL_CASE_STUDIES: CaseStudy[] = [
   ...LAYOUT_1_STUDIES,
   ...LAYOUT_2_STUDIES,
   ...LAYOUT_3_STUDIES,
+  ...LAYOUT_4_STUDIES,
   ...REAL_PROJECT_CASE_STUDIES,
 ];
 

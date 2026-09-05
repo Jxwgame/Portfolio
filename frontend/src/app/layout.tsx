@@ -28,7 +28,7 @@ const notoThai = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Theerapat Sangsee — Infrastructure & DevOps",
+  title: "Theerapat Sangsee",
   description: "Portfolio of Theerapat Sangsee, an IT Infrastructure graduate from KMITL, featuring platform engineering, monitoring, and cloud infrastructure projects.",
 };
 

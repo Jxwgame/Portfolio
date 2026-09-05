@@ -1,0 +1,325 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Arimo:wght@400;700&amp;family=Inter:wght@400;500&amp;display=swap">
+  <style>
+    body { margin: 0; background: #0a1220; color: #eef1f6; font-family: "Inter", system-ui, sans-serif; }
+    a { color: #e89b3c; } a:hover { color: #a9702c; }
+  </style>
+</helmet>
+
+<div style="background: #0a1220; font-family: 'Inter', system-ui, sans-serif;">
+
+  <!-- 1. HERO: the drifting wall -->
+  <div style="position: relative; height: 820px; overflow: hidden;">
+
+    <div style="position: absolute; right: -40px; top: -150px; display: flex; gap: 26px; transform: rotate(-8deg);">
+      <div style="display: flex; flex-direction: column; gap: 26px; width: 296px;">
+        <div style="border-radius: 12px; overflow: hidden; border: 1px solid rgb(255 255 255 / 0.14);"><img src="sm-home-1.jpg" alt="" style="display: block; width: 100%; filter: grayscale(1) brightness(0.68);"></div>
+        <div style="border-radius: 12px; overflow: hidden; border: 1px solid rgb(255 255 255 / 0.14);"><img src="sm-room.jpg" alt="" style="display: block; width: 100%; filter: grayscale(1) brightness(0.68);"></div>
+        <div style="border-radius: 12px; overflow: hidden; border: 1px solid rgb(255 255 255 / 0.14);"><img src="sm-schedule.jpg" alt="" style="display: block; width: 100%; filter: grayscale(1) brightness(0.68);"></div>
+        <div style="border-radius: 12px; overflow: hidden; border: 1px solid rgb(255 255 255 / 0.14);"><img src="sm-rates.jpg" alt="" style="display: block; width: 100%; filter: grayscale(1) brightness(0.68);"></div>
+        <div style="border-radius: 12px; overflow: hidden; border: 1px solid rgb(255 255 255 / 0.14);"><img src="sm-bill-1.jpg" alt="" style="display: block; width: 100%; filter: grayscale(1) brightness(0.68);"></div>
+        <div style="border-radius: 12px; overflow: hidden; border: 1px solid rgb(255 255 255 / 0.14);"><img src="sm-report-1.jpg" alt="" style="display: block; width: 100%; filter: grayscale(1) brightness(0.68);"></div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 26px; width: 296px; margin-top: -150px;">
+        <div style="border-radius: 12px; overflow: hidden; border: 1px solid rgb(255 255 255 / 0.14);"><img src="sm-reservation.jpg" alt="" style="display: block; width: 100%; filter: grayscale(1) brightness(0.68);"></div>
+        <div style="border-radius: 12px; overflow: hidden; border: 1px solid rgb(255 255 255 / 0.14);"><img src="sm-bill-2.jpg" alt="" style="display: block; width: 100%; filter: grayscale(1) brightness(0.68);"></div>
+        <div style="border-radius: 12px; overflow: hidden; border: 1px solid rgb(255 255 255 / 0.14);"><img src="sm-report-2.jpg" alt="" style="display: block; width: 100%; filter: grayscale(1) brightness(0.68);"></div>
+        <div style="border-radius: 12px; overflow: hidden; border: 1px solid rgb(255 255 255 / 0.14);"><img src="sm-analysis-1.jpg" alt="" style="display: block; width: 100%; filter: grayscale(1) brightness(0.68);"></div>
+        <div style="border-radius: 12px; overflow: hidden; border: 1px solid rgb(255 255 255 / 0.14);"><img src="sm-analysis-2.jpg" alt="" style="display: block; width: 100%; filter: grayscale(1) brightness(0.68);"></div>
+        <div style="border-radius: 12px; overflow: hidden; border: 1px solid rgb(255 255 255 / 0.14);"><img src="sm-account.jpg" alt="" style="display: block; width: 100%; filter: grayscale(1) brightness(0.68);"></div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 26px; width: 296px; margin-top: -80px;">
+        <div style="border-radius: 12px; overflow: hidden; border: 1px solid rgb(255 255 255 / 0.14);"><img src="sm-home-2.jpg" alt="" style="display: block; width: 100%; filter: grayscale(1) brightness(0.68);"></div>
+        <div style="border-radius: 12px; overflow: hidden; border: 1px solid rgb(255 255 255 / 0.14);"><img src="sm-report-3.jpg" alt="" style="display: block; width: 100%; filter: grayscale(1) brightness(0.68);"></div>
+        <div style="border-radius: 12px; overflow: hidden; border: 1px solid #e89b3c;"><img src="sm-report-4.jpg" alt="" style="display: block; width: 100%;"></div>
+        <div style="border-radius: 12px; overflow: hidden; border: 1px solid rgb(255 255 255 / 0.14);"><img src="sm-analysis-3.jpg" alt="" style="display: block; width: 100%; filter: grayscale(1) brightness(0.68);"></div>
+        <div style="border-radius: 12px; overflow: hidden; border: 1px solid rgb(255 255 255 / 0.14);"><img src="sm-analysis-4.jpg" alt="" style="display: block; width: 100%; filter: grayscale(1) brightness(0.68);"></div>
+        <div style="border-radius: 12px; overflow: hidden; border: 1px solid rgb(255 255 255 / 0.14);"><img src="sm-analysis-5.jpg" alt="" style="display: block; width: 100%; filter: grayscale(1) brightness(0.68);"></div>
+      </div>
+    </div>
+
+    <div style="position: absolute; inset: 0; background: linear-gradient(96deg, #0a1220 32%, rgb(10 18 32 / 0.86) 47%, rgb(10 18 32 / 0.12) 74%);"></div>
+    <div style="position: absolute; left: 0; right: 0; top: 0; height: 150px; background: linear-gradient(180deg, #0a1220, rgb(10 18 32 / 0));"></div>
+    <div style="position: absolute; left: 0; right: 0; bottom: 0; height: 220px; background: linear-gradient(0deg, #0a1220, rgb(10 18 32 / 0));"></div>
+
+    <div style="position: absolute; left: 64px; top: 72px; width: 620px;">
+      <div style="display: flex; align-items: center; gap: 14px; font-family: 'Arimo', ui-monospace, monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.2em; color: #e89b3c;">
+        <span>ERP · PMS for hotel operations</span>
+        <span style="height: 1px; flex-grow: 1; max-width: 120px; background: rgb(255 255 255 / 0.14);"></span>
+      </div>
+      <h1 style="margin: 30px 0 0; font-family: 'Anton', 'Arimo', sans-serif; font-size: 84px; font-weight: 400; line-height: 0.92; letter-spacing: 0.01em; color: #eef1f6; text-transform: uppercase;">ERP<br>Hotel</h1>
+      <p style="margin: 22px 0 0; max-width: 46ch; font-size: 14px; line-height: 1.75; color: #c5cfdd;">Running in a resort as DD-Resort. Booking, front desk, stay, room status, billing, Night Audit and analysis in one workflow, built solo in Go, Next.js and PostgreSQL.</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 26px;">
+        <span style="padding: 7px 14px; border: 1px solid rgb(255 255 255 / 0.14); border-radius: 999px; font-family: 'Arimo', ui-monospace, monospace; font-size: 11px; color: #c5cfdd;">18 screens</span>
+        <span style="padding: 7px 14px; border: 1px solid rgb(255 255 255 / 0.14); border-radius: 999px; font-family: 'Arimo', ui-monospace, monospace; font-size: 11px; color: #c5cfdd;">9 modules</span>
+        <span style="padding: 7px 14px; border: 1px solid rgb(255 255 255 / 0.14); border-radius: 999px; font-family: 'Arimo', ui-monospace, monospace; font-size: 11px; color: #c5cfdd;">Solo build</span>
+        <span style="padding: 7px 14px; border: 1px solid rgb(255 255 255 / 0.14); border-radius: 999px; font-family: 'Arimo', ui-monospace, monospace; font-size: 11px; color: #c5cfdd;">Bilingual UI</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. WORKFLOW RAIL -->
+  <div style="padding: 8px 64px 0;">
+    <div style="display: flex; align-items: center; gap: 14px; font-family: 'Arimo', ui-monospace, monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.2em; color: #e89b3c;">
+      <span>One workflow</span>
+      <span style="height: 1px; flex-grow: 1; max-width: 120px; background: rgb(255 255 255 / 0.14);"></span>
+    </div>
+    <p style="margin: 18px 0 0; max-width: 74ch; font-size: 13px; line-height: 1.75; color: #c5cfdd;">Before the modules, the shape of the thing: a stay enters at the left and leaves as a closed business day at the right. Every module below sits somewhere on this line.</p>
+
+    <div style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 1px; margin-top: 26px; border-top: 1px solid rgb(255 255 255 / 0.14); background: rgb(255 255 255 / 0.14);">
+      <div style="background: #0a1220; padding: 20px 18px 22px;">
+        <span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.2em; color: #e89b3c;">01</span>
+        <h4 style="margin: 8px 0 0; font-family: 'Arimo', sans-serif; font-size: 14px; font-weight: 700; color: #eef1f6;">Booking</h4>
+        <p style="margin: 6px 0 0; font-size: 12px; line-height: 1.6; color: #7e8fa6;">Availability checked, rate quoted.</p>
+      </div>
+      <div style="background: #0a1220; padding: 20px 18px 22px;">
+        <span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.2em; color: #e89b3c;">02</span>
+        <h4 style="margin: 8px 0 0; font-family: 'Arimo', sans-serif; font-size: 14px; font-weight: 700; color: #eef1f6;">Check-in</h4>
+        <p style="margin: 6px 0 0; font-size: 12px; line-height: 1.6; color: #7e8fa6;">Room assigned, stay opened.</p>
+      </div>
+      <div style="background: #0a1220; padding: 20px 18px 22px;">
+        <span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.2em; color: #e89b3c;">03</span>
+        <h4 style="margin: 8px 0 0; font-family: 'Arimo', sans-serif; font-size: 14px; font-weight: 700; color: #eef1f6;">In house</h4>
+        <p style="margin: 6px 0 0; font-size: 12px; line-height: 1.6; color: #7e8fa6;">Status, moves, extras posted.</p>
+      </div>
+      <div style="background: #0a1220; padding: 20px 18px 22px;">
+        <span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.2em; color: #e89b3c;">04</span>
+        <h4 style="margin: 8px 0 0; font-family: 'Arimo', sans-serif; font-size: 14px; font-weight: 700; color: #eef1f6;">Folio</h4>
+        <p style="margin: 6px 0 0; font-size: 12px; line-height: 1.6; color: #7e8fa6;">Charges tagged with who posted them.</p>
+      </div>
+      <div style="background: #0a1220; padding: 20px 18px 22px;">
+        <span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.2em; color: #e89b3c;">05</span>
+        <h4 style="margin: 8px 0 0; font-family: 'Arimo', sans-serif; font-size: 14px; font-weight: 700; color: #eef1f6;">Payment</h4>
+        <p style="margin: 6px 0 0; font-size: 12px; line-height: 1.6; color: #7e8fa6;">Invoice issued, balance settled.</p>
+      </div>
+      <div style="background: #0a1220; padding: 20px 18px 22px;">
+        <span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.2em; color: #e89b3c;">06</span>
+        <h4 style="margin: 8px 0 0; font-family: 'Arimo', sans-serif; font-size: 14px; font-weight: 700; color: #eef1f6;">Night Audit</h4>
+        <p style="margin: 6px 0 0; font-size: 12px; line-height: 1.6; color: #7e8fa6;">Business date rolls, numbers freeze.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. MODULE SECTIONS -->
+  <div style="padding: 72px 64px 0;">
+    <div style="display: flex; align-items: center; gap: 14px; font-family: 'Arimo', ui-monospace, monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.2em; color: #e89b3c;">
+      <span>Module by module</span>
+      <span style="height: 1px; flex-grow: 1; max-width: 120px; background: rgb(255 255 255 / 0.14);"></span>
+    </div>
+
+    <!-- 3a. Home: annotated screen -->
+    <div style="display: grid; grid-template-columns: minmax(0, 1fr) 400px; gap: 56px; align-items: start; margin-top: 34px;">
+      <div style="position: relative; border-radius: 16px; overflow: hidden; border: 1px solid rgb(255 255 255 / 0.14); background: #121c2e;">
+        <img src="home-1.jpg" alt="Home screen" style="display: block; width: 100%;">
+        <span style="position: absolute; left: 14.4%; top: 8.7%; width: 83.9%; height: 11.4%; border: 1px dashed rgb(232 155 60 / 0.9); border-radius: 6px; background: rgb(232 155 60 / 0.06);"></span>
+        <span style="position: absolute; left: 14.4%; top: 8.7%; transform: translate(-50%, -50%); width: 26px; height: 26px; border-radius: 999px; background: #e89b3c; color: #0a1220; font-family: 'Arimo', sans-serif; font-size: 12px; font-weight: 700; display: grid; place-items: center; box-shadow: 0 0 0 4px rgb(10 18 32 / 0.6);">1</span>
+        <span style="position: absolute; left: 14.4%; top: 49.7%; width: 66.5%; height: 11.2%; border: 1px dashed rgb(232 155 60 / 0.9); border-radius: 6px; background: rgb(232 155 60 / 0.06);"></span>
+        <span style="position: absolute; left: 14.4%; top: 49.7%; transform: translate(-50%, -50%); width: 26px; height: 26px; border-radius: 999px; background: #e89b3c; color: #0a1220; font-family: 'Arimo', sans-serif; font-size: 12px; font-weight: 700; display: grid; place-items: center; box-shadow: 0 0 0 4px rgb(10 18 32 / 0.6);">2</span>
+        <span style="position: absolute; left: 14.4%; top: 63.1%; width: 66.5%; height: 35.5%; border: 1px dashed rgb(232 155 60 / 0.9); border-radius: 6px; background: rgb(232 155 60 / 0.06);"></span>
+        <span style="position: absolute; left: 14.4%; top: 63.1%; transform: translate(-50%, -50%); width: 26px; height: 26px; border-radius: 999px; background: #e89b3c; color: #0a1220; font-family: 'Arimo', sans-serif; font-size: 12px; font-weight: 700; display: grid; place-items: center; box-shadow: 0 0 0 4px rgb(10 18 32 / 0.6);">3</span>
+      </div>
+
+      <div>
+        <span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.2em; color: #e89b3c;">01 · HOME</span>
+        <h3 style="margin: 10px 0 0; font-family: 'Arimo', sans-serif; font-size: 24px; font-weight: 700; line-height: 1.15; color: #eef1f6;">The shortcuts a working day needs</h3>
+        <p style="margin: 12px 0 0; font-size: 13px; line-height: 1.75; color: #c5cfdd;">The screen the front desk keeps open for the whole shift, gathering the actions the day calls for into a single place.</p>
+
+        <div style="display: flex; flex-direction: column; gap: 14px; margin-top: 22px;">
+          <div style="display: flex; gap: 12px;">
+            <span style="flex-shrink: 0; width: 24px; height: 24px; border-radius: 999px; background: #e89b3c; color: #0a1220; font-family: 'Arimo', sans-serif; font-size: 12px; font-weight: 700; display: grid; place-items: center;">1</span>
+            <p style="margin: 0; font-size: 12px; line-height: 1.65; color: #c5cfdd;">Occupancy, rooms sold, guests in house, and the rooms housekeeping still has to clean.</p>
+          </div>
+          <div style="display: flex; gap: 12px;">
+            <span style="flex-shrink: 0; width: 24px; height: 24px; border-radius: 999px; background: #e89b3c; color: #0a1220; font-family: 'Arimo', sans-serif; font-size: 12px; font-weight: 700; display: grid; place-items: center;">2</span>
+            <p style="margin: 0; font-size: 12px; line-height: 1.65; color: #c5cfdd;">Walk-in sale, day-use stay, advance booking, check-in. One click each, no menu hunting.</p>
+          </div>
+          <div style="display: flex; gap: 12px;">
+            <span style="flex-shrink: 0; width: 24px; height: 24px; border-radius: 999px; background: #e89b3c; color: #0a1220; font-family: 'Arimo', sans-serif; font-size: 12px; font-weight: 700; display: grid; place-items: center;">3</span>
+            <p style="margin: 0; font-size: 12px; line-height: 1.65; color: #c5cfdd;">Rooms approaching check-out time, the ones already overdue, and a check-out button on every row.</p>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 10px; margin-top: 24px;">
+          <div style="width: 118px; border-radius: 10px; overflow: hidden; border: 1px solid #e89b3c;"><img src="sm-home-1.jpg" alt="" style="display: block; width: 100%;"></div>
+          <div style="width: 118px; border-radius: 10px; overflow: hidden; border: 1px solid rgb(255 255 255 / 0.14);"><img src="sm-home-2.jpg" alt="" style="display: block; width: 100%; filter: grayscale(1) brightness(0.72);"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3b. Bookings: fanned deck, reversed -->
+    <div style="display: grid; grid-template-columns: 400px minmax(0, 1fr); gap: 56px; align-items: start; margin-top: 72px; padding-top: 56px; border-top: 1px solid rgb(255 255 255 / 0.14);">
+      <div>
+        <span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.2em; color: #e89b3c;">03 · BOOKINGS</span>
+        <h3 style="margin: 10px 0 0; font-family: 'Arimo', sans-serif; font-size: 24px; font-weight: 700; line-height: 1.15; color: #eef1f6;">Two views of the same nights</h3>
+        <p style="margin: 12px 0 0; font-size: 13px; line-height: 1.75; color: #c5cfdd;">The schedule lays every stay out as rooms against dates so what is free reads at a glance. The booking form checks a date range, then creates the stay against the rate plan active for those nights, with a manual override when the front desk needs one.</p>
+
+        <div style="margin-top: 22px; padding: 18px 20px; border: 1px solid rgb(255 255 255 / 0.14); border-radius: 16px; background: #121c2e;">
+          <span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.16em; color: #c5cfdd;">Reads from</span>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px;">
+            <span style="padding: 6px 12px; border-radius: 999px; background: rgb(232 155 60 / 0.14); font-family: 'Arimo', ui-monospace, monospace; font-size: 11px; color: #e89b3c;">Room inventory</span>
+            <span style="padding: 6px 12px; border-radius: 999px; background: rgb(232 155 60 / 0.14); font-family: 'Arimo', ui-monospace, monospace; font-size: 11px; color: #e89b3c;">Rate plans</span>
+            <span style="padding: 6px 12px; border-radius: 999px; background: rgb(232 155 60 / 0.14); font-family: 'Arimo', ui-monospace, monospace; font-size: 11px; color: #e89b3c;">Guest directory</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="position: relative; height: 440px;">
+        <div style="position: absolute; right: 40px; top: 40px; width: 660px; transform: rotate(4deg); border-radius: 14px; overflow: hidden; border: 1px solid rgb(255 255 255 / 0.14); box-shadow: 0 20px 50px rgb(0 0 0 / 0.45);">
+          <img src="sm-rates.jpg" alt="" style="display: block; width: 100%; filter: grayscale(1) brightness(0.6);">
+        </div>
+        <div style="position: absolute; right: 20px; top: 20px; width: 700px; transform: rotate(2deg); border-radius: 14px; overflow: hidden; border: 1px solid rgb(255 255 255 / 0.14); box-shadow: 0 20px 50px rgb(0 0 0 / 0.45);">
+          <img src="sm-reservation.jpg" alt="" style="display: block; width: 100%; filter: grayscale(1) brightness(0.78);">
+        </div>
+        <div style="position: absolute; right: 0; top: 0; width: 740px; border-radius: 14px; overflow: hidden; border: 1px solid #e89b3c; box-shadow: 0 26px 60px rgb(0 0 0 / 0.55);">
+          <img src="schedule.jpg" alt="Booking schedule" style="display: block; width: 100%;">
+        </div>
+        <span style="position: absolute; right: 20px; top: 386px; padding: 7px 16px; border-radius: 999px; background: #e89b3c; color: #0a1220; font-family: 'Arimo', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.12em;">01 / 02 · SCHEDULE</span>
+      </div>
+    </div>
+
+    <!-- 3c. Reports: fanned deck -->
+    <div style="display: grid; grid-template-columns: minmax(0, 1fr) 400px; gap: 56px; align-items: start; margin-top: 72px; padding-top: 56px; border-top: 1px solid rgb(255 255 255 / 0.14);">
+      <div style="position: relative; height: 440px;">
+        <div style="position: absolute; left: 60px; top: 44px; width: 640px; transform: rotate(-6deg); border-radius: 14px; overflow: hidden; border: 1px solid rgb(255 255 255 / 0.14); box-shadow: 0 20px 50px rgb(0 0 0 / 0.45);">
+          <img src="sm-report-4.jpg" alt="" style="display: block; width: 100%; filter: grayscale(1) brightness(0.55);">
+        </div>
+        <div style="position: absolute; left: 38px; top: 30px; width: 670px; transform: rotate(-4deg); border-radius: 14px; overflow: hidden; border: 1px solid rgb(255 255 255 / 0.14); box-shadow: 0 20px 50px rgb(0 0 0 / 0.45);">
+          <img src="sm-report-3.jpg" alt="" style="display: block; width: 100%; filter: grayscale(1) brightness(0.68);">
+        </div>
+        <div style="position: absolute; left: 18px; top: 16px; width: 706px; transform: rotate(-2deg); border-radius: 14px; overflow: hidden; border: 1px solid rgb(255 255 255 / 0.14); box-shadow: 0 20px 50px rgb(0 0 0 / 0.45);">
+          <img src="sm-report-2.jpg" alt="" style="display: block; width: 100%; filter: grayscale(1) brightness(0.82);">
+        </div>
+        <div style="position: absolute; left: 0; top: 0; width: 740px; border-radius: 14px; overflow: hidden; border: 1px solid #e89b3c; box-shadow: 0 26px 60px rgb(0 0 0 / 0.55);">
+          <img src="report-1.jpg" alt="Report" style="display: block; width: 100%;">
+        </div>
+        <span style="position: absolute; left: 20px; top: 386px; padding: 7px 16px; border-radius: 999px; background: #e89b3c; color: #0a1220; font-family: 'Arimo', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.12em;">01 / 04 · REPORTS</span>
+      </div>
+
+      <div>
+        <span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.2em; color: #e89b3c;">06 · REPORTS</span>
+        <h3 style="margin: 10px 0 0; font-family: 'Arimo', sans-serif; font-size: 24px; font-weight: 700; line-height: 1.15; color: #eef1f6;">Numbers that stop moving</h3>
+        <p style="margin: 12px 0 0; font-size: 13px; line-height: 1.75; color: #c5cfdd;">Reports read from the daily statistics Night Audit freezes, so once a business day is closed its numbers never change again. Occupancy, ADR, RevPAR and revenue against the previous period, then broken down by room type, channel and sales method.</p>
+
+        <div style="display: flex; flex-direction: column; gap: 2px; margin-top: 22px;">
+          <div style="display: flex; align-items: center; gap: 12px; padding: 11px 14px; border-radius: 12px; background: rgb(232 155 60 / 0.14); border-left: 2px solid #e89b3c;">
+            <span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 11px; color: #e89b3c;">01</span>
+            <span style="font-family: 'Arimo', sans-serif; font-size: 13px; font-weight: 700; color: #eef1f6;">Occupancy, ADR, RevPAR</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 12px; padding: 11px 14px; border-radius: 12px;">
+            <span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 11px; color: #7e8fa6;">02</span>
+            <span style="font-family: 'Arimo', sans-serif; font-size: 13px; font-weight: 700; color: #c5cfdd;">Revenue by room type</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 12px; padding: 11px 14px; border-radius: 12px;">
+            <span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 11px; color: #7e8fa6;">03</span>
+            <span style="font-family: 'Arimo', sans-serif; font-size: 13px; font-weight: 700; color: #c5cfdd;">Guest segments</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 12px; padding: 11px 14px; border-radius: 12px;">
+            <span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 11px; color: #7e8fa6;">04</span>
+            <span style="font-family: 'Arimo', sans-serif; font-size: 13px; font-weight: 700; color: #c5cfdd;">Open maintenance tickets</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. INDEX SHEET -->
+  <div style="padding: 80px 64px 72px;">
+    <div style="display: flex; align-items: center; gap: 14px; font-family: 'Arimo', ui-monospace, monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.2em; color: #e89b3c;">
+      <span>Every screen</span>
+      <span style="height: 1px; flex-grow: 1; max-width: 120px; background: rgb(255 255 255 / 0.14);"></span>
+    </div>
+
+    <div style="display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 48px; align-items: end; margin-top: 24px;">
+      <h2 style="margin: 0; font-family: 'Anton', 'Arimo', sans-serif; font-size: 46px; font-weight: 400; line-height: 1; letter-spacing: 0.01em; color: #eef1f6; text-transform: uppercase;">The whole system<br>on one sheet</h2>
+      <p style="margin: 0; font-size: 13px; line-height: 1.75; color: #c5cfdd;">The modules above make the argument. This is the receipt: every screen in the build, tinted back so the sheet reads as one object.</p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 18px 16px; margin-top: 32px;">
+
+      <div>
+        <div style="border-radius: 10px; overflow: hidden; border: 1px solid rgb(255 255 255 / 0.14);"><img src="sm-home-1.jpg" alt="" style="display: block; width: 100%; filter: grayscale(1) contrast(1.05) brightness(0.8);"></div>
+        <div style="display: flex; gap: 8px; margin-top: 8px;"><span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 10px; color: #7e8fa6;">01</span><span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 10px; color: #7e8fa6;">Home</span></div>
+      </div>
+      <div>
+        <div style="border-radius: 10px; overflow: hidden; border: 1px solid rgb(255 255 255 / 0.14);"><img src="sm-home-2.jpg" alt="" style="display: block; width: 100%; filter: grayscale(1) contrast(1.05) brightness(0.8);"></div>
+        <div style="display: flex; gap: 8px; margin-top: 8px;"><span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 10px; color: #7e8fa6;">02</span><span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 10px; color: #7e8fa6;">Home · alerts</span></div>
+      </div>
+      <div>
+        <div style="border-radius: 10px; overflow: hidden; border: 1px solid rgb(255 255 255 / 0.14);"><img src="sm-room.jpg" alt="" style="display: block; width: 100%; filter: grayscale(1) contrast(1.05) brightness(0.8);"></div>
+        <div style="display: flex; gap: 8px; margin-top: 8px;"><span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 10px; color: #7e8fa6;">03</span><span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 10px; color: #7e8fa6;">Rooms</span></div>
+      </div>
+      <div>
+        <div style="border-radius: 10px; overflow: hidden; border: 1px solid rgb(255 255 255 / 0.14);"><img src="sm-schedule.jpg" alt="" style="display: block; width: 100%; filter: grayscale(1) contrast(1.05) brightness(0.8);"></div>
+        <div style="display: flex; gap: 8px; margin-top: 8px;"><span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 10px; color: #7e8fa6;">04</span><span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 10px; color: #7e8fa6;">Schedule</span></div>
+      </div>
+      <div>
+        <div style="border-radius: 10px; overflow: hidden; border: 1px solid rgb(255 255 255 / 0.14);"><img src="sm-reservation.jpg" alt="" style="display: block; width: 100%; filter: grayscale(1) contrast(1.05) brightness(0.8);"></div>
+        <div style="display: flex; gap: 8px; margin-top: 8px;"><span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 10px; color: #7e8fa6;">05</span><span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 10px; color: #7e8fa6;">Booking</span></div>
+      </div>
+      <div>
+        <div style="border-radius: 10px; overflow: hidden; border: 1px solid rgb(255 255 255 / 0.14);"><img src="sm-rates.jpg" alt="" style="display: block; width: 100%; filter: grayscale(1) contrast(1.05) brightness(0.8);"></div>
+        <div style="display: flex; gap: 8px; margin-top: 8px;"><span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 10px; color: #7e8fa6;">06</span><span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 10px; color: #7e8fa6;">Rates</span></div>
+      </div>
+      <div>
+        <div style="border-radius: 10px; overflow: hidden; border: 1px solid rgb(255 255 255 / 0.14);"><img src="sm-bill-1.jpg" alt="" style="display: block; width: 100%; filter: grayscale(1) contrast(1.05) brightness(0.8);"></div>
+        <div style="display: flex; gap: 8px; margin-top: 8px;"><span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 10px; color: #7e8fa6;">07</span><span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 10px; color: #7e8fa6;">Folio list</span></div>
+      </div>
+      <div>
+        <div style="border-radius: 10px; overflow: hidden; border: 1px solid rgb(255 255 255 / 0.14);"><img src="sm-bill-2.jpg" alt="" style="display: block; width: 100%; filter: grayscale(1) contrast(1.05) brightness(0.8);"></div>
+        <div style="display: flex; gap: 8px; margin-top: 8px;"><span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 10px; color: #7e8fa6;">08</span><span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 10px; color: #7e8fa6;">Folio detail</span></div>
+      </div>
+      <div>
+        <div style="border-radius: 10px; overflow: hidden; border: 1px solid rgb(255 255 255 / 0.14);"><img src="sm-report-1.jpg" alt="" style="display: block; width: 100%; filter: grayscale(1) contrast(1.05) brightness(0.8);"></div>
+        <div style="display: flex; gap: 8px; margin-top: 8px;"><span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 10px; color: #7e8fa6;">09</span><span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 10px; color: #7e8fa6;">Report · KPI</span></div>
+      </div>
+      <div>
+        <div style="border-radius: 10px; overflow: hidden; border: 1px solid rgb(255 255 255 / 0.14);"><img src="sm-report-2.jpg" alt="" style="display: block; width: 100%; filter: grayscale(1) contrast(1.05) brightness(0.8);"></div>
+        <div style="display: flex; gap: 8px; margin-top: 8px;"><span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 10px; color: #7e8fa6;">10</span><span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 10px; color: #7e8fa6;">Report · mix</span></div>
+      </div>
+      <div>
+        <div style="border-radius: 10px; overflow: hidden; border: 1px solid rgb(255 255 255 / 0.14);"><img src="sm-report-3.jpg" alt="" style="display: block; width: 100%; filter: grayscale(1) contrast(1.05) brightness(0.8);"></div>
+        <div style="display: flex; gap: 8px; margin-top: 8px;"><span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 10px; color: #7e8fa6;">11</span><span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 10px; color: #7e8fa6;">Report · segments</span></div>
+      </div>
+      <div>
+        <div style="border-radius: 10px; overflow: hidden; border: 1px solid rgb(255 255 255 / 0.14);"><img src="sm-report-4.jpg" alt="" style="display: block; width: 100%; filter: grayscale(1) contrast(1.05) brightness(0.8);"></div>
+        <div style="display: flex; gap: 8px; margin-top: 8px;"><span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 10px; color: #7e8fa6;">12</span><span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 10px; color: #7e8fa6;">Report · tickets</span></div>
+      </div>
+      <div>
+        <div style="border-radius: 10px; overflow: hidden; border: 1px solid rgb(255 255 255 / 0.14);"><img src="sm-analysis-1.jpg" alt="" style="display: block; width: 100%; filter: grayscale(1) contrast(1.05) brightness(0.8);"></div>
+        <div style="display: flex; gap: 8px; margin-top: 8px;"><span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 10px; color: #7e8fa6;">13</span><span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 10px; color: #7e8fa6;">Performance</span></div>
+      </div>
+      <div>
+        <div style="border-radius: 10px; overflow: hidden; border: 1px solid rgb(255 255 255 / 0.14);"><img src="sm-analysis-2.jpg" alt="" style="display: block; width: 100%; filter: grayscale(1) contrast(1.05) brightness(0.8);"></div>
+        <div style="display: flex; gap: 8px; margin-top: 8px;"><span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 10px; color: #7e8fa6;">14</span><span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 10px; color: #7e8fa6;">Revenue mix</span></div>
+      </div>
+      <div>
+        <div style="border-radius: 10px; overflow: hidden; border: 1px solid rgb(255 255 255 / 0.14);"><img src="sm-analysis-3.jpg" alt="" style="display: block; width: 100%; filter: grayscale(1) contrast(1.05) brightness(0.8);"></div>
+        <div style="display: flex; gap: 8px; margin-top: 8px;"><span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 10px; color: #7e8fa6;">15</span><span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 10px; color: #7e8fa6;">Break-even</span></div>
+      </div>
+      <div>
+        <div style="border-radius: 10px; overflow: hidden; border: 1px solid rgb(255 255 255 / 0.14);"><img src="sm-analysis-4.jpg" alt="" style="display: block; width: 100%; filter: grayscale(1) contrast(1.05) brightness(0.8);"></div>
+        <div style="display: flex; gap: 8px; margin-top: 8px;"><span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 10px; color: #7e8fa6;">16</span><span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 10px; color: #7e8fa6;">Guest mix</span></div>
+      </div>
+      <div>
+        <div style="border-radius: 10px; overflow: hidden; border: 1px solid rgb(255 255 255 / 0.14);"><img src="sm-analysis-5.jpg" alt="" style="display: block; width: 100%; filter: grayscale(1) contrast(1.05) brightness(0.8);"></div>
+        <div style="display: flex; gap: 8px; margin-top: 8px;"><span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 10px; color: #7e8fa6;">17</span><span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 10px; color: #7e8fa6;">Guest profile</span></div>
+      </div>
+      <div>
+        <div style="border-radius: 10px; overflow: hidden; border: 1px solid rgb(255 255 255 / 0.14);"><img src="sm-account.jpg" alt="" style="display: block; width: 100%; filter: grayscale(1) contrast(1.05) brightness(0.8);"></div>
+        <div style="display: flex; gap: 8px; margin-top: 8px;"><span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 10px; color: #7e8fa6;">18</span><span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 10px; color: #7e8fa6;">Accounting</span></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

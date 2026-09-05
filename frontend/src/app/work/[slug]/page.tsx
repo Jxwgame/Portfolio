@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { CaseStudyLayoutOne } from "@/components/work/layout-1/CaseStudyLayoutOne";
 import { CaseStudyLayoutTwo } from "@/components/work/layout-2/CaseStudyLayoutTwo";
 import { CaseStudyLayoutThree } from "@/components/work/layout-3/CaseStudyLayoutThree";
+import { CaseStudyLayoutFour } from "@/components/work/layout-4/CaseStudyLayoutFour";
 import { getAllCaseStudySlugs, getCaseStudy } from "@/lib/case-studies";
 
 export function generateStaticParams() {
@@ -24,6 +25,7 @@ export default async function ProjectDetailPage(props: PageProps<"/work/[slug]">
   const study = getCaseStudy(slug);
   if (!study) notFound();
 
+  if (study.layout === 4) return <CaseStudyLayoutFour study={study} />;
   if (study.layout === 2) return <CaseStudyLayoutTwo study={study} />;
   if (study.layout === 3) return <CaseStudyLayoutThree study={study} />;
   return <CaseStudyLayoutOne study={study} />;

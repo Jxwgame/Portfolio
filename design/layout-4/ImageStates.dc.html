@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Arimo:wght@400;700&amp;family=Inter:wght@400;500&amp;display=swap">
+  <style>
+    body { margin: 0; background: #0a1220; color: #eef1f6; font-family: "Inter", system-ui, sans-serif; }
+    a { color: #e89b3c; } a:hover { color: #a9702c; }
+  </style>
+</helmet>
+
+<div style="background: #0a1220; padding: 56px 64px 64px; font-family: 'Inter', system-ui, sans-serif;">
+
+  <div style="display: flex; align-items: center; gap: 14px; font-family: 'Arimo', ui-monospace, monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.2em; color: #e89b3c;">
+    <span>Image States</span>
+    <span style="height: 1px; flex-grow: 1; max-width: 120px; background: rgb(255 255 255 / 0.14);"></span>
+  </div>
+
+  <div style="display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 48px; align-items: end; margin-top: 26px;">
+    <h2 style="margin: 0; font-family: 'Anton', 'Arimo', sans-serif; font-size: 46px; font-weight: 400; line-height: 1; letter-spacing: 0.01em; color: #eef1f6; text-transform: uppercase;">What a screen looks like<br>before it looks like itself</h2>
+    <p style="margin: 0; font-size: 13px; line-height: 1.75; color: #c5cfdd;">The empty state is part of the composition, not an apology for a missing file. Same frame, same label, same weight on the page, whichever state a plate is in.</p>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; margin-top: 36px;">
+
+    <div>
+      <div style="position: relative; aspect-ratio: 2 / 1; border-radius: 14px; overflow: hidden; border: 1px solid rgb(255 255 255 / 0.14); background: linear-gradient(150deg, #121c2e, #0a1220 70%); display: grid; place-items: center;">
+        <span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.16em; color: #7e8fa6;">ROOMS</span>
+        <span style="position: absolute; left: 14px; top: 12px; font-family: 'Arimo', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.2em; color: rgb(232 155 60 / 0.6);">03</span>
+      </div>
+      <h4 style="margin: 14px 0 0; font-family: 'Arimo', sans-serif; font-size: 13px; font-weight: 700; color: #eef1f6;">Plate</h4>
+      <p style="margin: 6px 0 0; font-size: 12px; line-height: 1.6; color: #c5cfdd;">No capture yet. The frame still carries the module name and its index, so the grid never breaks.</p>
+    </div>
+
+    <div>
+      <div style="position: relative; aspect-ratio: 2 / 1; border-radius: 14px; overflow: hidden; border: 1px solid rgb(255 255 255 / 0.14); background: linear-gradient(150deg, #121c2e, #0a1220 70%);">
+        <div style="position: absolute; inset: 0; background: linear-gradient(100deg, rgb(255 255 255 / 0) 30%, rgb(255 255 255 / 0.07) 50%, rgb(255 255 255 / 0) 70%);"></div>
+        <div style="position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: rgb(255 255 255 / 0.1);">
+          <div style="width: 42%; height: 100%; background: #e89b3c;"></div>
+        </div>
+        <span style="position: absolute; left: 14px; top: 12px; font-family: 'Arimo', ui-monospace, monospace; font-size: 10px; letter-spacing: 0.2em; color: rgb(232 155 60 / 0.6);">03</span>
+      </div>
+      <h4 style="margin: 14px 0 0; font-family: 'Arimo', sans-serif; font-size: 13px; font-weight: 700; color: #eef1f6;">Loading</h4>
+      <p style="margin: 6px 0 0; font-size: 12px; line-height: 1.6; color: #c5cfdd;">One slow sheen and a hairline at the foot. No spinner, no jumping layout.</p>
+    </div>
+
+    <div>
+      <div style="position: relative; aspect-ratio: 2 / 1; border-radius: 14px; overflow: hidden; border: 1px solid rgb(255 255 255 / 0.14);">
+        <img src="sm-room.jpg" alt="Rooms" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: top left;">
+      </div>
+      <h4 style="margin: 14px 0 0; font-family: 'Arimo', sans-serif; font-size: 13px; font-weight: 700; color: #eef1f6;">Loaded</h4>
+      <p style="margin: 6px 0 0; font-size: 12px; line-height: 1.6; color: #c5cfdd;">Cropped from the top left so the part that matters survives the crop.</p>
+    </div>
+
+    <div>
+      <div style="position: relative; aspect-ratio: 2 / 1; border-radius: 14px; overflow: hidden; border: 1px solid #e89b3c;">
+        <img src="sm-room.jpg" alt="Rooms" style="display: block; width: 104%; height: 104%; object-fit: cover; object-position: top left;">
+        <div style="position: absolute; inset: 0; background: rgb(10 18 32 / 0.28);"></div>
+        <span style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); padding: 7px 16px; border-radius: 999px; background: rgb(10 18 32 / 0.8); border: 1px solid rgb(238 241 246 / 0.24); font-family: 'Arimo', ui-monospace, monospace; font-size: 11px; color: #eef1f6;">Open full size</span>
+      </div>
+      <h4 style="margin: 14px 0 0; font-family: 'Arimo', sans-serif; font-size: 13px; font-weight: 700; color: #eef1f6;">Hover</h4>
+      <p style="margin: 6px 0 0; font-size: 12px; line-height: 1.6; color: #c5cfdd;">A rust edge, a small push in, and the only piece of copy that appears on an image.</p>
+    </div>
+
+    <div>
+      <div style="position: relative; aspect-ratio: 2 / 1; border-radius: 14px; overflow: hidden; border: 1px solid rgb(255 255 255 / 0.14); background: #05090f; display: grid; place-items: center; padding: 14px;">
+        <img src="sm-room.jpg" alt="Rooms full size" style="display: block; width: 86%; border-radius: 4px;">
+        <span style="position: absolute; left: 14px; bottom: 12px; font-family: 'Arimo', ui-monospace, monospace; font-size: 10px; color: rgb(238 241 246 / 0.7);">03 / 18</span>
+        <span style="position: absolute; right: 14px; bottom: 12px; font-family: 'Arimo', ui-monospace, monospace; font-size: 10px; color: rgb(238 241 246 / 0.7);">← →</span>
+      </div>
+      <h4 style="margin: 14px 0 0; font-family: 'Arimo', sans-serif; font-size: 13px; font-weight: 700; color: #eef1f6;">Full size</h4>
+      <p style="margin: 6px 0 0; font-size: 12px; line-height: 1.6; color: #c5cfdd;">Uncropped on a near-black ground, with the whole set reachable by arrow key.</p>
+    </div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 40px;">
+    <div style="padding: 20px 22px; border: 1px solid rgb(255 255 255 / 0.14); border-radius: 16px; background: #121c2e;">
+      <span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.16em; color: #e89b3c;">Budget per section</span>
+      <p style="margin: 10px 0 0; font-size: 12px; line-height: 1.65; color: #c5cfdd;">One image carries the argument. Two or three support it. Everything past that belongs on the index sheet, not in the flow.</p>
+    </div>
+    <div style="padding: 20px 22px; border: 1px solid rgb(255 255 255 / 0.14); border-radius: 16px; background: #121c2e;">
+      <span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.16em; color: #e89b3c;">One live plate at a time</span>
+      <p style="margin: 10px 0 0; font-size: 12px; line-height: 1.65; color: #c5cfdd;">Everything not being read is tinted back to the page. Colour is how the eye is told where to look.</p>
+    </div>
+    <div style="padding: 20px 22px; border: 1px solid rgb(255 255 255 / 0.14); border-radius: 16px; background: #121c2e;">
+      <span style="font-family: 'Arimo', ui-monospace, monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.16em; color: #e89b3c;">Load below the fold</span>
+      <p style="margin: 10px 0 0; font-size: 12px; line-height: 1.65; color: #c5cfdd;">Plates reserve their space from the first paint, so eighteen screenshots never push the text around as they arrive.</p>
+    </div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>
