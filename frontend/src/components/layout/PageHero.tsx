@@ -56,7 +56,7 @@ export function PageHero({
           {title}
         </DisplayHeading>
         {description && (
-          <p className="mt-6 max-w-[60ch] leading-[1.75] text-muted">{description}</p>
+          <p className="portfolio-copy mt-6 max-w-[60ch] leading-[1.8] text-muted">{description}</p>
         )}
         {supplement && <div className="mt-8">{supplement}</div>}
       </Container>

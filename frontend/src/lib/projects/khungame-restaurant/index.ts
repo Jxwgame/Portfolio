@@ -31,6 +31,11 @@ export const caseStudy: CaseStudyLayout1 = {
   summary: SUMMARY,
   description:
     "KitchenHome is an online ordering site for a restaurant: customers browse a categorized menu (recommended, fried, soups, seafood, steak, dessert, drinks), add items to a cart, and check out. Signed-in customers manage saved delivery addresses, track order status through preparing/delivering stages, review past orders, and earn points on a membership card redeemable for discount codes. This was a team academic project. I worked across both the frontend pages and the [[php]]PHP[[/php]]/[[mysql]]MySQL[[/mysql]] backend.",
+  impact: [
+    "Customers can browse the menu, place an order, and check its preparation or delivery status in one ordering flow.",
+    "Saved delivery addresses and order history make it easier for returning customers to reuse their details and review previous purchases.",
+    "Membership points and redeemable discount codes give customers a way to use rewards on future orders.",
+  ],
   highlights: [
     "Categorized menu with add-to-cart ordering",
     "Order status tracking (received / preparing / delivering)",

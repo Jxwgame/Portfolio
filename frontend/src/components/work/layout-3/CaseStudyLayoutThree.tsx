@@ -1,4 +1,5 @@
 import { CaseStudyHero3 } from "./CaseStudyHero3";
+import { CaseStudyOutcomes } from "@/components/work/CaseStudyOutcomes";
 import { CaseStudyInfoCards3 } from "./CaseStudyInfoCards3";
 import { CaseStudyPhotoGallery } from "./CaseStudyPhotoGallery";
 import { CaseStudyRelatedProjects } from "./CaseStudyRelatedProjects";
@@ -21,6 +22,7 @@ export function CaseStudyLayoutThree({ study, lang }: { study: CaseStudyLayout3;
 
   const navItems: CaseStudyNavItem[] = [
     { id: "summary", label: t?.projectSummary ?? "Summary" },
+    ...(study.impact.length ? [{ id: "outcomes", label: lang === "th" ? "ผลลัพธ์" : "Outcomes" }] : []),
     ...(hasWorkAreas ? [{ id: "work-areas", label: t?.workAreas ?? "Work Areas" }] : []),
     { id: "photo-gallery", label: t?.photoGallery ?? "Photo Gallery" },
     { id: "tech-stack", label: t?.techStack ?? "Tech Stack" },
@@ -44,6 +46,7 @@ export function CaseStudyLayoutThree({ study, lang }: { study: CaseStudyLayout3;
             <div id="summary">
               <CaseStudyInfoCards3 study={study} lang={lang} />
             </div>
+            <CaseStudyOutcomes items={study.impact} lang={lang} />
             {hasWorkAreas && (
               <div id="work-areas">
                 <CaseStudyWorkAreas3 shots={study.galleryShots} lang={lang} />

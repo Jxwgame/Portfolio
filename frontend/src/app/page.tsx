@@ -16,7 +16,7 @@ export default async function HomePage() {
     <main>
       {/* index = เลขที่โชว์บนเส้นตกแต่งริมซ้าย ไล่ตามลำดับการเลื่อน */}
       <Hero settings={settings} index={1} />
-      <AboutIntro settings={settings} index={2} />
+      <AboutIntro index={2} />
       <SkillsExperience
         skills={skills}
         summary={settings["skills.summary"] ?? ""}

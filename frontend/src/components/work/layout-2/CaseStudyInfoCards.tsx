@@ -1,4 +1,4 @@
-import { CircleCheckBig, Info, Target, TrendingUp, UserCog, type LucideIcon } from "lucide-react";
+import { CircleCheckBig, Info, Target, UserCog, type LucideIcon } from "lucide-react";
 
 import { GlossaryText } from "@/components/common/GlossaryText";
 import type { CaseStudyLayout2 } from "@/lib/case-studies/layout-2";
@@ -30,7 +30,7 @@ type InfoCardsStudy = Pick<CaseStudyLayout2, "overview" | "responsibility" | "hi
 export function CaseStudyInfoCards({ study, lang }: { study: InfoCardsStudy; lang?: "th" }) {
   const t = lang === "th" ? TH_CASE_STUDY_UI : null;
   return (
-    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <div className="grid gap-4 lg:grid-cols-3">
       <InfoCard icon={Info} title={t?.overview ?? "Overview"}>
         <GlossaryText text={study.overview} />
       </InfoCard>
@@ -47,16 +47,7 @@ export function CaseStudyInfoCards({ study, lang }: { study: InfoCardsStudy; lan
           ))}
         </ul>
       </InfoCard>
-      <InfoCard icon={TrendingUp} title={t?.impact ?? "Impact"}>
-        <ul className="grid gap-1.5">
-          {study.impact.map((item) => (
-            <li key={item} className="flex items-start gap-2">
-              <CircleCheckBig className="mt-0.5 size-3.5 shrink-0 text-rust" aria-hidden="true" />
-              {item}
-            </li>
-          ))}
-        </ul>
-      </InfoCard>
+
     </div>
   );
 }

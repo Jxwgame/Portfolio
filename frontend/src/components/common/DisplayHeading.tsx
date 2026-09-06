@@ -13,7 +13,7 @@ export function DisplayHeading({
   return (
     <Tag
       className={cn(
-        "font-display text-[clamp(3.2rem,9vw,7.5rem)] uppercase leading-[0.86] tracking-[-0.01em]",
+        "portfolio-heading font-display text-[clamp(3.2rem,9vw,7.5rem)] uppercase leading-[1.04] tracking-[-0.01em]",
         className,
       )}
     >

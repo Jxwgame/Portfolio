@@ -25,7 +25,7 @@ export default async function ThaiHomePage() {
   return (
     <main lang="th">
       <Hero settings={localizedSettings} index={1} copy={TH_HOME.hero} />
-      <AboutIntro settings={localizedSettings} index={2} copy={TH_HOME.about} />
+      <AboutIntro index={2} copy={TH_HOME.about} />
       <SkillsExperience
         skills={skills}
         summary={localizedSettings["skills.summary"]}

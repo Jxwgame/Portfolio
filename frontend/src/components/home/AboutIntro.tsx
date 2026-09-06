@@ -8,14 +8,14 @@ import { Section } from "@/components/layout/Section";
 import { Reveal } from "@/components/motion/Reveal";
 
 export function AboutIntro({
-  settings,
   index,
   copy,
 }: {
-  settings: Record<string, string>;
   index?: number;
   copy?: {
     eyebrow: string;
+    heading: string;
+    body: string;
     linkLabel: string;
     linkHref: string;
     railLabel?: string;
@@ -63,13 +63,13 @@ export function AboutIntro({
               } as CSSProperties
             }
           >
-            <Eyebrow>{copy?.eyebrow ?? "About me"}</Eyebrow>
-            <h2 className="mt-4 max-w-[10ch] font-display text-[clamp(2.8rem,7vw,5.8rem)] uppercase leading-[0.96] tracking-[0.01em] text-paper">
-              {settings["about.heading"]}
+            <Eyebrow>{copy?.eyebrow ?? "My approach"}</Eyebrow>
+            <h2 className="portfolio-heading mt-4 max-w-[14ch] font-display text-[clamp(2.5rem,6vw,5rem)] uppercase leading-[1.04] tracking-[0.01em] text-paper">
+              {copy?.heading ?? "Build with purpose"}
             </h2>
             <span className="mt-4 block h-0.5 w-8 bg-rust" aria-hidden="true" />
-            <p className="mt-5 max-w-[52ch] leading-[1.75] text-muted">
-              {settings["home.about.body"] ?? settings["about.body"]}
+            <p className="portfolio-copy mt-6 max-w-[52ch] leading-[1.8] text-muted">
+              {copy?.body ?? "I'm interested in both what makes a system work and the experience of the people who use it. Each project is an opportunity to connect these two perspectives and learn something new along the way."}
             </p>
             <ArrowLink href={copy?.linkHref ?? "/about"} variant="outline" className="mt-7">
               {copy?.linkLabel ?? "More about me"}

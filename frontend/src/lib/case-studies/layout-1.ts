@@ -44,6 +44,7 @@ export type CaseStudyLayout1 = {
   summary: string;
   description: string;
   highlights: string[];
+  impact?: string[];
   tools: string[];
   startDate: string;
   endDate: string;

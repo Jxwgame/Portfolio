@@ -39,6 +39,7 @@ function mergeArray<T>(original: T[], overrides?: Partial<T>[]): T[] {
 type ThLayout1 = Partial<Pick<CaseStudyLayout1, "eyebrow" | "summary" | "description" | "projectType">> & {
   tags?: string[];
   highlights?: string[];
+  impact?: string[];
   shots?: Partial<CaseStudyShot>[];
   phases?: Partial<CaseStudyPhase>[];
   architecture?: Partial<NonNullable<CaseStudyLayout1["architecture"]>[number]>[];
@@ -60,6 +61,11 @@ const TH_LAYOUT1_STUDIES: Record<string, ThLayout1> = {
       "บันทึกที่อยู่จัดส่งพร้อมเพิ่ม/ลบได้",
       "บัตรสมาชิกสะสมแต้มพร้อมโค้ดส่วนลดที่แลกรับได้",
       "หน้าติดต่อร้านพร้อมเวลาทำการ เบอร์โทร/อีเมล และตำแหน่งบนแผนที่",
+    ],
+    impact: [
+      "ลูกค้าดูเมนู สั่งอาหาร และตรวจสอบสถานะการเตรียมหรือจัดส่งได้ในขั้นตอนการสั่งซื้อเดียวกัน",
+      "ที่อยู่จัดส่งที่บันทึกไว้และประวัติคำสั่งซื้อช่วยให้ลูกค้าที่กลับมาใช้บริการนำข้อมูลเดิมมาใช้และทบทวนรายการที่เคยสั่งได้สะดวกขึ้น",
+      "แต้มสมาชิกและโค้ดส่วนลดที่แลกรับได้เปิดให้ลูกค้านำสิทธิประโยชน์มาใช้กับคำสั่งซื้อครั้งถัดไป",
     ],
     projectType: "งานกลุ่มในรายวิชา",
     shots: [
@@ -106,6 +112,7 @@ function localizeLayout1Th(study: CaseStudyLayout1): CaseStudyLayout1 {
     projectType: th.projectType ?? study.projectType,
     tags: th.tags ?? study.tags,
     highlights: th.highlights ?? study.highlights,
+    impact: th.impact ?? study.impact,
     shots: mergeArray(study.shots, th.shots),
     phases: mergeArray(study.phases, th.phases),
     architecture: study.architecture ? mergeArray(study.architecture, th.architecture) : study.architecture,

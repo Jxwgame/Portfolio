@@ -1,4 +1,5 @@
 import { CaseStudyArchitecture } from "./CaseStudyArchitecture";
+import { CaseStudyOutcomes } from "@/components/work/CaseStudyOutcomes";
 import { CaseStudyHero4 } from "./CaseStudyHero4";
 import { CaseStudyModuleSections } from "./CaseStudyModuleSections";
 import { CaseStudyResponsive } from "./CaseStudyResponsive";
@@ -27,6 +28,7 @@ export function CaseStudyLayoutFour({ study, lang }: { study: CaseStudyLayout4; 
   // ป้ายของแท็บใช้ eyebrow ของแต่ละหัวข้อเป็นหลัก จะได้ตรงกับที่คนดูเห็นตอนเลื่อนไปถึงจริง ๆ
   const navItems: CaseStudyNavItem[] = [
     { id: "overview", label: t?.overview ?? "Overview" },
+    ...(study.impact.length ? [{ id: "outcomes", label: lang === "th" ? "ผลลัพธ์" : "Outcomes" }] : []),
     ...(study.responsive
       ? [{ id: "responsive", label: study.responsive.eyebrow ?? t?.responsive ?? "Responsive" }]
       : []),
@@ -58,6 +60,7 @@ export function CaseStudyLayoutFour({ study, lang }: { study: CaseStudyLayout4; 
             <div id="overview">
               <CaseStudyInfoCards study={study} lang={lang} />
             </div>
+            <CaseStudyOutcomes items={study.impact} lang={lang} />
             {study.responsive && (
               <div id="responsive">
                 <CaseStudyResponsive responsive={study.responsive} lang={lang} />

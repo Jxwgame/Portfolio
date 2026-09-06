@@ -43,22 +43,22 @@ export function FeaturedProjectCard({
         </div>
       </div>
 
-      <div className="flex flex-1 flex-col justify-center p-6 sm:p-8">
-        <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-rust">{project.category}</p>
-        <h3 className="mt-2 font-heading text-xl font-bold tracking-[0.01em] text-fg sm:text-2xl">{project.title}</h3>
-        <p className="mt-3 max-w-[60ch] text-[0.9rem] leading-[1.7] text-muted">{project.summary}</p>
+      <div className="flex min-w-0 flex-1 flex-col justify-center p-6 sm:p-8">
+        <p className="portfolio-label font-heading text-xs font-semibold uppercase tracking-[0.08em] text-rust">{project.category}</p>
+        <h3 className="portfolio-heading mt-2 font-heading text-2xl font-bold leading-snug text-fg">{project.title}</h3>
+        <p className="portfolio-copy mt-3 text-sm leading-[1.8] text-muted">{project.summary}</p>
 
         {project.tools.length > 0 && (
-          <div className="mt-4 flex flex-wrap gap-1.5">
+          <div className="mt-4 flex flex-wrap gap-2">
             {project.tools.slice(0, 6).map((tool) => (
-              <span key={tool} className="rounded-full border border-line bg-[var(--bg)] px-2.5 py-1 font-mono text-[10px] text-muted">
+              <span key={tool} className="rounded-full border border-line bg-[var(--bg)] px-2.5 py-1 font-sans text-xs leading-relaxed text-muted">
                 {tool}
               </span>
             ))}
           </div>
         )}
 
-        <div className="mt-5 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.16em] text-rust">
+        <div className="portfolio-label mt-5 flex items-center justify-between gap-3 border-t border-line pt-4 font-heading text-sm font-semibold text-rust">
           {viewLabel}
           <ArrowUpRight className="size-3.5 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />
         </div>

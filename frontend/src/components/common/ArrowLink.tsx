@@ -24,7 +24,7 @@ export function ArrowLink({
         href={href}
         className={cn(
           "group inline-flex items-center gap-3 rounded-full border border-line px-6 py-3.5",
-          "font-mono text-xs uppercase tracking-[0.14em] transition hover:-translate-y-0.5",
+          "portfolio-label font-heading text-sm font-semibold transition hover:-translate-y-0.5",
           className,
         )}
       >
@@ -40,7 +40,7 @@ export function ArrowLink({
     <Link
       href={href}
       className={cn(
-        "group inline-flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-[0.16em]",
+        "portfolio-label group inline-flex items-center gap-2.5 font-heading text-sm font-semibold",
         className,
       )}
     >

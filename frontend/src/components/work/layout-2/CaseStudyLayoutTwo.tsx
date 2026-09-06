@@ -1,4 +1,5 @@
 import { CaseStudyArchitectureDashboard } from "./CaseStudyArchitectureDashboard";
+import { CaseStudyOutcomes } from "@/components/work/CaseStudyOutcomes";
 import { CaseStudyConceptOverview } from "./CaseStudyConceptOverview";
 import { CaseStudyFeatureSections } from "./CaseStudyFeatureSections";
 import { CaseStudyHero2 } from "./CaseStudyHero2";
@@ -24,6 +25,7 @@ export function CaseStudyLayoutTwo({ study, lang }: { study: CaseStudyLayout2; l
   const navItems: CaseStudyNavItem[] = [
     ...(hasTakeaways ? [{ id: "takeaways", label: t?.keyTakeaways ?? "Key Takeaways" }] : []),
     { id: "summary", label: t?.projectSummary ?? "Summary" },
+    ...(study.impact.length ? [{ id: "outcomes", label: lang === "th" ? "ผลลัพธ์" : "Outcomes" }] : []),
     ...(study.conceptOverview
       ? [
           {
@@ -70,6 +72,7 @@ export function CaseStudyLayoutTwo({ study, lang }: { study: CaseStudyLayout2; l
             <div id="summary">
               <CaseStudyInfoCards study={study} lang={lang} />
             </div>
+            <CaseStudyOutcomes items={study.impact} lang={lang} />
             {study.conceptOverview && (
               <div id="concept-overview">
                 <CaseStudyConceptOverview concept={study.conceptOverview} lang={lang} />

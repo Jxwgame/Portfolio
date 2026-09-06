@@ -4,9 +4,10 @@ import { Container } from "@/components/layout/Container";
 import { Section } from "@/components/layout/Section";
 import { Reveal } from "@/components/motion/Reveal";
 import { ProjectCard } from "@/components/work/ProjectCard";
+import { FeaturedProjectCard } from "@/components/work/FeaturedProjectCard";
 import type { Project } from "@/lib/types";
 
-/** โชว์แค่แถวเดียว (4 คอลัมน์บนจอใหญ่) — ดูที่เหลือได้ที่ "View all work" */
+/** ผลงานหลัก 1 ใบและงานรอง 2 ใบ — ดูที่เหลือได้ที่ "View all projects" */
 export function FeaturedWork({
   projects,
   index,
@@ -20,7 +21,7 @@ export function FeaturedWork({
     description: string;
     viewAllLabel: string;
     viewAllHref: string;
-    carouselLabel: string;
+    listLabel: string;
     projectLabel: string;
     recommendedLabel?: string;
     railLabel?: string;
@@ -33,6 +34,7 @@ export function FeaturedWork({
       index={index}
       railLabel={copy?.railLabel ?? "Work"}
       railIcon="work"
+      size="none"
       className="flex min-h-screen items-center"
     >
       <div aria-hidden="true" className="absolute inset-0 -z-20">
@@ -48,10 +50,10 @@ export function FeaturedWork({
         <Reveal className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div className="max-w-xl">
             <Eyebrow>{copy?.eyebrow ?? "Featured projects"}</Eyebrow>
-            <h2 className="mt-4 max-w-[12ch] font-display text-[clamp(2.8rem,6vw,5.4rem)] uppercase leading-[0.9] tracking-[0.01em] text-paper">
+            <h2 className="portfolio-heading mt-4 max-w-[16ch] font-display text-[clamp(2.5rem,6vw,5rem)] uppercase leading-[1.04] tracking-[0.01em] text-paper">
               {copy?.heading ?? "Built to solve. Shaped to grow."}
             </h2>
-            <p className="mt-4 max-w-[48ch] text-sm leading-[1.7] text-paper/65">
+            <p className="portfolio-copy mt-6 max-w-[52ch] text-base leading-[1.8] text-muted">
               {copy?.description ?? "A collection of selected works that reflect my approach to problem-solving, system design, and real-world impact."}
             </p>
           </div>
@@ -61,22 +63,32 @@ export function FeaturedWork({
         </Reveal>
 
         <ul
-          aria-label={copy?.carouselLabel ?? "Featured projects carousel"}
-          className="mt-10 flex snap-x snap-mandatory gap-3 overflow-x-auto overscroll-x-contain pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          aria-label={copy?.listLabel ?? "Selected projects"}
+          className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 md:gap-6"
         >
-          {projects.map((project, i) => (
+          {projects.slice(0, 3).map((project, i) => (
             <Reveal
               as="li"
               key={project.slug}
               delay={i * 60}
-              className="min-w-0 shrink-0 basis-full snap-start sm:basis-[calc((100%-0.75rem)/2)] lg:basis-[calc((100%-2.25rem)/4)]"
+              className={i === 0 ? "min-w-0 sm:col-span-2" : "min-w-0"}
             >
-              <ProjectCard
-                project={project}
-                index={i}
-                viewLabel={copy?.projectLabel}
-                recommendedLabel={copy?.recommendedLabel}
-              />
+              {i === 0 ? (
+                <FeaturedProjectCard
+                  project={project}
+                  viewLabel={copy?.projectLabel}
+                  recommendedLabel={copy?.recommendedLabel}
+                  hrefBase={copy?.viewAllHref ?? "/work"}
+                />
+              ) : (
+                <ProjectCard
+                  project={project}
+                  index={i}
+                  viewLabel={copy?.projectLabel}
+                  recommendedLabel={copy?.recommendedLabel}
+                  hrefBase={copy?.viewAllHref ?? "/work"}
+                />
+              )}
             </Reveal>
           ))}
         </ul>

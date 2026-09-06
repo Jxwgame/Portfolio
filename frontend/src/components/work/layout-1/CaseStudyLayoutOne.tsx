@@ -1,4 +1,5 @@
 import { CaseStudyArchitecture } from "./CaseStudyArchitecture";
+import { CaseStudyOutcomes } from "@/components/work/CaseStudyOutcomes";
 import { CaseStudyChallenges } from "./CaseStudyChallenges";
 import { CaseStudyHero } from "./CaseStudyHero";
 import { CaseStudyOverview } from "./CaseStudyOverview";
@@ -30,6 +31,7 @@ export function CaseStudyLayoutOne({ study, lang }: { study: CaseStudyLayout1; l
       ? [{ id: "architecture", label: t?.architectureOverview ?? "Architecture Overview" }]
       : []),
     ...(hasChallenges ? [{ id: "challenges", label: t?.challengesSolutions ?? "Challenges & Solutions" }] : []),
+    ...(study.impact?.length ? [{ id: "outcomes", label: lang === "th" ? "ผลลัพธ์" : "Outcomes" }] : []),
     { id: "tech-stack", label: t?.techStack ?? "Tech Stack" },
     { id: "gallery", label: t?.projectGallery ?? "Project Gallery" },
   ];
@@ -71,6 +73,12 @@ export function CaseStudyLayoutOne({ study, lang }: { study: CaseStudyLayout1; l
               <CaseStudyChallenges items={study.challenges!} id="challenges" className="lg:col-span-2" />
             )}
           </div>
+
+          {!!study.impact?.length && (
+            <div className="mt-14">
+              <CaseStudyOutcomes items={study.impact} lang={lang} />
+            </div>
+          )}
 
           <div id="tech-stack" className="mt-14">
             <CaseStudyTechStack groups={study.techStack} lang={lang} />

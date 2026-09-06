@@ -235,6 +235,25 @@ body {
   line-height: 1.4;
 }
 
+.portfolio-heading {
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+
+.portfolio-copy {
+  text-wrap: pretty;
+}
+
+.portfolio-heading:lang(th),
+.portfolio-copy:lang(th),
+.portfolio-label:lang(th) {
+  letter-spacing: normal;
+}
+
+.portfolio-copy:lang(th) {
+  line-height: 1.9;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

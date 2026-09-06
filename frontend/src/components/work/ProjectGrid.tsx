@@ -186,9 +186,9 @@ export function ProjectGrid({
           )}
 
           {restItems.length > 0 && (
-            <ul className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+            <ul className="grid auto-rows-fr grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
               {restItems.map((project, i) => (
-                <Reveal as="li" key={project.slug} delay={((i + 1) % 6) * 60}>
+                <Reveal as="li" key={project.slug} delay={((i + 1) % 6) * 60} className="min-w-0">
                   <ProjectCard
                     project={project}
                     index={i + 1}

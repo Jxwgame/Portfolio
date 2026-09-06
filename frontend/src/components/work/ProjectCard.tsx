@@ -30,8 +30,8 @@ export function ProjectCard({
   hrefBase?: string;
 }) {
   return (
-    <Link href={`${hrefBase}/${project.slug}`} className={cn("group block h-full overflow-hidden rounded-xl border border-line bg-surface p-3 transition-colors hover:border-rust/60", className)}>
-      <div className="relative aspect-[1.55/1] overflow-hidden rounded-lg border border-line bg-ink">
+    <Link href={`${hrefBase}/${project.slug}`} className={cn("group flex h-full flex-col overflow-hidden rounded-xl border border-line bg-surface p-3 transition-colors hover:border-rust/60", className)}>
+      <div className="relative aspect-[1.55/1] shrink-0 overflow-hidden rounded-lg border border-line bg-ink">
         {project.coverUrl ? (
           // eslint-disable-next-line @next/next/no-img-element -- ยังไม่ได้ตั้ง remote patterns ของ next/image
           <img
@@ -58,29 +58,32 @@ export function ProjectCard({
           <ArrowUpRight className="size-3.5" aria-hidden="true" />
         </span>
       </div>
-      <h3 className="mt-4 font-heading text-[0.95rem] font-bold tracking-[0.01em] text-fg">
-        {project.title}
-      </h3>
-      <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.14em] text-rust">
+      <p title={project.category} className="portfolio-label mt-5 h-[2lh] shrink-0 line-clamp-2 font-heading text-xs font-semibold uppercase tracking-[0.08em] text-rust">
         {project.category}
       </p>
-      <p className="mt-2 line-clamp-2 min-h-[2.7em] max-w-[32ch] text-[0.84rem] leading-[1.6] text-muted">
+      <h3 title={project.title} className="portfolio-heading mt-2 h-[2lh] shrink-0 line-clamp-2 font-heading text-lg font-bold leading-snug text-fg">
+        {project.title}
+      </h3>
+      <p className="portfolio-copy mt-3 h-[3lh] shrink-0 line-clamp-3 text-sm leading-[1.8] text-muted">
         {project.summary}
       </p>
       {project.tools.length > 0 && (
-        <div className="mt-3 flex min-h-8 flex-wrap gap-1.5">
+        <div className="mt-4 flex flex-wrap gap-2">
           {project.tools.slice(0, 6).map((tool) => (
             <span
               key={tool}
-              className="rounded-full border border-line bg-[var(--bg)] px-2.5 py-1 font-mono text-[10px] text-muted"
+              className="rounded-full border border-line bg-[var(--bg)] px-2.5 py-1 font-sans text-xs leading-relaxed text-muted"
             >
               {tool}
             </span>
           ))}
         </div>
       )}
-      <div className="mt-4 border-t border-line pt-3 font-mono text-[10px] uppercase tracking-[0.16em] text-rust">
-        {viewLabel} <span className="float-right text-base leading-none">→</span>
+      <div className="mt-auto pt-5">
+        <div className="portfolio-label flex items-center justify-between gap-3 border-t border-line pt-4 font-heading text-sm font-semibold text-rust">
+          {viewLabel}
+          <ArrowUpRight className="size-4 shrink-0 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />
+        </div>
       </div>
     </Link>
   );
